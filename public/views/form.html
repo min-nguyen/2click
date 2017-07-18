@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>2Click</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="./javascripts/jquery-3.2.1.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!--W3-CSS-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style type="text/css">
+    @font-face{
+        font-family: BebasNeue;
+        src: url("path/BebasNeue Bold.otf") format("opentype");
+    }
+    .title{
+        position: relative;
+        left: 10%;
+        top: 10%;
+        text-align: center;
+        content: "hi";
+        width: 80%;
+        height: 10%;
+        background-color: grey;
+        /* border: 2px black; */
+    }
+    .title h1 {
+        position: relative;
+        font-family: BebasBeue;
+        top: 15%;
+        color: orange;
+        background-color: grey;
+        font-size: 60px;
+    }
+    .client-info {
+        position: relative;
+        border : 2px black bold;
+        clear: left;
+        width: 80%;
+        left: 10%;
+        padding: 10px;
+        background-color: lightblue;
+    }
+    .row{
+        margin-top: 1%;
+        position: relative;
+        left: 10%;
+        width: 80%;
+        border: 2px solid black;
+        padding: 2px;
+    }
+    .row .field {
+        width: 50%;
+        position: relative;
+        float: left; 
+        vertical-align: middle;
+    }
+    .field .name {
+        margin: 5px;
+        position: relative;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        font-size-adjust:inherit;
+        float: left;
+    }
+    .field .input {
+        position: absolute; 
+        float: left;
+        right: 2%;
+        height: 90%;
+        width: 40%;
+    }
+
+
+    .equipment-info {
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        height: 10%;
+        left: 10%;
+        padding: 10px;
+        background-color: lightblue;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1vw;
+    }
+
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 1%;
+        height: 10%;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .job-info{
+        position: absolute;
+        border : 2px black bold;
+        width: 80%;
+        left: 10%;
+        padding: 10px;
+        background-color: lightblue;
+    }
+
+    .job-info .job-dscrpt{
+        position: relative;
+        width: 35%;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        float: left;
+    }
+    .job-info .work-done{
+        margin-left: 5%;
+        position: relative;
+        width: 35%;
+        height: 50%;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        float: left;
+    }
+
+    .work-table{
+        float:left;
+        position: relative; 
+        width: 20%; 
+        border: 2px solid black;
+        margin-left: 5%;
+    }
+     </style>
+</head>
+<!--tr, th, td  -->
+<body>
+    <div class = 'title'>
+        <h1> 2Click </h1>
+    </div>
+    <form style = 'width: 100%;'>
+        <div class = 'client-info'>
+            <div class = row>
+                <div id = 'name' class = 'field'>
+                    <div class = 'name'> name </div>
+                    <input class = "input" type = "text" name = "name">
+                </div>
+
+                <div id = 'job-ref' class = 'field' >
+                    <div class = 'name'> reference number </div>
+                    <input class = "input" type = "text" name = "job-ref">
+                </div>
+            </div>
+
+            <div class = row>
+                <div id = 'surname' class = 'field'>
+                    <div class = 'name'> surname </div>
+                    <input class = "input" type = "text" name = "surname">
+                </div>
+
+                <div id = 'date-in' class = 'field' >
+                    <div class = 'name'> date in </div>
+                    <input class = "input" type = "text" name = "date-in">
+                </div>
+            </div>
+
+            <div class = row>
+                <div id = 'address' class = 'field'>
+                    <div class = 'name'> address </div>
+                    <input class = "input" type = "text" name = "address">
+                </div>
+
+                <div id = 'date-out' class = 'field' >
+                    <div class = 'name'> date in </div>
+                    <input class = "input" type = "text" name = "date-in">
+                </div>
+                <div id = 'postcode' class = 'field'>
+                    <div class = 'name'> postcode </div>
+                    <input class = "input" type = "text" name = "postcode">
+                </div>
+            </div>
+
+            <div class = row>
+                <div id = 'telephone-number' class = 'field'>
+                    <div class = 'name'> telephone number </div>
+                    <input class = "input" type = "text" name = "telephone-number">
+                </div>
+            </div>
+
+            <div class = row>
+                <div id = 'email' class = 'field' >
+                    <div class = 'name'> email address </div>
+                    <input class = "input" type = "text" name = "email">
+                </div>
+            </div>
+
+        </div> 
+
+        <div class = 'equipment-info'>
+            <table>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Make</th>
+                    <th>Cable</th>
+                    <th>Charger</th>
+                    <th>Case</th>
+                    <th>CDs</th>
+                    <th>Manual</th>
+                    <th>Additional</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class = 'job-info'>
+
+            <div class = 'job-dscrpt'>
+                Job Description
+                <div style = 'position: absolute; background-color: white'>
+                    
+                </div>
+            </div>
+            
+            <div class = 'work-done'>
+                Actual Work Done
+                <div style = 'position: absolute; background-color: white;'>
+                   
+                </div>
+            </div>
+            
+            <table class = 'work-table' >
+                <tr>
+                    <th> SW Install </th>
+                    <th> HW Install </th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            
+        </div>
+    </form>
+
+</body>
+
+
+
+</html>
