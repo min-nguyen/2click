@@ -3,7 +3,6 @@
 
 <head>
     <title>2Click</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="./javascripts/jquery-3.2.1.min.js"></script>
     <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -23,25 +22,32 @@
         font-family: BebasNeue;
         src: url("path/BebasNeue Bold.otf") format("opentype");
     }
+    h3{
+        font-family:  arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        margin-left: 2%;
+        margin-right: 2%;
+        border-bottom: 1px solid black;
+    }
     .title{
         position: relative;
         left: 10%;
         top: 10%;
         text-align: center;
-        content: "hi";
         width: 80%;
         height: 10%;
-        background-color: grey;
-        /* border: 2px black; */
-    }
+        background-color: black;
+        }
     .title h1 {
         position: relative;
         font-family: BebasBeue;
         top: 15%;
         color: orange;
-        background-color: grey;
+        background-color: black;
         font-size: 60px;
     }
+    /* SECTION 1 - CLIENT INFO  */
     .client-info {
         position: relative;
         border : 2px black bold;
@@ -49,7 +55,7 @@
         width: 80%;
         left: 10%;
         padding: 10px;
-        background-color: lightblue;
+        background-color: darkgray;
     }
     .row{
         margin-top: 1%;
@@ -81,71 +87,115 @@
         height: 90%;
         width: 40%;
     }
-
-
+    /* SECTION 2 - EQUIPMENT INFO  */
     .equipment-info {
         position: relative;
         border : 2px black bold;
         width: 80%;
-        height: 10%;
         left: 10%;
-        padding: 10px;
-        background-color: lightblue;
+        background-color: darkgray;
+        margin-top: 1%;
+        margin-bottom: 1%;
     }
     table {
+        position: relative;
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
+        height: 100%;
         font-size: 1vw;
+        table-layout:fixed;
     }
-
     td, th {
         border: 1px solid black;
         text-align: left;
         padding: 1%;
-        height: 10%;
+        /* height: 10%; */
     }
-
     tr:nth-child(even) {
         background-color: #dddddd;
     }
-
+    /* SECTION 3 - JOB INFO  */
     .job-info{
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        min-height: 40%;
+        left: 10%;
+        display: table;
+        clear: both;
+    }
+    .job-info .job-dscrpt{
+        display: table-row;
+        position: relative;
+        min-height: 100%;
+        width: 30%;
+        left: 0%;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        background-color: #dddddd;
+        float: left;
+    }
+    .job-info .work-done{
+        display: table-row;
+        position: relative;
+        min-height: 100%;
+        width: 30%;
+        left: 5%;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        background-color: #dddddd;
+        float: left;
+    }
+    .job-info .work-table{
+        float: left;
+        left: 10%;
+        position: relative; 
+        width: 30%; 
+        min-height: 100%;
+        border: 2px solid black;
+    }
+    .work-table .td{
+        padding: 2%;
+    }
+    .work-table .th{
+        padding: 0%;
+    }
+     /* SECTION 4 - COST INFO  */
+    .cost-info {
         position: absolute;
         border : 2px black bold;
         width: 80%;
         left: 10%;
-        padding: 10px;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .cost-info .cost-table{
+        position: relative;
+        border-collapse: collapse;
+        width: 65%;
+        height: 100%;
+        border: 2px solid black;
+        table-layout: fixed;
+        float: left;
         background-color: lightblue;
     }
-
-    .job-info .job-dscrpt{
+    .cost-info .float-r-container{
+        height: 100%;
+        width: 30%;
         position: relative;
-        width: 35%;
-        font-family: arial, sans-serif;
-        color: black;
-        font-size: 1vw;
-        border: 2px solid black;
-        float: left;
+        float: right;
     }
-    .job-info .work-done{
-        margin-left: 5%;
+    .cost-info .notes {
+        padding: 5%;
+        height: 100%;
+        width: 100%;
+        border: solid 2px black;
         position: relative;
-        width: 35%;
-        height: 50%;
-        font-family: arial, sans-serif;
-        color: black;
-        font-size: 1vw;
-        border: 2px solid black;
-        float: left;
-    }
-
-    .work-table{
-        float:left;
-        position: relative; 
-        width: 20%; 
-        border: 2px solid black;
-        margin-left: 5%;
     }
      </style>
 </head>
@@ -154,7 +204,7 @@
     <div class = 'title'>
         <h1> 2Click </h1>
     </div>
-    <form style = 'width: 100%;'>
+    <form style = 'position: relative; width: 100%; height: 50vh'>
         <div class = 'client-info'>
             <div class = row>
                 <div id = 'name' class = 'field'>
@@ -225,7 +275,7 @@
                     <th>Additional</th>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td> <input style = 'width: 100%' type = "text" name = "email"> </td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -290,16 +340,15 @@
         <div class = 'job-info'>
 
             <div class = 'job-dscrpt'>
-                Job Description
-                <div style = 'position: absolute; background-color: white'>
-                    
+                <h3> Job Description </h3>
+                <div >
                 </div>
             </div>
             
             <div class = 'work-done'>
-                Actual Work Done
-                <div style = 'position: absolute; background-color: white;'>
-                   
+                <h3> Actual Work Done </h3>
+                <div>
+                    <!-- stuff here -->
                 </div>
             </div>
             
@@ -318,7 +367,69 @@
                 </tr>
             </table>
             
+        </div> 
+
+        <div class = 'cost-info'>
+            <table class = 'cost-table'>
+                <tr>
+                    <th>  </th>
+                    <th> Description </th>
+                    <th> Cost </th>
+                </tr>
+                <tr>
+                    <th> Labour </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <tr>
+                    <th> Labour </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <tr>
+                    <th> Labour </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <tr>
+                    <th> Materials </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <tr>
+                    <th> Materials </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <tr>
+                    <th> Materials </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <tr>
+                    <th> Total </th>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+            </table>
+            <div class = 'float-r-container'>
+                <div class = 'notes'>
+                </div>
+                &nbsp
+                
+                <input 
+                    type = "submit" 
+                    style = "position: relative; width: 100%; bottom: 0;" 
+                    id = "submit_post"
+                    value = "submit">
+                <br>  
+                </div>
+            </div>
+             
         </div>
+        <div>
+           
+        </div> 
     </form>
 
 </body>
