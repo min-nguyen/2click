@@ -97,7 +97,7 @@
         margin-top: 1%;
         margin-bottom: 1%;
     }
-    table {
+    .equipment-info .table {
         position: relative;
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -106,11 +106,22 @@
         font-size: 1vw;
         table-layout:fixed;
     }
-    td, th {
+    .table-input{
+        width: 100%;
+    } 
+    th {
+        position: relative;
         border: 1px solid black;
         text-align: left;
         padding: 1%;
-        /* height: 10%; */
+        width: 10%;
+    }
+    td {
+        position: relative;
+        border: 1px solid black;
+        text-align: left;
+        padding: 1%;
+        overflow: auto;
     }
     tr:nth-child(even) {
         background-color: #dddddd;
@@ -131,6 +142,8 @@
         min-height: 100%;
         width: 30%;
         left: 0%;
+        line-height: 2vw;
+        font-size: 7px;
         font-family: arial, sans-serif;
         color: black;
         font-size: 1vw;
@@ -150,6 +163,11 @@
         border: 2px solid black;
         background-color: #dddddd;
         float: left;
+    }
+    .job-input {
+        line-height: 14px;
+        font-size: 14px;
+        width: 100%;
     }
     .job-info .work-table{
         float: left;
@@ -197,6 +215,10 @@
         border: solid 2px black;
         position: relative;
     }
+
+    input[text='text']{
+        font-size:7px;
+    }
      </style>
 </head>
 <!--tr, th, td  -->
@@ -204,7 +226,8 @@
     <div class = 'title'>
         <h1> 2Click </h1>
     </div>
-    <form style = 'position: relative; width: 100%; height: 50vh'>
+    <form   method = "post" action = "/form/submit" 
+            style = 'position: relative; width: 100%; height: 50vh' >
         <div class = 'client-info'>
             <div class = row>
                 <div id = 'name' class = 'field'>
@@ -247,9 +270,9 @@
             </div>
 
             <div class = row>
-                <div id = 'telephone-number' class = 'field'>
+                <div id = 'telephone' class = 'field'>
                     <div class = 'name'> telephone number </div>
-                    <input class = "input" type = "text" name = "telephone-number">
+                    <input class = "input" type = "text" name = "telephone">
                 </div>
             </div>
 
@@ -263,7 +286,7 @@
         </div> 
 
         <div class = 'equipment-info'>
-            <table>
+            <table id = 'equipment-table'>
                 <tr>
                     <th>Equipment</th>
                     <th>Make</th>
@@ -275,7 +298,7 @@
                     <th>Additional</th>
                 </tr>
                 <tr>
-                    <td> <input style = 'width: 100%' type = "text" name = "email"> </td>
+                    <th>Laptop</th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -285,17 +308,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
+                    <th></th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -305,17 +318,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
+                    <th></th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -325,7 +328,27 @@
                     <td></td>
                 </tr>
                 <tr>
+                    <th></th>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th></th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -342,13 +365,14 @@
             <div class = 'job-dscrpt'>
                 <h3> Job Description </h3>
                 <div >
+                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'job-dscrpt'></textarea>
                 </div>
             </div>
             
             <div class = 'work-done'>
                 <h3> Actual Work Done </h3>
                 <div>
-                    <!-- stuff here -->
+                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'work-done'></textarea>
                 </div>
             </div>
             
@@ -358,12 +382,12 @@
                     <th> HW Install </th>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW-0'></textarea></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW-1'></textarea></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW-0'></textarea></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW-1'></textarea></td>
                 </tr>
             </table>
             
@@ -378,48 +402,49 @@
                 </tr>
                 <tr>
                     <th> Labour </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-0'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-cost-0'></textarea></td>
                 </tr>
                 <tr>
                     <th> Labour </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-1'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-cost-1'></textarea></td>
                 </tr>
                 <tr>
                     <th> Labour </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'labour-2'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'labour-cost-2'></textarea></td>
                 </tr>
                 <tr>
                     <th> Materials </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'materials-0'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'materials-cost-0'></textarea></td>
                 </tr>
                 <tr>
                     <th> Materials </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-1'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-cost-1'></textarea></td>
                 </tr>
                 <tr>
                     <th> Materials </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-2'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-cost-2'></textarea></td>
                 </tr>
                 <tr>
                     <th> Total </th>
-                    <td>  </td>
-                    <td>  </td>
+                    <td></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'total-cost'></textarea></td>
                 </tr>
             </table>
             <div class = 'float-r-container'>
+
                 <div class = 'notes'>
+                    <textarea class = 'job-input' rows = '20' type = 'text' name = 'notes'></textarea>
                 </div>
-                &nbsp
                 
                 <input 
                     type = "submit" 
-                    style = "position: relative; width: 100%; bottom: 0;" 
+                    style = "position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
                     id = "submit_post"
                     value = "submit">
                 <br>  
@@ -432,6 +457,19 @@
         </div> 
     </form>
 
+    <script src = './javascripts/form.js'> </script>
+    <script>
+        $(document).ready(function() {
+            equipment_input();
+
+            // $(":input").keypress(function(){
+                
+            //     $(this).css('width', 0);
+            // })
+            // ="this.style.width = ((this.value.length + 1) * 8) + 'px';"; 
+        }
+    );
+    </script>
 </body>
 
 
