@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var config = require('../config');
+var dateFormat = require('dateformat'); 
 
 var Form = function(){
 
@@ -57,8 +58,38 @@ con.connect(function(err) {
 
 Form.insert = function(req, callback) {
     var form = req.body;
-    console.log(form);
-    callback();
+    console.log(" >> " + form['jobref']);
+    con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['job-ref'] + "'", function(err, result){
+        if(result.length > 0){
+            console.log('Reference number exists');
+        }
+        else{
+            console.log('New reference number');
+            Form.new(form);
+        }
+        callback();
+    });
+}
+
+Form.new = function(form){
+    now = new Date();
+    var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
+    //New job entry
+    con.query(  "INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`name`, `surname`, `workdone`, `datein`) " + 
+                "VALUES (" + "'"    + form['jobref'] + "', '" 
+                                    + form['jobdscrpt'] + "', '" 
+                                    + form['name'] + "', '" 
+                                    + form['surname'] + "', '" 
+                                    + form['workdone'] + "', '" 
+                                    + datein + "')");
+    
+
+    // con.query("INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`name`, `surname`, `workdone`, `datein`) VALUES (" 
+    //                     + "'"   + form['job-ref'] + "', '" + form['job-dscrpt'] + "', '" + form.name + "', '" + form.surname + "', '" + form['work-done'] + "', '" + datein + "')");                 
+}
+
+Form.update = function(){
+
 }
 
 module.exports = Form;
