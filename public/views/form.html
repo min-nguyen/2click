@@ -102,17 +102,7 @@
                     <th>Additional</th>
                 </tr>
                 <tr>
-                    <th>Laptop</th>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -122,17 +112,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <th></th>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -142,7 +122,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <th></th>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -152,7 +132,27 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <th></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -186,12 +186,12 @@
                     <th> HW Install </th>
                 </tr>
                 <tr>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW-0'></textarea></td>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW-1'></textarea></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW'></textarea></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW'></textarea></td>
                 </tr>
                 <tr>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW-0'></textarea></td>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW-1'></textarea></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW'></textarea></td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW'></textarea></td>
                 </tr>
             </table>
             
@@ -201,39 +201,64 @@
             <table class = 'cost-table'>
                 <col style = "width: 2%">
                 <tr>
-                    <th>  </th>
+                    <th> Type </th>
                     <th> Description </th>
                     <th> Cost </th>
                 </tr>
                 <tr>
-                    <th> Labour </th>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-0'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-cost-0'></textarea></td>
+                    <th> <select name = "costtype" class = 'drop-down'>
+                            <option value="" ></option>
+                            <option value="Labour">Labour</option>
+                            <option value="Materials">Materials</option>
+                            <option value="Other">Other</option>
+                        </select> 
+                    </th>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
                 </tr>
                 <tr>
-                    <th> Labour </th>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-1'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'labour-cost-1'></textarea></td>
+                    <th> <select name = "costtype" class = 'drop-down'>
+                            <option value="" ></option>
+                            <option value="Labour">Labour</option>
+                            <option value="Materials">Materials</option>
+                            <option value="Other">Other</option>
+                        </select> 
+                    </th>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
                 </tr>
                 <tr>
-                    <th> Labour </th>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'labour-2'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'labour-cost-2'></textarea></td>
+                    <th> <select name = "costtype" class = 'drop-down'>
+                            <option value="" ></option>
+                            <option value="Labour">Labour</option>
+                            <option value="Materials">Materials</option>
+                            <option value="Other">Other</option>
+                        </select> 
+                    </th>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
                 </tr>
                 <tr>
-                    <th> Materials </th>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'materials-0'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text'  name = 'materials-cost-0'></textarea></td>
+                    <th> <select name = "costtype" class = 'drop-down'>
+                            <option value="" ></option>
+                            <option value="Labour">Labour</option>
+                            <option value="Materials">Materials</option>
+                            <option value="Other">Other</option>
+                        </select> 
+                    </th>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
                 </tr>
                 <tr>
-                    <th> Materials </th>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-1'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-cost-1'></textarea></td>
-                </tr>
-                <tr>
-                    <th> Materials </th>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-2'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'materials-cost-2'></textarea></td>
+                    <th> <select name = "costtype" class = 'drop-down'>
+                            <option value="" ></option>
+                            <option value="Labour" >Labour</option>
+                            <option value="Materials">Materials</option>
+                            <option value="Other">Other</option>
+                        </select> 
+                    </th>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
+                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
                 </tr>
                 <tr>
                     <th> Total </th>
