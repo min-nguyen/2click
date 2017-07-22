@@ -39,7 +39,7 @@ con.connect(function(err) {
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref VARCHAR(255), equipment VARCHAR(255), make VARCHAR(255), charger VARCHAR(255), cases VARCHAR(255), cds VARCHAR(255), manual VARCHAR(255), additional VARCHAR(255))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref VARCHAR(255), equipment VARCHAR(255), make VARCHAR(255), cable VARCHAR(255), charger VARCHAR(255), cases VARCHAR(255), cds VARCHAR(255), manual VARCHAR(255), additional VARCHAR(255))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
@@ -58,7 +58,7 @@ con.connect(function(err) {
 
 Form.insert = function(req, callback) {
     var form = req.body;
-    console.log(" >> " + form['jobref']);
+    console.log(form);
     con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['job-ref'] + "'", function(err, result){
         if(result.length > 0){
             console.log('Reference number exists');
@@ -82,10 +82,40 @@ Form.new = function(form){
                                     + form['surname'] + "', '" 
                                     + form['workdone'] + "', '" 
                                     + datein + "')");
-    
+    //New equipment entry
+    var reg = /(.*)-Make/;
+    for(var field in form){
+        var item = field.match(reg);
+        if(item == null)
+            continue;
+        else if(item[1] != ''){
+            con.query(  "INSERT INTO `equipment` (`jobref`,`equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
+                        "VALUES (" + "'"    + form['jobref'] + "', '"
+                                            + item[1] + "', '" 
+                                            + form[item[1] + '-Make'] + "', '" 
+                                            + form[item[1] + '-Cable'] + "', '" 
+                                            + form[item[1] + '-Charger'] + "', '" 
+                                            + form[item[1] + '-Case'] + "', '" 
+                                            + form[item[1] + '-CDs'] + "', '" 
+                                            + form[item[1] + '-Manual'] + "', '" 
+                                            + form[item[1] + '-Additional'] + "')");
+        }
+    }
 
-    // con.query("INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`name`, `surname`, `workdone`, `datein`) VALUES (" 
-    //                     + "'"   + form['job-ref'] + "', '" + form['job-dscrpt'] + "', '" + form.name + "', '" + form.surname + "', '" + form['work-done'] + "', '" + datein + "')");                 
+    //New client entry
+    con.query("SELECT * FROM clients WHERE name = '" + form['name'] + "' AND surname = '" + form['surname'] + "'", function(err, result){
+        if(result.length == 0)
+            con.query(  "INSERT INTO `clients` (`name`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
+            "VALUES (" + "'"    + form['name'] + "', '" 
+                                + form['surname'] + "', '" 
+                                + form['address'] + "', '" 
+                                + form['postcode'] + "', '" 
+                                + form['telephone'] + "', '" 
+                                + form['email'] + "')");
+    })
+   
+
+
 }
 
 Form.update = function(){
