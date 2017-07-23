@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var config = require('../config');
 var dateFormat = require('dateformat'); 
-
+var async = require('async');
 var Form = function(){
 
 }
@@ -65,9 +65,11 @@ con.connect(function(err) {
 Form.insert = function(req, callback) {
     var form = req.body;
     console.log(form);
-    con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['job-ref'] + "'", function(err, result){
+    con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['jobref'] + "'", function(err, result){
+        console.log(result);
         if(result.length > 0){
             console.log('Reference number exists');
+            Form.update(form);
         }
         else{
             console.log('New reference number');
@@ -75,6 +77,128 @@ Form.insert = function(req, callback) {
         }
         callback();
     });
+}
+
+Form.load = function(req, callback){
+    var jobref = req.body.jobref;
+
+    var response = function(){};
+    response.jobref = jobref;
+
+    var getjob = function(){
+        con.query("SELECT * FROM jobs WHERE jobref = '" + jobref + "'", 
+            function (err, result) {
+                if (err) throw err;
+                response.firstname = result[0].name;
+                response.surname = result[0].surname;
+                response.jobdscrpt = result[0].jobdscrpt;
+                response.workdone = result[0].workdone;
+                response.datein = result[0].datein;
+                response.dateout = result[0].dateout;
+                getclient();
+                return;
+        });
+    }
+    var getclient = function(){
+        con.query("SELECT * FROM clients WHERE name = '" + response.firstname + "' AND surname = '" + response.surname + "'", 
+            function (err, result) {
+                if (err) throw err;
+                if (result.length != 0){
+                    response.address = result[0].address;
+                    response.postcode = result[0].postcode;
+                    response.telephone = result[0].telephone;
+                    response.email = result[0].email;
+                }
+                getupdates();
+                return;
+        });
+    }
+    var getupdates = function(){
+        con.query("SELECT * FROM updates WHERE jobref = '" + jobref + "'", 
+            function (err, result) {
+                if (err) throw err;
+                if (result.length != 0){
+                    response.updates = new Array();
+                    for(i = 0; i < result.length; i++){
+                        var update = new function(){};
+                        update.id = result[i].id;
+                        update.dscrpt = result[i].dscrpt;
+                        update.time = result[i].time;
+                        response.updates.push(update);
+                    }
+                }
+                getequipment();
+                return;
+        });
+    }
+    var getequipment = function(){
+        con.query("SELECT * FROM equipment WHERE jobref = '" + jobref + "'", 
+            function (err, result) {
+                if (err) throw err;
+                if (result.length != 0){
+                    response.equipment = new Array();
+                    for(i = 0; i < result.length; i++){
+                        var item = new function(){};
+                        item.Equipment = result[i].equipment;
+                        item.id = result[i].id;
+                        item.Make = result[i].make;
+                        item.Cable = result[i].cable;
+                        item.Charger = result[i].charger;
+                        item.Cases = result[i].cases;
+                        item.CDs = result[i].cds;
+                        item.Manual = result[i].manual;
+                        item.Additional = result[i].additional;
+                        response.equipment.push(item);
+                    }
+                }
+                getinstallations();
+                return;
+        });
+    }
+    var  getinstallations = function(){
+        con.query("SELECT * FROM installations WHERE jobref = '" + jobref + "'", 
+            function (err, result) {
+                if (err) throw err;
+                if (result.length != 0){
+                    response.installations = new Array();
+                    for(i = 0; i < result.length; i++){
+                        var installation = new function(){};
+                        installation.type = result[i].type;
+                        installation.dscrpt = result[i].dscrpt;
+                        response.installations.push(installation);
+                    }
+                    
+                }
+                getcosts();
+                return;
+        });
+    }
+
+    var getcosts = function(){
+        con.query("SELECT * FROM costs WHERE jobref = '" + jobref + "'", 
+        function (err, result) {
+            if (err) throw err;
+            if (result.length != 0){
+                response.costs = new Array();
+                for(i = 0; i < result.length; i++){
+                    var cost = new function(){};
+                    cost.type = result[i].type;
+                    cost.dscrpt = result[i].dscrpt;
+                    cost.cost = result[i].cost;
+                    response.costs.push(cost);
+                }
+            }
+            console.log("installations done");
+            console.log(response);
+            return;
+    });
+    }
+    
+    getjob();
+}
+
+Form.update = function(form){
+
 }
 
 Form.new = function(form){
@@ -99,7 +223,7 @@ Form.new = function(form){
                                 + form['postcode'] + "', '" 
                                 + form['telephone'] + "', '" 
                                 + form['email'] + "')");
-    })
+    });
                             
     //New equipment entry
     for(i = 0; i < form['Equipment'].length; i++){
@@ -120,45 +244,32 @@ Form.new = function(form){
         }
     }
 
-    //New client entry
-    //New equipment entry
+    //New cost entry
     for(i = 0; i < form['costtype'].length; i++){
         if(form['costtype'][i] == '')
             continue;
         else{
-            con.query(  "INSERT INTO `equipment` (`jobref`,`id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
+            con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
                         "VALUES (" + "'"    + form['jobref'] + "', '"
                                             + i + "', '"
-                                            + form['Equipment'][i] + "', '" 
-                                            + form['Make'][i] + "', '" 
-                                            + form['Cable'][i] + "', '" 
-                                            + form['Charger'][i] + "', '" 
-                                            + form['Case'][i] + "', '" 
-                                            + form['CDs'][i] + "', '" 
-                                            + form['Manual'][i] + "', '" 
-                                            + form['Additional'][i] + "')");
+                                            + form['costtype'][i] + "', '" 
+                                            + form['costdscrpt'][i] + "', '"
+                                            + form['cost'][i] + "')");
         }
     }
-    /* change equipment name to single array ?*/ 
-   
-    // var reg = /(.*)-Make/;
-    // for(var field in form){
-    //     var item = field.match(reg);
-    //     if(item == null)
-    //         continue;
-    //     else if(item[1] != ''){
-    //         con.query(  "INSERT INTO `equipment` (`jobref`,`equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
-    //                     "VALUES (" + "'"    + form['jobref'] + "', '"
-    //                                         + item[1] + "', '" 
-    //                                         + form[item[1] + '-Make'] + "', '" 
-    //                                         + form[item[1] + '-Cable'] + "', '" 
-    //                                         + form[item[1] + '-Charger'] + "', '" 
-    //                                         + form[item[1] + '-Case'] + "', '" 
-    //                                         + form[item[1] + '-CDs'] + "', '" 
-    //                                         + form[item[1] + '-Manual'] + "', '" 
-    //                                         + form[item[1] + '-Additional'] + "')");
-    //     }
-    // }
+
+     //New cost entry
+    for(i = 0; i < form['installation'].length; i++){
+        if(form['installation'][i] == '')
+            continue;
+        else{
+            con.query(  "INSERT INTO `installations` (`jobref`, `id`, `type`, `dscrpt`) " + 
+                        "VALUES (" + "'"    + form['jobref'] + "', '"
+                                            + i + "', '"
+                                            + form['installation'][i] + "', '" 
+                                            + form['installationdscrpt'][i] + "')");
+        }
+    }
 
 }
 

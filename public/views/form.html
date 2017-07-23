@@ -34,60 +34,69 @@
     </div>
     <form   method = "post" action = "/form/submit" 
             style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
-        <div class = 'client-info'>
-            <div class = row>
-                <div id = 'name' class = 'field'>
-                    <div class = 'name'> name </div>
-                    <input class = "input" type = "text" name = "name">
+        <div class = 'section-1'>
+            <div class = 'client-info'>
+                <div class = row>
+                    <div id = 'name' class = 'field'>
+                        <div class = 'name'> name </div>
+                        <input class = "input" type = "text" name = "name">
+                    </div>
+
+                    <div id = 'jobref' class = 'field' >
+                        <div class = 'name'> reference number </div>
+                        <input class = "input" type = "text" name = "jobref">
+                    </div>
                 </div>
 
-                <div id = 'jobref' class = 'field' >
-                    <div class = 'name'> reference number </div>
-                    <input class = "input" type = "text" name = "jobref">
+                <div class = row>
+                    <div id = 'surname' class = 'field'>
+                        <div class = 'name'> surname </div>
+                        <input class = "input" type = "text" name = "surname">
+                    </div>
+
+                    <div id = 'datein' class = 'field' >
+                        <div class = 'name'> date in </div>
+                    </div>
                 </div>
+
+                <div class = row>
+                    <div id = 'address' class = 'field'>
+                        <div class = 'name'> address </div>
+                        <input class = "input" type = "text" name = "address">
+                    </div>
+
+                    <div id = 'dateout' class = 'field' >
+                        <div class = 'name'> date out </div>
+                    </div>
+                    <div id = 'postcode' class = 'field'>
+                        <div class = 'name'> postcode </div>
+                        <input class = "input" type = "text" name = "postcode">
+                    </div>
+                </div>
+
+                <div class = row>
+                    <div id = 'telephone' class = 'field'>
+                        <div class = 'name'> telephone number </div>
+                        <input class = "input" type = "text" name = "telephone">
+                    </div>
+                </div>
+
+                <div class = row>
+                    <div id = 'email' class = 'field' >
+                        <div class = 'name'> email address </div>
+                        <input class = "input" type = "text" name = "email">
+                    </div>
+                </div>
+            </div> 
+            <div class = 'status'>
+                <div class = 'updates'>
+                    <div class = 'update'>
+                    </div>
+                </div>
+                <textarea class = 'input' rows = '2' type = 'text' name = 'update'></textarea>
             </div>
-
-            <div class = row>
-                <div id = 'surname' class = 'field'>
-                    <div class = 'name'> surname </div>
-                    <input class = "input" type = "text" name = "surname">
-                </div>
-
-                <div id = 'datein' class = 'field' >
-                    <div class = 'name'> date in </div>
-                </div>
-            </div>
-
-            <div class = row>
-                <div id = 'address' class = 'field'>
-                    <div class = 'name'> address </div>
-                    <input class = "input" type = "text" name = "address">
-                </div>
-
-                <div id = 'dateout' class = 'field' >
-                    <div class = 'name'> date out </div>
-                </div>
-                <div id = 'postcode' class = 'field'>
-                    <div class = 'name'> postcode </div>
-                    <input class = "input" type = "text" name = "postcode">
-                </div>
-            </div>
-
-            <div class = row>
-                <div id = 'telephone' class = 'field'>
-                    <div class = 'name'> telephone number </div>
-                    <input class = "input" type = "text" name = "telephone">
-                </div>
-            </div>
-
-            <div class = row>
-                <div id = 'email' class = 'field' >
-                    <div class = 'name'> email address </div>
-                    <input class = "input" type = "text" name = "email">
-                </div>
-            </div>
-
-        </div> 
+        </div>
+        
 
         <div class = 'equipment-info'>
             <table id = 'equipment-table'>
@@ -181,17 +190,18 @@
             </div>
             
             <table class = 'work-table' >
-                <tr>
-                    <th> SW Install </th>
-                    <th> HW Install </th>
+                <tr> 
+                    <th> Installation </th>
+                    <th> Description </th>
                 </tr>
                 <tr>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW'></textarea></td>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'SW'></textarea></td>
-                </tr>
-                <tr>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW'></textarea></td>
-                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'HW'></textarea></td>
+                    <td> <select name = "installation" class = 'drop-down'>
+                            <option value="" ></option>
+                            <option value="HW">Hardware</option>
+                            <option value="SW">Software</option>
+                            <option value="Other">Other</option>
+                        </select> </td>
+                    <td> <textarea class = 'job-input' rows = '2' type = 'text' name = 'installationdscrpt'></textarea></td>
                 </tr>
             </table>
             
@@ -208,68 +218,68 @@
                 <tr>
                     <th> <select name = "costtype" class = 'drop-down'>
                             <option value="" ></option>
-                            <option value="Labour">Labour</option>
-                            <option value="Materials">Materials</option>
+                            <option value="labour">Labour</option>
+                            <option value="materials">Materials</option>
                             <option value="Other">Other</option>
                         </select> 
                     </th>
                     <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
+                    <td>  <input type = "number" name = 'cost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td>
                 </tr>
                 <tr>
                     <th> <select name = "costtype" class = 'drop-down'>
                             <option value="" ></option>
-                            <option value="Labour">Labour</option>
-                            <option value="Materials">Materials</option>
+                            <option value="labour">Labour</option>
+                            <option value="materials">Materials</option>
                             <option value="Other">Other</option>
                         </select> 
                     </th>
                     <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
+                    <td>  <input type = "number" name = 'cost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td>
                 </tr>
                 <tr>
                     <th> <select name = "costtype" class = 'drop-down'>
                             <option value="" ></option>
-                            <option value="Labour">Labour</option>
-                            <option value="Materials">Materials</option>
+                            <option value="labour">Labour</option>
+                            <option value="materials">Materials</option>
                             <option value="Other">Other</option>
                         </select> 
                     </th>
                     <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
+                    <td>  <input type = "number" name = 'cost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td>
                 </tr>
                 <tr>
                     <th> <select name = "costtype" class = 'drop-down'>
                             <option value="" ></option>
-                            <option value="Labour">Labour</option>
-                            <option value="Materials">Materials</option>
+                            <option value="labour">Labour</option>
+                            <option value="materials">Materials</option>
                             <option value="Other">Other</option>
                         </select> 
                     </th>
                     <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
+                    <td>  <input type = "number" name = 'cost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td>
                 </tr>
                 <tr>
                     <th> <select name = "costtype" class = 'drop-down'>
                             <option value="" ></option>
-                            <option value="Labour" >Labour</option>
-                            <option value="Materials">Materials</option>
+                            <option value="labour">Labour</option>
+                            <option value="materials">Materials</option>
                             <option value="Other">Other</option>
                         </select> 
                     </th>
                     <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'costdscrpt'></textarea></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'cost'></textarea></td>
+                    <td>  <input type = "number" name = 'cost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td>
                 </tr>
                 <tr>
-                    <th> Total </th>
-                    <td></td>
-                    <td>  <textarea class = 'job-input' rows = '2' type = 'text' name = 'total-cost'></textarea></td>
+                    <th style = 'position: relative; margin: 10%;'> Total </th>
+                    <td> </td>
+                    <td>  <input type = "number" name = 'totalcost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/></td>
                 </tr>
             </table>
             <div class = 'float-r-container'>
 
                 <div class = 'notes'>
-                    <textarea class = 'job-input' rows = '20' type = 'text' name = 'notes'></textarea>
+                    <textarea class = 'job-input' rows = '18' type = 'text' name = 'notes'></textarea>
                 </div>
                 
                 <input 

@@ -15,4 +15,15 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.get('/input', function(req, res, next) {
+  res.sendfile(path.join(__dirname + '/../public/views/form.client.html'));
+});
+
+router.post('/load', function(req, res, next){
+  form_model.load(req, function(){
+    res.redirect('/form');
+  })
+});
+
+
 module.exports = router;
