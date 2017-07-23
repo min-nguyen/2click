@@ -1,0 +1,255 @@
+    /* TITLE  */
+    h3{
+        font-family:  arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        margin-left: 2%;
+        margin-right: 2%;
+        border-bottom: 1px solid black;
+    }
+    .title{
+        position: relative;
+        left: 17.5%;
+        top: 10%;
+        text-align: center;
+        width: 65%;
+        height: 10%;
+        background-color: black;
+        }
+    .title h1 {
+        position: relative;
+        font-family: BebasBeue;
+        top: 15%;
+        color: orange;
+        background-color: black;
+        font-size: 60px;
+    }
+    /* SECTION 1 - CLIENT INFO  */
+    .section-1{
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        min-height: 40%;
+        left: 10%;
+        display: table;
+        clear: both;
+    }
+    .client-info {
+        position: relative;
+        border : 2px black bold;
+        width: 50%;
+        background-color: darkgray;
+        float: left;
+    }
+    .row{
+        margin: auto 0;
+        position: relative;
+        width: 100%;
+        border: 2px solid black;
+    }
+    .row .field {
+        width: 50%;
+        position: relative;
+        float: left; 
+        vertical-align: middle;
+    }
+    .field .name {
+        margin: 5px;
+        position: relative;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        font-size-adjust:inherit;
+        float: left;
+    }
+    .field .input {
+        position: absolute; 
+        float: left;
+        right: 2%;
+        height: 90%;
+        width: 40%;
+    }
+    .status {
+        position: absolute;
+        float: left;
+        width: 40%;
+        height: 100%;
+        right: 0;
+        background-color: grey;
+        border: 2px solid black;
+        margin: auto 0;
+    }
+    .updates {
+        position: absolute;
+        height: 80%;
+        width: 100%;
+        background-color: white;
+    }
+    .updates .update{
+        position: relative;
+        width: 100%;
+    }
+    .status .input{
+        position: absolute;
+        line-height: 14px;
+        font-size: 14px;
+        width: 100%;
+        bottom: 0;
+    }
+    /* SECTION 2 - EQUIPMENT INFO  */
+    .equipment-info {
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        left: 10%;
+        background-color: darkgray;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .equipment-info .table {
+        position: relative;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+        font-size: 1vw;
+        table-layout:fixed;
+    }
+    .table-input{
+        height: 100%;
+        width: 100%;
+    } 
+    .equipment-info th {
+        position: relative;
+        border: 1px solid black;
+        text-align: left;
+        padding-left: 1%;
+        width: 10%;
+        font-size: 1vw;
+    }
+     .equipment-info td {
+        position: relative;
+        border: 1px solid black;
+        text-align: left;
+        overflow: auto;
+    } 
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    /* SECTION 3 - JOB INFO  */
+    .job-info{
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        min-height: 40%;
+        left: 10%;
+        display: table;
+        clear: both;
+    }
+    .job-info .job-dscrpt{
+        display: table-row;
+        position: relative;
+        min-height: 100%;
+        width: 30%;
+        left: 0%;
+        line-height: 2vw;
+        font-size: 7px;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        background-color: #dddddd;
+        float: left;
+    }
+    .job-info .work-done{
+        display: table-row;
+        position: relative;
+        min-height: 100%;
+        width: 30%;
+        left: 5%;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        background-color: #dddddd;
+        float: left;
+    }
+    .job-input {
+        line-height: 14px;
+        font-size: 14px;
+        width: 100%;
+    }
+    .job-info .work-table{
+        float: left;
+        left: 10%;
+        position: relative; 
+        width: 30%; 
+        min-height: 100%;
+        border: 2px solid black;
+    }
+    .work-table td{
+        
+        padding: 2%;
+    }
+    .work-table th{
+        font-size: 0.8vw;
+        padding: 0%;
+        padding-left: 2%;
+    }
+     /* SECTION 4 - COST INFO  */
+    .cost-info {
+        position: absolute;
+        border : 2px black bold;
+        width: 80%;
+        left: 10%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .cost-info .cost-table{
+        position: relative;
+        border-collapse: collapse;
+        width: 65%;
+        height: 100%;
+        border: 2px solid black;
+        table-layout: fixed;
+        float: left;
+        background-color: lightblue;
+    }
+    .cost-table th{
+        position: relative;
+        width: 5%; 
+        font-size: 1vw;
+        margin: 0 auto;
+    }
+    .cost-table td{
+        position: relative;
+    }
+    .cost-input{
+        margin-left: 1%;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 99%;
+    }
+    .cost-info .float-r-container{
+        height: 100%;
+        width: 30%;
+        position: relative;
+        float: right;
+    }
+    .cost-info .notes {
+        padding: 2%;
+        height: 100%;
+        width: 100%;
+        border: solid 2px black;
+        position: relative;
+    }
+
+    .drop-down{
+        position: relative;
+        width: 90%;
+        left: 5%;
+    }
+    input[text='text']{
+        font-size:7px;
+    }
