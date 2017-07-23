@@ -1,12 +1,4 @@
     /* TITLE  */
-    h3{
-        font-family:  arial, sans-serif;
-        color: black;
-        font-size: 1vw;
-        margin-left: 2%;
-        margin-right: 2%;
-        border-bottom: 1px solid black;
-    }
     .title{
         position: relative;
         left: 17.5%;
@@ -14,14 +6,16 @@
         text-align: center;
         width: 65%;
         height: 10%;
-        background-color: black;
+        border: 1px solid #3399ff;
+        box-shadow:  10px 10px 10px 10px grey;
+        margin-bottom: 2%;
         }
     .title h1 {
         position: relative;
         font-family: BebasBeue;
         top: 15%;
-        color: orange;
-        background-color: black;
+        color: grey;
+        background-color: #B8DDFF;
         font-size: 60px;
     }
     /* SECTION 1 - CLIENT INFO  */
@@ -38,35 +32,56 @@
         position: relative;
         border : 2px black bold;
         width: 50%;
-        background-color: darkgray;
+        background: #F7F7F7;
         float: left;
     }
     .row{
         margin: auto 0;
         position: relative;
         width: 100%;
-        border: 2px solid black;
+        margin-bottom: 5%;
+        background: #B8DDFF;
+        text-shadow: 1px 1px 1px #949494;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        border-bottom:1px solid #0099ff;
     }
     .row .field {
         width: 50%;
         position: relative;
+        background-color: #B8DDFF;
         float: left; 
+        border:1px #e4e4e4 solid;
+        box-shadow:outset 0 1px 2px #000000;
+        -moz-box-shadow:outset 0 1px 2px #000000;
+        -webkit-box-shadow:outset 0 1px 2px #000000;
         vertical-align: middle;
     }
     .field .name {
-        margin: 5px;
         position: relative;
-        font-family: arial, sans-serif;
-        color: black;
-        font-size: 1vw;
-        font-size-adjust:inherit;
+        padding: 2%;
+        width: 50%;
+        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: gray;
+        background-color:  #D2E9FF;
         float: left;
+        border:1px #e4e4e4 solid;
+        box-shadow:outset 0 1px 2px #000000;
+        -moz-box-shadow:outset 0 1px 2px #000000;
+        -webkit-box-shadow:outset 0 1px 2px #000000;
+       
     }
     .field .input {
+        border-left:1px #e4e4e4 solid;
+        border-top: 1px #e4e4e4 solid;
+        box-shadow:inset 0 1px 2px #000000;
+        -moz-box-shadow:inset 0 1px 2px #000000;
+        -webkit-box-shadow:inset 0 1px 2px #000000;
         position: absolute; 
         float: left;
         right: 2%;
-        height: 90%;
+        height: 100%;
         width: 40%;
     }
     .status {
@@ -75,9 +90,14 @@
         width: 40%;
         height: 100%;
         right: 0;
-        background-color: grey;
         border: 2px solid black;
         margin: auto 0;
+        background: #B8DDFF;
+        text-shadow: 1px 1px 1px #949494;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        border-bottom:1px solid #0099ff;
     }
     .updates {
         position: absolute;
@@ -102,7 +122,8 @@
         border : 2px black bold;
         width: 80%;
         left: 10%;
-        background-color: darkgray;
+        background-color: #B8DDFF;
+        box-shadow: 10px 10px 5px #888888;
         margin-top: 1%;
         margin-bottom: 1%;
     }
@@ -125,7 +146,8 @@
         text-align: left;
         padding-left: 1%;
         width: 10%;
-        font-size: 1vw;
+        color: grey;
+        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
     }
      .equipment-info td {
         position: relative;
@@ -153,13 +175,16 @@
         width: 30%;
         left: 0%;
         line-height: 2vw;
-        font-size: 7px;
-        font-family: arial, sans-serif;
-        color: black;
-        font-size: 1vw;
         border: 2px solid black;
-        background-color: #dddddd;
+        background-color: #B8DDFF;
+        box-shadow: 10px 10px 5px #888888;
         float: left;
+    }
+    .job-info h3{
+        margin-left: 5%;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.8vw;
+        color: grey;
     }
     .job-info .work-done{
         display: table-row;
@@ -167,11 +192,14 @@
         min-height: 100%;
         width: 30%;
         left: 5%;
+        line-height: 2vw;
+        font-size: 7px;
         font-family: arial, sans-serif;
         color: black;
         font-size: 1vw;
         border: 2px solid black;
-        background-color: #dddddd;
+        background-color: #B8DDFF;
+        box-shadow: 10px 10px 5px #888888;
         float: left;
     }
     .job-input {
@@ -180,15 +208,17 @@
         width: 100%;
     }
     .job-info .work-table{
+        background-color: #B8DDFF;
         float: left;
         left: 10%;
         position: relative; 
         width: 30%; 
         min-height: 100%;
         border: 2px solid black;
+        box-shadow: 10px 10px 5px #888888;
     }
     .work-table td{
-        
+        background-color:#D2E9FF;
         padding: 2%;
     }
     .work-table th{
@@ -213,13 +243,15 @@
         border: 2px solid black;
         table-layout: fixed;
         float: left;
-        background-color: lightblue;
+        background-color: #D2E9FF;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        box-shadow: 10px 10px 5px #888888;
     }
     .cost-table th{
         position: relative;
         width: 5%; 
-        font-size: 1vw;
-        margin: 0 auto;
     }
     .cost-table td{
         position: relative;
@@ -230,6 +262,13 @@
         top: 0;
         height: 100%;
         width: 99%;
+        
+    }
+    .cost-table h3{
+        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.8vw;
+        color: grey;
+        padding-left: 5%;
     }
     .cost-info .float-r-container{
         height: 100%;
@@ -243,6 +282,7 @@
         width: 100%;
         border: solid 2px black;
         position: relative;
+        box-shadow: 10px 10px 5px #888888;
     }
 
     .drop-down{
@@ -252,4 +292,6 @@
     }
     input[text='text']{
         font-size:7px;
+
+        box-shadow: 10px 10px 5px #888888;
     }
