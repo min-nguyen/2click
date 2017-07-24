@@ -3,28 +3,165 @@
 
 <head>
     <title>2Click</title>
-    <script src="./javascripts/jquery-3.2.1.min.js"></script>
-    <style>
-        .reference{
-            position: absolute;
-            align-content:center;
-            
-        }
-    </style>
+    <script src="../javascripts/jquery-3.2.1.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!--W3-CSS-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="../stylesheets/form.client.css">
+
+    <style type="text/css">
+    @font-face{
+        font-family: BebasNeue;
+        src: url("path/BebasNeue Bold.otf") format("opentype");
+    }
+   
+     </style>
 </head>
 <!--tr, th, td  -->
 <body>
-      <div id = 'address' class = 'reference'>
-          <form method = "post" action = "/form/load">
-            <div class = 'name'> reference </div>
-            <input 
-            type = "text" 
-            name = "jobref">
-            <br>
-            <input 
-            type = "submit" >
-        </form>
-      </div>
+    <div class = 'title'>
+        <h1> 2Click </h1>
+    </div>
+    <form   method = "post" action = "/form/submit" 
+            style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
+        <div class = 'section-1'>
+            <div class = 'client-info'>
+                <div class = row>
+                    <div id = 'firstname' class = 'field'>
+                        <div class = 'name'> first name 
+                        </div>
+                    </div>
+
+                    <div id = 'jobref' class = 'field' >
+                        <div class = 'name'> reference number </div>
+                    </div>
+                </div>
+
+                <div class = row>
+                    <div id = 'surname' class = 'field'>
+                        <div class = 'name'> surname </div>
+                    </div>
+
+                    <div id = 'datein' class = 'field' >
+                        <div class = 'name'> date in </div>
+                    </div>
+                </div>
+
+                <div class = row>
+                    <div id = 'address' class = 'field'>
+                        <div class = 'name'> address </div>
+                    </div>
+
+                    <div id = 'dateout' class = 'field' >
+                        <div class = 'name'> date out </div>
+                    </div>
+                </div>
+                <div class = row>
+                    <div id = 'postcode' class = 'field'>
+                        <div class = 'name'> postcode </div>
+                    </div>
+                </div>
+
+                <div class = row>
+                    <div id = 'telephone' class = 'field'>
+                        <div class = 'name'> telephone number </div>
+                    </div>
+                </div>
+
+                <div class = 'row' id = 'email'>
+                        <div class = 'name'> email address </div>
+                </div>
+            </div> 
+            <div class = 'status'>
+                <div class = 'updates' id = 'updates'>
+                    <div class = 'update'>
+                        hey
+                    </div>
+                    <div class = 'update-time'>
+                        18:00   
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class = 'equipment-info'>
+            <table id = 'equipment-table'>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Make</th>
+                    <th>Cable</th>
+                    <th>Charger</th>
+                    <th>Case</th>
+                    <th>CDs</th>
+                    <th>Manual</th>
+                    <th>Additional</th>
+                </tr>
+            </table>
+        </div>
+        
+        <div class = 'job-info'>
+            <div class = 'job-dscrpt' id = 'job-dscrpt'>
+                <h3> Job Description </h3>
+            </div>
+            
+            <div class = 'work-done' id = 'work-done'>
+                <h3> Actual Work Done </h3>
+            </div>
+            
+            <table class = 'installation-table' id = 'installation-table'>
+                <tr> 
+                    <th> <h3> Installation </h3> </th>
+                    <th> <h3> Description </h3> </th>
+                </tr>
+            </table>
+            
+        </div> 
+
+        <div class = 'cost-info'>
+            <table class = 'cost-table' id = 'cost-table'>
+                <col style = "width: 2%">
+                <tr id = 'cost-table-header'>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Cost</th>
+                </tr>
+            </table>
+
+            <div class = 'float-r-container'>
+                <div class = 'notes'>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src = '../javascripts/form.client.js'> </script>
+    <script type="text/javascript">var form = <%-form%>;</script>
+    <script>
+        
+        $(document).ready(function() {
+            console.log(form);
+            console.log(form.equipment);
+            client_insertinfo(form);
+            equipment_insertinfo(form);
+            updates_insertinfo(form);
+            work_insertinfo(form);
+            costs_insertinfo(form);
+        }
+    );
+    </script>
 </body>
+
+
 
 </html>

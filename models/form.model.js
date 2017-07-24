@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../config');
 var dateFormat = require('dateformat'); 
 var async = require('async');
+var path = require('path');
 var Form = function(){
 
 }
@@ -24,7 +25,7 @@ con.connect(function(err) {
 
   con.query("USE 2click");
 
-  con.query("CREATE TABLE IF NOT EXISTS clients (name VARCHAR(10), "
+  con.query("CREATE TABLE IF NOT EXISTS clients (firstname VARCHAR(10), "
                                             +   "surname VARCHAR(255)," 
                                             +   "address VARCHAR(255)," 
                                             +   "postcode VARCHAR(255),"
@@ -35,7 +36,7 @@ con.connect(function(err) {
         console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS jobs (jobref VARCHAR(255), jobdscrpt VARCHAR(255), name VARCHAR(10), surname VARCHAR(255), workdone VARCHAR(255), datein DATETIME, dateout DATETIME)", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS jobs (jobref VARCHAR(255), jobdscrpt VARCHAR(255), firstname VARCHAR(10), surname VARCHAR(255), workdone VARCHAR(255), datein DATETIME, dateout DATETIME)", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
@@ -50,12 +51,12 @@ con.connect(function(err) {
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS costs (jobref VARCHAR(255), id INT(11), type SET('labour', 'materials', 'other','total'), dscrpt VARCHAR(255), cost DECIMAL(10,2))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS costs (jobref VARCHAR(255), id INT(11), type SET('labour', 'materials', 'other', 'total'), dscrpt VARCHAR(255), cost DECIMAL(10,2))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS installations (jobref VARCHAR(255), id INT(11), type SET('hardware', 'software'), dscrpt VARCHAR(255))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS installations (jobref VARCHAR(255), id INT(11), type SET('hardware', 'software', 'other'), dscrpt VARCHAR(255))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
@@ -79,28 +80,28 @@ Form.insert = function(req, callback) {
     });
 }
 
-Form.load = function(req, callback){
+Form.load = function(req, res, callback){
     var jobref = req.body.jobref;
 
-    var response = function(){};
+    var response = {};
     response.jobref = jobref;
 
     var getjob = function(){
         con.query("SELECT * FROM jobs WHERE jobref = '" + jobref + "'", 
             function (err, result) {
                 if (err) throw err;
-                response.firstname = result[0].name;
+                response.firstname = result[0].firstname;
                 response.surname = result[0].surname;
                 response.jobdscrpt = result[0].jobdscrpt;
                 response.workdone = result[0].workdone;
-                response.datein = result[0].datein;
-                response.dateout = result[0].dateout;
+                response.datein =   String(result[0].datein);
+                response.dateout = String(result[0].dateout);
                 getclient();
                 return;
         });
     }
     var getclient = function(){
-        con.query("SELECT * FROM clients WHERE name = '" + response.firstname + "' AND surname = '" + response.surname + "'", 
+        con.query("SELECT * FROM clients WHERE firstname = '" + response.firstname + "' AND surname = '" + response.surname + "'", 
             function (err, result) {
                 if (err) throw err;
                 if (result.length != 0){
@@ -118,14 +119,15 @@ Form.load = function(req, callback){
             function (err, result) {
                 if (err) throw err;
                 if (result.length != 0){
-                    response.updates = new Array();
+                    updates = new Array();
                     for(i = 0; i < result.length; i++){
                         var update = new function(){};
                         update.id = result[i].id;
                         update.dscrpt = result[i].dscrpt;
-                        update.time = result[i].time;
-                        response.updates.push(update);
+                        update.time = String(result[i].time);
+                        updates.push(update);
                     }
+                    response.updates = JSON.stringify(updates);
                 }
                 getequipment();
                 return;
@@ -136,7 +138,7 @@ Form.load = function(req, callback){
             function (err, result) {
                 if (err) throw err;
                 if (result.length != 0){
-                    response.equipment = new Array();
+                    equipment = new Array();
                     for(i = 0; i < result.length; i++){
                         var item = new function(){};
                         item.Equipment = result[i].equipment;
@@ -148,8 +150,9 @@ Form.load = function(req, callback){
                         item.CDs = result[i].cds;
                         item.Manual = result[i].manual;
                         item.Additional = result[i].additional;
-                        response.equipment.push(item);
+                        equipment.push(item);
                     }
+                    response.equipment = JSON.stringify(equipment);
                 }
                 getinstallations();
                 return;
@@ -160,14 +163,14 @@ Form.load = function(req, callback){
             function (err, result) {
                 if (err) throw err;
                 if (result.length != 0){
-                    response.installations = new Array();
+                    installations = new Array();
                     for(i = 0; i < result.length; i++){
                         var installation = new function(){};
                         installation.type = result[i].type;
                         installation.dscrpt = result[i].dscrpt;
-                        response.installations.push(installation);
+                        installations.push(installation);
                     }
-                    
+                    response.installations = JSON.stringify(installations);
                 }
                 getcosts();
                 return;
@@ -179,19 +182,21 @@ Form.load = function(req, callback){
         function (err, result) {
             if (err) throw err;
             if (result.length != 0){
-                response.costs = new Array();
+                costs = new Array();
                 for(i = 0; i < result.length; i++){
                     var cost = new function(){};
                     cost.type = result[i].type;
                     cost.dscrpt = result[i].dscrpt;
                     cost.cost = result[i].cost;
-                    response.costs.push(cost);
+                    costs.push(cost);
                 }
+                response.costs = JSON.stringify(costs);
             }
-            console.log("installations done");
-            console.log(response);
+            var stringed = JSON.stringify(response);
+            res.render(__dirname + '/../public/views/form.client.html', 
+                {form: stringed});
             return;
-    });
+        });
     }
     
     getjob();
@@ -205,19 +210,19 @@ Form.new = function(form){
     now = new Date();
     var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
     //New job entry
-    con.query(  "INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`name`, `surname`, `workdone`, `datein`) " + 
+    con.query(  "INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`firstname`, `surname`, `workdone`, `datein`) " + 
                 "VALUES (" + "'"    + form['jobref'] + "', '" 
                                     + form['jobdscrpt'] + "', '" 
-                                    + form['name'] + "', '" 
+                                    + form['firstname'] + "', '" 
                                     + form['surname'] + "', '" 
                                     + form['workdone'] + "', '" 
                                     + datein + "')");
 
      //New client entry
-    con.query("SELECT * FROM clients WHERE name = '" + form['name'] + "' AND surname = '" + form['surname'] + "'", function(err, result){
+    con.query("SELECT * FROM clients WHERE firstname = '" + form['name'] + "' AND surname = '" + form['surname'] + "'", function(err, result){
         if(result.length == 0)
-            con.query(  "INSERT INTO `clients` (`name`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
-            "VALUES (" + "'"    + form['name'] + "', '" 
+            con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
+            "VALUES (" + "'"    + form['firstname'] + "', '" 
                                 + form['surname'] + "', '" 
                                 + form['address'] + "', '" 
                                 + form['postcode'] + "', '" 
@@ -256,6 +261,15 @@ Form.new = function(form){
                                             + form['costdscrpt'][i] + "', '"
                                             + form['cost'][i] + "')");
         }
+    }
+
+    if(form['totalcost'] != ''){
+            con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
+                        "VALUES (" + "'"    + form['jobref'] + "', '"
+                                            + 0 + "', '"
+                                            + "total" + "', '" 
+                                            + "Total Cost"+ "', '"
+                                            + form['totalcost'] + "')");
     }
 
      //New cost entry

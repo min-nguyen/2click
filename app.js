@@ -20,7 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 app.use('/form', form_route);
 app.use('/users', users_route);
 

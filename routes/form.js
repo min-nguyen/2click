@@ -6,11 +6,11 @@ var form_model = require('../models/form.model');
 
 router.post('/submit', function(req, res, next){
   form_model.insert(req, function(){
-    res.redirect('/form');
+    res.redirect('/form/admin');
   })
 });
-/* GET home page. */
-router.get('/', function(req, res, next) {
+
+router.get('/admin', function(req, res, next) {
   res.sendfile(path.join(__dirname + '/../public/views/form.admin.html'));
 });
 
@@ -20,10 +20,12 @@ router.get('/input', function(req, res, next) {
 });
 
 router.post('/load', function(req, res, next){
-  form_model.load(req, function(){
+  form_model.load(req, res, function(){
     res.redirect('/form.client.html');
   })
 });
-
+router.get('/client', function(req, res, next){
+  res.sendfile(path.join(__dirname + '/../public/views/form.client.html'));
+});
 
 module.exports = router;
