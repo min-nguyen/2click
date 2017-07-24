@@ -11,17 +11,17 @@ router.post('/submit', function(req, res, next){
 });
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendfile(path.join(__dirname + '/../public/views/form.html'));
+  res.sendfile(path.join(__dirname + '/../public/views/form.admin.html'));
 });
 
 
 router.get('/input', function(req, res, next) {
-  res.sendfile(path.join(__dirname + '/../public/views/form.client.html'));
+  res.sendfile(path.join(__dirname + '/../public/views/form.input.html'));
 });
 
 router.post('/load', function(req, res, next){
   form_model.load(req, function(){
-    res.redirect('/form');
+    res.redirect('/form.client.html');
   })
 });
 
