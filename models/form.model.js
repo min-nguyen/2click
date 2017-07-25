@@ -262,7 +262,7 @@ Form.new = function(form){
         if(form['Equipment'] != ''){
             con.query(  "INSERT INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
                         "VALUES (" + "'"    + form['jobref'] + "', '"
-                                            + i + "', '"
+                                            + 0 + "', '"
                                             + form['Equipment'] + "', '" 
                                             + form['Make'] + "', '" 
                                             + form['Cable'] + "', '" 
@@ -325,12 +325,12 @@ Form.new = function(form){
         }
     }
     else{
-         if(form['installation'][i] != ''){
+         if(form['installation'] != ''){
                 con.query(  "INSERT INTO `installations` (`jobref`, `id`, `type`, `dscrpt`) " + 
                             "VALUES (" + "'"    + form['jobref'] + "', '"
-                                                + i + "', '"
-                                                + form['installation'][i] + "', '" 
-                                                + form['installationdscrpt'][i] + "')");
+                                                + 0 + "', '"
+                                                + form['installation'] + "', '" 
+                                                + form['installationdscrpt'] + "')");
          }
     }
 
