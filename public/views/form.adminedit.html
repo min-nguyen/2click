@@ -39,30 +39,30 @@
 
             <div class = 'client-info'>
                 <div class = row>
-                    <div id = 'name' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> first name </div>
                         <input class = "input" type = "text" name = "firstname" id = "firstname">
                     </div>
 
-                    <div id = 'jobref' class = 'field' >
+                    <div class = 'field' >
                         <div class = 'name'> reference number </div>
                         <input class = "input" type = "text" name = "jobref" id = "jobref">
                     </div>
                 </div>
 
                 <div class = row>
-                    <div id = 'surname' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> surname </div>
                         <input class = "input" type = "text" name = "surname" id = "surname">
                     </div>
 
-                    <div id = 'datein' class = 'field' id = 'datein'>
+                    <div class = 'field' id = 'datein'>
                         <div class = 'name'> date in </div>
                     </div>
                 </div>
 
                 <div class = row>
-                    <div id = 'address' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> address </div>
                         <input class = "input" type = "text" name = "address" id = "address">
                     </div>
@@ -70,21 +70,21 @@
                     <div id = 'dateout' class = 'field' id = 'dateout'>
                         <div class = 'name'> date out </div>
                     </div>
-                    <div id = 'postcode' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> postcode </div>
                         <input class = "input" type = "text" name = "postcode" id = "postcode">
                     </div>
                 </div>
 
                 <div class = row>
-                    <div id = 'telephone' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> telephone number </div>
                         <input class = "input" type = "text" name = "telephone" id = "telephone">
                     </div>
                 </div>
 
-                <div class = row id = 'email'>
-                    <div id = 'email' class = 'field' >
+                <div class = row >
+                    <div class = 'field' >
                         <div class = 'name'> email address </div>
                         <input class = "input" type = "text" name = "email" id = "email">
                     </div>
@@ -193,11 +193,10 @@
     <script>
         $(document).ready(function() {
             console.log(form);
-            equipment_insertrow();
-            cost_insertrow();
-            installation_insertrow();
             client_insertinfo(form);
             equipment_insertinfo(form);
+            costs_insertinfo(form);
+            installations_insertinfo(form);
             $('.button').click(function() {insertrow(this);});
         }
     );

@@ -96,7 +96,6 @@ Form.load = function(req, res, callback){
                 response.workdone = result[0].workdone;
                 response.datein =   String(result[0].datein);
                 response.dateout = String(result[0].dateout);
-                console.log('1');
                 getclient();
                 return;
         });
@@ -111,7 +110,6 @@ Form.load = function(req, res, callback){
                     response.telephone = result[0].telephone;
                     response.email = result[0].email;
                 }
-                console.log('2');
                 getupdates();
                 return;
         });
@@ -131,8 +129,6 @@ Form.load = function(req, res, callback){
                     }
                     response.updates = JSON.stringify(updates);
                 }
-
-                console.log('3');
                 getequipment();
                 return;
         });
@@ -158,7 +154,6 @@ Form.load = function(req, res, callback){
                     }
                     response.equipment = JSON.stringify(equipment);
                 }
-                console.log('4');
                 getinstallations();
                 return;
         });
@@ -177,7 +172,6 @@ Form.load = function(req, res, callback){
                     }
                     response.installations = JSON.stringify(installations);
                 }
-                console.log('5');
                 getcosts();
                 return;
         });
@@ -198,7 +192,6 @@ Form.load = function(req, res, callback){
                 }
                 response.costs = JSON.stringify(costs);
             }
-            console.log('6');
             var stringed = JSON.stringify(response);
             callback(stringed);
             return;

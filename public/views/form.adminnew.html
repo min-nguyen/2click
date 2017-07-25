@@ -39,52 +39,52 @@
 
             <div class = 'client-info'>
                 <div class = row>
-                    <div id = 'name' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> first name </div>
                         <input class = "input" type = "text" name = "firstname" id = "firstname">
                     </div>
 
-                    <div id = 'jobref' class = 'field' >
+                    <div class = 'field' >
                         <div class = 'name'> reference number </div>
                         <input class = "input" type = "text" name = "jobref" id = "jobref">
                     </div>
                 </div>
 
                 <div class = row>
-                    <div id = 'surname' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> surname </div>
                         <input class = "input" type = "text" name = "surname" id = "surname">
                     </div>
 
-                    <div id = 'datein' class = 'field' id = 'datein'>
+                    <div class = 'field' id = 'datein'>
                         <div class = 'name'> date in </div>
                     </div>
                 </div>
 
                 <div class = row>
-                    <div id = 'address' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> address </div>
                         <input class = "input" type = "text" name = "address" id = "address">
                     </div>
 
-                    <div id = 'dateout' class = 'field' >
+                    <div id = 'dateout' class = 'field' id = 'dateout'>
                         <div class = 'name'> date out </div>
                     </div>
-                    <div id = 'postcode' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> postcode </div>
                         <input class = "input" type = "text" name = "postcode" id = "postcode">
                     </div>
                 </div>
 
                 <div class = row>
-                    <div id = 'telephone' class = 'field'>
+                    <div class = 'field'>
                         <div class = 'name'> telephone number </div>
                         <input class = "input" type = "text" name = "telephone" id = "telephone">
                     </div>
                 </div>
 
-                <div class = row id = 'email'>
-                    <div id = 'email' class = 'field' >
+                <div class = row >
+                    <div class = 'field' >
                         <div class = 'name'> email address </div>
                         <input class = "input" type = "text" name = "email" id = "email">
                     </div>
@@ -164,7 +164,7 @@
                 <tr id = 'cost-table-total'>
                     <th style = 'position: relative; margin: 10%;'> <h3> Total </h3> </th>
                     <td> </td>
-                    <td>  <input type = "number" name = 'totalcost' class = 'cost-input' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/></td>
+                    <td>  <input type = "number" name = 'totalcost' class = 'cost-input' value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"/></td>
                 </tr>
                 <tr id = 'cost-button-row'> 
                     <th> </th>
@@ -188,17 +188,15 @@
         </div>
     </form>
 
+
     <script src = '../javascripts/form.admin.js'> </script>
     <script>
         $(document).ready(function() {
             
-            equipment_insertrow(3);
-            cost_insertrow(3);
-            installation_insertrow(3);
-            $('.button').click(function() {insertrow(this);});
-            $('input').val(20);
-            $('textarea').text("test");
-            $('#submit_post').val('submit');
+            equipment_newrow();
+            costs_newrow();
+            installations_newrow();
+            $('.button').click(function() {newrow(this);});
         }   
     );
     </script>
