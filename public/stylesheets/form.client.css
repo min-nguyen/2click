@@ -1,0 +1,295 @@
+/* TITLE  */
+    .title{
+        position: relative;
+        left: 17.5%;
+        top: 10%;
+        text-align: center;
+        width: 65%;
+        height: 10%;
+        border: 1px solid #3399ff;
+        box-shadow:  10px 10px 10px 10px grey;
+        margin-bottom: 2%;
+        }
+    .title h1 {
+        position: relative;
+        font-family: BebasBeue;
+        top: 15%;
+        color: grey;
+        background-color: #B8DDFF;
+        font-size: 60px;
+    }
+    /* SECTION 1 - CLIENT INFO  */
+    .section-1{
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        min-height: 40%;
+        left: 10%;
+        display: table;
+        clear: both;
+    }
+    .client-info {
+        position: relative;
+        border : 2px black bold;
+        width: 50%;
+        background: #F7F7F7;
+        float: left;
+    }
+    .row{
+        margin: auto 0;
+        position: relative;
+        width: 100%;
+        margin-bottom: 5%;
+        background: #B8DDFF;
+        text-shadow: 1px 1px 1px #949494;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        border-bottom:1px solid #0099ff;
+    }
+    .row .field {
+        width: 50%;
+        position: relative;
+        background-color: #B8DDFF;
+        float: left; 
+        border:1px #e4e4e4 solid;
+        box-shadow:outset 0 1px 2px #000000;
+        -moz-box-shadow:outset 0 1px 2px #000000;
+        -webkit-box-shadow:outset 0 1px 2px #000000;
+        vertical-align: middle;
+    }
+    .row .name {
+        position: relative;
+        padding: 2%;
+        width: 50%;
+        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: gray;
+        background-color:  #D2E9FF;
+        float: left;
+        border:1px #e4e4e4 solid;
+        box-shadow:outset 0 1px 2px #000000;
+        -moz-box-shadow:outset 0 1px 2px #000000;
+        -webkit-box-shadow:outset 0 1px 2px #000000;
+    }
+    .status {
+        position: absolute;
+        float: left;
+        width: 40%;
+        height: 100%;
+        right: 0;
+        border: 2px solid black;
+        margin: auto 0;
+        background: #B8DDFF;
+        text-shadow: 1px 1px 1px #949494;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        border-bottom:1px solid #0099ff;
+    }
+    .updates {
+        position: absolute;
+        height: 80%;
+        width: 100%;
+        background-color: white;
+    }
+    .updates .update{
+        padding: 2%;
+        background-color: lightgray;
+        position: relative;
+        width: 100%;
+        border: 1px #e4e4e4 solid;
+        box-shadow: 0 1px 2px #000000;
+        -webkit-box-shadow:inset 0 1px 2px #000000;
+    }
+    .updates .update-time{
+        font: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.7vw;
+        background-color: gray;
+        position: relative;
+        text-align: right;
+        width: 100%;
+    }
+    .row h2{
+        position: relative;
+        padding: 2%;
+        margin: 0 auto;
+        width: 50%;
+        font: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.9vw;
+        color: gray;
+        background-color:  #F0F8FF;
+        float: left;
+        border:1px #e4e4e4 solid;
+        box-shadow:outset 0 1px 2px #000000;
+        -moz-box-shadow:outset 0 1px 2px #000000;
+        -webkit-box-shadow:outset 0 1px 2px #000000;
+    }
+    /* SECTION 2 - EQUIPMENT INFO  */
+    .equipment-info {
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        left: 10%;
+        background-color: #B8DDFF;
+        box-shadow: 10px 10px 5px #888888;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .equipment-info table {
+        position: relative;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+        font-size: 1vw;
+        table-layout:fixed;
+    }
+    .equipment-info th {
+        position: relative;
+        border: 1px solid black;
+        text-align: left;
+        padding-left: 1%;
+        width: 10%;
+        color: grey;
+        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+    }
+     .equipment-info td {
+        position: relative;
+        border: 1px solid black;
+        text-align: left;
+        overflow: auto;
+        padding-left: 1%;
+        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+    } 
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    /* SECTION 3 - JOB INFO  */
+    .job-info{
+        position: relative;
+        border : 2px black bold;
+        width: 80%;
+        min-height: 40%;
+        left: 10%;
+        display: table;
+        clear: both;
+    }
+    .job-info .job-dscrpt{
+        display: table-row;
+        position: relative;
+        min-height: 100%;
+        width: 30%;
+        left: 0%;
+        line-height: 2vw;
+        border: 2px solid black;
+        background-color: #B8DDFF;
+        box-shadow: 10px 10px 5px #888888;
+        float: left;
+    }
+    .job-info h3{
+        margin: 0 auto;
+        margin-left: 5%;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.8vw;
+        color: grey;
+    }
+    .job-info .work-done{
+        display: table-row;
+        position: relative;
+        min-height: 100%;
+        width: 30%;
+        left: 5%;
+        line-height: 2vw;
+        font-size: 7px;
+        font-family: arial, sans-serif;
+        color: black;
+        font-size: 1vw;
+        border: 2px solid black;
+        background-color: #B8DDFF;
+        box-shadow: 10px 10px 5px #888888;
+        float: left;
+    }
+    .text-container{
+        position: relative;
+        min-height: 100%;
+        width: 100%;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: black;
+        padding-left: 5%;
+        font-size:0.7vw;
+        background-color: lightgray;
+    }
+    .job-info .installation-table{
+        background-color: #B8DDFF;
+        float: left;
+        left: 10%;
+        position: relative; 
+        width: 30%; 
+        min-height: 100%;
+        border: 2px solid black;
+        box-shadow: 10px 10px 5px #888888;
+    }
+    .installation-table td{
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: black;
+        padding-left: 5%;
+        font-size:0.7vw;
+        background-color:#D2E9FF;
+    }
+    .installation-table th{
+        font-size: 0.8vw;
+        padding: 0%;
+        padding-left: 2%;
+    }
+     /* SECTION 4 - COST INFO  */
+    .cost-info {
+        position: absolute;
+        border : 2px black bold;
+        width: 80%;
+        left: 10%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .cost-info .cost-table{
+        position: relative;
+        border-collapse: collapse;
+        width: 65%;
+        height: 100%;
+        border: 2px solid black;
+        table-layout: fixed;
+        float: left;
+        background-color: #D2E9FF;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        box-shadow: 10px 10px 5px #888888;
+    }
+    .cost-table th{
+        position: relative;
+        width: 5%; 
+        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.8vw;
+        color: grey;
+        padding-left: 1%;
+    }
+    .cost-table td{
+        position: relative;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: black;
+        padding-left: 1%;
+        font-size:0.7vw;
+    }
+    .cost-info .float-r-container{
+        height: 100%;
+        width: 30%;
+        position: relative;
+        float: right;
+    }
+    .cost-info .notes {
+        padding: 2%;
+        height: 100%;
+        width: 100%;
+        border: solid 2px black;
+        position: relative;
+        box-shadow: 10px 10px 5px #888888;
+    }
