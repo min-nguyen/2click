@@ -6,7 +6,7 @@ var form_model = require('../models/form.model');
 
 router.post('/submit', function(req, res, next){
   form_model.insert(req, function(){
-    res.redirect('/form/admin');
+    res.redirect('/form/adminnew');
   })
 });
 

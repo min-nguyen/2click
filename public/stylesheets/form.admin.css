@@ -70,7 +70,21 @@
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
         -webkit-box-shadow:outset 0 1px 2px #000000;
-       
+    }
+    .row h2{
+        position: relative;
+        padding: 2%;
+        margin: 0 auto;
+        width: 50%;
+        font: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.9vw;
+        color: gray;
+        background-color:  #F0F8FF;
+        float: left;
+        border:1px #e4e4e4 solid;
+        box-shadow:outset 0 1px 2px #000000;
+        -moz-box-shadow:outset 0 1px 2px #000000;
+        -webkit-box-shadow:outset 0 1px 2px #000000;
     }
     .field .input {
         border-left:1px #e4e4e4 solid;
@@ -151,7 +165,6 @@
     }
     .equipment-table td {
         position: relative;
-        border: 1px solid black;
         text-align: left;
         overflow: auto;
     } 
@@ -219,11 +232,10 @@
     }
     .installation-table td{
         background-color:#D2E9FF;
-        padding: 2%;
+        padding: 0.5%;
     }
     .installation-table th{
         font-size: 0.8vw;
-        padding: 0%;
         padding-left: 2%;
     }
      /* SECTION 4 - COST INFO  */
@@ -300,8 +312,6 @@
 
     .button {
         position: relative;
-        left: 70%;
-        width: 30%;
         z-index: 1;
         background-color: #4CAF50;
         color: white;
@@ -310,4 +320,16 @@
         display: inline-block;
         font-size: 0.8vw;
         cursor: pointer;
+    }
+    .cost-table .button {
+        left: 70%;
+        width: 30%;
+    }
+    .installation-table .button {
+        left: 60%;
+        width: 40%;
+    }
+    .equipment-table .button{
+        left: 40%;
+        width: 60%;
     }
