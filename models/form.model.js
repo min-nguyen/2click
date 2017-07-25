@@ -158,7 +158,7 @@ Form.load = function(req, res, callback){
                 return;
         });
     }
-    var  getinstallations = function(){
+    var getinstallations = function(){
         con.query("SELECT * FROM installations WHERE jobref = '" + jobref + "'", 
             function (err, result) {
                 if (err) throw err;
@@ -193,8 +193,7 @@ Form.load = function(req, res, callback){
                 response.costs = JSON.stringify(costs);
             }
             var stringed = JSON.stringify(response);
-            res.render(__dirname + '/../public/views/form.client.html', 
-                {form: stringed});
+            callback(stringed);
             return;
         });
     }

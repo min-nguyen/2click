@@ -10,22 +10,31 @@ router.post('/submit', function(req, res, next){
   })
 });
 
-router.get('/admin', function(req, res, next) {
-  res.sendfile(path.join(__dirname + '/../public/views/form.admin.html'));
+router.get('/admininput', function(req, res, next) {
+  res.sendfile(path.join(__dirname + '/../public/views/form.admininput.html'));
 });
 
-
-router.get('/input', function(req, res, next) {
-  res.sendfile(path.join(__dirname + '/../public/views/form.input.html'));
-});
-
-router.post('/load', function(req, res, next){
-  form_model.load(req, res, function(){
-    res.redirect('/form.client.html');
+router.post('/adminedit', function(req, res, next) {
+  form_model.load(req, res, function(stringed){
+    res.render(__dirname + '/../public/views/form.adminedit.html', 
+                {form: stringed});
   })
 });
-router.get('/client', function(req, res, next){
-  res.sendfile(path.join(__dirname + '/../public/views/form.client.html'));
+
+router.get('/adminnew', function(req, res, next) {
+  res.sendfile(path.join(__dirname + '/../public/views/form.adminnew.html'));
+});
+
+
+router.get('/clientinput', function(req, res, next) {
+  res.sendfile(path.join(__dirname + '/../public/views/form.clientinput.html'));
+});
+
+router.post('/client', function(req, res, next){
+  form_model.load(req, res, function(stringed){
+    res.render(__dirname + '/../public/views/form.client.html', 
+                {form: stringed});
+  })
 });
 
 module.exports = router;
