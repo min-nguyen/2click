@@ -14,6 +14,12 @@ router.get('/admininput', function(req, res, next) {
   res.sendfile(path.join(__dirname + '/../public/views/form.admininput.html'));
 });
 
+router.post('/adminedit/postupdate', function(req, res, next) {
+  form_model.update(req, function(){
+     res.send('successful');
+  });
+});
+
 router.post('/adminedit', function(req, res, next) {
   form_model.load(req, res, function(stringed){
     res.render(__dirname + '/../public/views/form.adminedit.html', 

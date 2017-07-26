@@ -98,7 +98,7 @@
         height: 100%;
         width: 40%;
     }
-    .status {
+    .updates-container {
         position: absolute;
         float: left;
         width: 40%;
@@ -123,11 +123,12 @@
         position: relative;
         width: 100%;
     }
-    .status .input{
+    .updates-container .input{
         position: absolute;
-        line-height: 14px;
-        font-size: 14px;
-        width: 100%;
+        line-height: 0.7vw;
+        font-size: 0.7vw;
+        height: 15%;
+        width: 80%;
         bottom: 0;
     }
     /* SECTION 2 - EQUIPMENT INFO  */
@@ -332,4 +333,12 @@
     .equipment-table .button{
         left: 40%;
         width: 60%;
+    }
+    .updates-container .button{
+        position: absolute;
+        font-size: 0.7vw;
+        height: 15%;
+        left:80%;
+        width:20%;
+        bottom: 0%;
     }

@@ -91,11 +91,12 @@
                 </div>
             </div> 
 
-            <div class = 'status'>
+            <div class = 'updates-container'>
                 <div class = 'updates'>
 
                 </div>
-                <textarea class = 'input' rows = '2' type = 'text' name = 'update'></textarea>
+                <textarea class = 'input' rows = '2' type = 'text' name = 'update' id = 'update-text'></textarea>
+                <button type = "button" class="button" id='update-button'> Post Update </button>
             </div>
 
         </div>
@@ -197,7 +198,8 @@
             equipment_insertinfo(form);
             costs_insertinfo(form);
             installations_insertinfo(form);
-            $('.button').click(function() {insertrow(this);});
+            $('#update-button').click(function(){postUpdate();});
+            $('.button').click(function() {newrow(this);});
         }
     );
     </script>

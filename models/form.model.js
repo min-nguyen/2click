@@ -208,7 +208,8 @@ Form.update = function(form){
 Form.new = function(form){
     now = new Date();
     var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
-    //New job entry
+    
+    //////////////////////////////////////////////////
     con.query(  "INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`firstname`, `surname`, `workdone`, `datein`) " + 
                 "VALUES (" + "'"    + form['jobref'] + "', '" 
                                     + form['jobdscrpt'] + "', '" 
@@ -217,7 +218,7 @@ Form.new = function(form){
                                     + form['workdone'] + "', '" 
                                     + datein + "')");
 
-    //  //New client entry
+    //////////////////////////////////////////////////
     con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", function(err, result){
         if(result.length == 0)
             con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
@@ -231,7 +232,7 @@ Form.new = function(form){
                                 });
     });
                             
-    // //New equipment entry
+    //////////////////////////////////////////////////
     if(form['Equipment'].constructor === Array ){
         for(i = 0; i < form['Equipment'].length; i++){
             if(form['Equipment'][i] == '')
@@ -267,7 +268,7 @@ Form.new = function(form){
         }
     }
 
-    //New cost entry
+    //////////////////////////////////////////////////
     if(form['costtype'].constructor === Array){
         for(i = 0; i < cost_length; i++){
             if(form['costtype'][i] == '' || form['cost'][i] == '')
@@ -303,7 +304,7 @@ Form.new = function(form){
                                             + form['totalcost'] + "')");
     }
 
-    //  //New cost entry
+    //////////////////////////////////////////////////
     if(form['installation'].constructor === Array){
         for(i = 0; i < form['installation'].length; i++){
             if(form['installation'][i] == '')
@@ -329,8 +330,21 @@ Form.new = function(form){
 
 }
 
-Form.update = function(){
-
+Form.update = function(req, callback){
+    con.query("SELECT MAX(id) AS id FROM updates WHERE jobref = '" + req.body.form.jobref + "'", function(err, results){
+        if(results[0].id == null){
+            id = 0;
+        }
+        else{
+            id = results[0].id + 1;
+        }
+        now = new Date();
+        var time = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
+        con.query(  "INSERT INTO `updates` (`jobref`, `id`, `dscrpt`, `time`)" + 
+                    "VALUES ('" + req.body.form.jobref + "', '" + id + "', '" + req.body.entry + "', '" + time + "')");
+        callback();
+    });
+    
 }
 
 module.exports = Form;

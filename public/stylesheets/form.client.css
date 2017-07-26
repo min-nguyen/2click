@@ -71,7 +71,7 @@
         -moz-box-shadow:outset 0 1px 2px #000000;
         -webkit-box-shadow:outset 0 1px 2px #000000;
     }
-    .status {
+    .updates-container {
         position: absolute;
         float: left;
         width: 40%;
@@ -88,7 +88,7 @@
     }
     .updates {
         position: absolute;
-        height: 80%;
+        height: 100%;
         width: 100%;
         background-color: white;
     }

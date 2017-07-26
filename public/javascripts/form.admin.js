@@ -94,6 +94,7 @@ function costs_newrow(){
 
     var tablerow = '<tr>' +
                     '<td> <select name = "costtype" class = "drop-down">' +
+                    '    <option value=""></option> ' +
                     '    <option value="labour">Labour</option> ' +
                     '    <option value="materials">Materials</option> ' +
                     '    <option value="other">Other</option> </select> </th>' +
@@ -143,6 +144,11 @@ function installations_newrow(){
 }
 
 /////////////////////////////////////////////////////////////////
+function work_insertinfo(form){
+    $('#job-dscrpt')
+}
+
+/////////////////////////////////////////////////////////////////
 function newrow(button){
     var id = $(button).attr('id');
     if(id == 'installation-button'){
@@ -154,4 +160,17 @@ function newrow(button){
     else if(id == 'cost-button'){
         costs_newrow();
     }
+}
+
+/////////////////////////////////////////////////////////////////
+function postUpdate(){
+    var update_text = $('#update-text').val();
+    $.ajax({
+        url: "//localhost:3000/form/adminedit/postupdate", 
+        data: {entry : update_text, form: form}, 
+        type: "POST",
+        success: function(data){
+           console.log("received");
+        }
+    });
 }
