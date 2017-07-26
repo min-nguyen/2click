@@ -39,11 +39,12 @@ function updates_insertinfo(form){
         return;
     }
     var updates = JSON.parse(form.updates);
-    var updates_html  = $('#updates');
-    for(i = 0; i < updates.length; i++){
-        var update_html = "<div class = 'update'>" + updates[i].dscrpt + "</div"
-                    + "div class = 'update-time" + updates[i].time + "</div>";
-        updates.append(update_html);
+    var updates_DOM  = $('#updates');
+    
+   for(i = updates.length - 1; i >= 0; i--){
+        var update_html = "<div class = 'update'>" + updates[i].dscrpt + "</div>"
+                    + "<div class = 'update-time'>" + updates[i].time + "</div>";
+        updates_DOM.append(update_html);
     }
 }
 

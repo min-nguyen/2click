@@ -65,7 +65,6 @@ con.connect(function(err) {
 
 Form.insert = function(req, callback) {
     var form = req.body;
-    console.log(form);
     con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['jobref'] + "'", function(err, result){
         console.log(result);
         if(result.length > 0){
@@ -201,14 +200,10 @@ Form.load = function(req, res, callback){
     getjob();
 }
 
-Form.update = function(form){
-
-}
-
 Form.new = function(form){
     now = new Date();
     var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
-    
+
     //////////////////////////////////////////////////
     con.query(  "INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`firstname`, `surname`, `workdone`, `datein`) " + 
                 "VALUES (" + "'"    + form['jobref'] + "', '" 

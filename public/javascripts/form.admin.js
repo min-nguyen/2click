@@ -11,14 +11,25 @@ function client_insertinfo(form){
     $('#telephone').val(form.telephone);
     $('#email').val(form.email);
 }
-
+////////////////////////////////////////////////////////
+function updates_insertinfo(form){
+    if(form.updates == undefined){
+        return;
+    }
+    var updates = JSON.parse(form.updates);
+    var updates_DOM  = $('#updates');
+    for(i = updates.length - 1; i >= 0; i--){
+        var update_html = "<div class = 'update'>" + updates[i].dscrpt + "</div>"
+                    + "<div class = 'update-time'>" + updates[i].time + "</div>";
+        updates_DOM.append(update_html);
+    }
+}
 ////////////////////////////////////////////////////////
 function equipment_insertinfo(){
     if(form.equipment == undefined)
         return;
 
     var equipments = JSON.parse(form.equipment);
-    console.log(equipments.length);
     for(i = 0; i < equipments.length; i++){
         equipment_newrow();
         equipment_loadrow(i + 1, equipments[i]);
