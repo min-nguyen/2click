@@ -3,28 +3,41 @@
 
 <head>
     <title>2Click</title>
+    <link rel="stylesheet" href="../stylesheets/form.input.css">
+    <link rel="icon" href="data:,">
     <script src="../javascripts/jquery-3.2.1.min.js"></script>
-    <style>
-        .reference{
-            position: absolute;
-            align-content:center;
-            
-        }
-    </style>
 </head>
 <!--tr, th, td  -->
 <body>
-      <div id = 'address' class = 'reference'>
-          <form method = "post" action = "/form/adminedit">
-            <div class = 'name'> reference </div>
-            <input 
-            type = "text" 
-            name = "jobref">
-            <br>
-            <input 
-            type = "submit" >
+    <div style = 'position: absolute; width: 80%; left: 10%; text-align: center;' >
+        <form method = "post" action = "/form/admin-edit">
+        <div class = 'row'>
+                <div class = 'name'> ENTER REFERENCE NUMBER </div>
+                <input class = "input" type = "text" name = "jobref" id = "jobref" required>
+                <button class = "input" type = "submit" id = 'submit-button'> Submit </button>
+        </div>
         </form>
-      </div>
+        <div class = 'row' >
+            <div class = 'name'> reference number </div>
+            <div class = 'name'> reference number </div>
+            <div class = 'name'> reference number </div>
+            <div class = 'name'> reference number </div>
+            
+        </div>
+
+        <div class = 'row' >
+            <div class = 'name'> reference number </div>
+        </div>
+
+        <div class = 'row'>
+                <div class = 'name'> reference number </div>
+        </div>
+        
+    </div>
+    <script src="../javascripts/form.admin-input.js"></script>
+    <script>
+    </script>
 </body>
+
 
 </html>

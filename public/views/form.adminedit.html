@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <link rel="icon" href="data:,">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -32,7 +32,7 @@
     <div class = 'title'>
         <h1> 2Click </h1>
     </div>
-    <form   method = "post" action = "/form/submit" 
+    <form   method = "post" action = "/form/admin-submitedit" id = "form"
             style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
 
         <div class = 'section-1'>
@@ -95,7 +95,7 @@
                 <div class = 'updates' id = 'updates'>
 
                 </div>
-                <textarea class = 'input' rows = '2' type = 'text' name = 'update' id = 'update-text'></textarea>
+                <textarea class = 'input' rows = '2' type = 'text' id = 'update-text'></textarea>
                 <button type = "button" class="button" id='update-button'> Post Update </button>
             </div>
 
@@ -128,14 +128,14 @@
             <div class = 'job-dscrpt'>
                 <h3> Job Description </h3>
                 <div >
-                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'jobdscrpt'></textarea>
+                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'jobdscrpt' id = 'jobdscrpt'></textarea>
                 </div>
             </div>
             
             <div class = 'work-done'>
                 <h3> Actual Work Done </h3>
                 <div>
-                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'workdone'></textarea>
+                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'workdone' id = 'workdone'></textarea>
                 </div>
             </div>
             
@@ -176,7 +176,7 @@
 
             <div class = 'submit-container'>
                 <div class = 'notes'>
-                    <textarea class = 'job-input' rows = '18' type = 'text' name = 'notes'></textarea>
+                    <textarea rows = '18' type = 'text' name = 'notes' id='notes'></textarea>
                 </div>
                 
                 <input 
@@ -194,11 +194,12 @@
     <script>
         $(document).ready(function() {
             console.log(form);
-            client_insertinfo(form);
+            fixedinputs_insertinfo(form);
             equipment_insertinfo(form);
             costs_insertinfo(form);
             installations_insertinfo(form);
             updates_insertinfo(form);
+           
             $('#update-button').click(function(){postUpdate();});
             $('.button').click(function() {newrow(this);});
         }

@@ -175,6 +175,13 @@
         display: table;
         clear: both;
     }
+    .job-info h3{
+        margin: 0 auto;
+        margin-left: 5%;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 0.8vw;
+        color: grey;
+    }
     .job-info .job-dscrpt{
         display: table-row;
         position: relative;
@@ -186,13 +193,6 @@
         background-color: #B8DDFF;
         box-shadow: 10px 10px 5px #888888;
         float: left;
-    }
-    .job-info h3{
-        margin: 0 auto;
-        margin-left: 5%;
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.8vw;
-        color: grey;
     }
     .job-info .work-done{
         display: table-row;
@@ -220,7 +220,7 @@
         font-size:0.7vw;
         background-color: lightgray;
     }
-    .job-info .installation-table{
+    .installation-table{
         background-color: #B8DDFF;
         float: left;
         left: 10%;

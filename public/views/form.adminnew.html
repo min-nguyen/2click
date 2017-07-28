@@ -10,7 +10,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
+    <link rel="icon" href="data:,">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
@@ -32,7 +32,7 @@
     <div class = 'title'>
         <h1> 2Click </h1>
     </div>
-    <form   method = "post" action = "/form/submit" 
+    <form   method = "post" action = "/form/admin-submit" 
             style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
 
         <div class = 'section-1'>
@@ -46,7 +46,7 @@
 
                     <div class = 'field' >
                         <div class = 'name'> reference number </div>
-                        <input class = "input" type = "text" name = "jobref" id = "jobref">
+                        <input class = "input" type = "text" name = "jobref" id = "jobref" required>
                     </div>
                 </div>
 
@@ -128,14 +128,14 @@
             <div class = 'job-dscrpt'>
                 <h3> Job Description </h3>
                 <div >
-                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'jobdscrpt'></textarea>
+                    <textarea rows = '10' type = 'text' name = 'jobdscrpt' id ='jobdscrpt'></textarea>
                 </div>
             </div>
             
             <div class = 'work-done'>
                 <h3> Actual Work Done </h3>
                 <div>
-                    <textarea class = 'job-input' rows = '10' type = 'text' name = 'workdone'></textarea>
+                    <textarea rows = '10' type = 'text' name = 'workdone' id = 'workdone'></textarea>
                 </div>
             </div>
             
@@ -176,7 +176,7 @@
 
             <div class = 'submit-container'>
                 <div class = 'notes'>
-                    <textarea class = 'job-input' rows = '18' type = 'text' name = 'notes'></textarea>
+                    <textarea rows = '18' type = 'text' name = 'notes'></textarea>
                 </div>
                 
                 <input 
@@ -193,11 +193,46 @@
     <script src = '../javascripts/form.admin.js'> </script>
     <script>
         $(document).ready(function() {
-            
+
             equipment_newrow();
             costs_newrow();
             installations_newrow();
-            $('.button').click(function() {newrow(this);});
+
+            $('#update-button').click(function(){
+                alert("No job reference exists to post an update on");
+            });
+
+            $('.button').click(function() {
+                newrow(this);
+            });
+
+            $('.cost-dscrpt').on('input', function(e){
+                cost_type = ($(this).closest('tr')).find('select[name=costtype]');
+                if($(this).val() != ''){
+                    cost_type.prop('required', true);
+                }
+                else{
+                    cost_type.prop('required',false);
+                }
+                
+            })
+            $('.cost-input').on('input', function(e){
+                  cost_type = ($(this).closest('tr')).find('select[name=costtype]');
+                if($(this).val() != ''){
+                    cost_type.prop('required', true);
+                }
+                else{
+                    cost_type.prop('required',false);
+                }
+            });
+            $('input').val("20");
+            $('textarea').val("test");
+            $('#submit_post').val("submit");
+            // function forceRequired(element){
+            //     if($(element).)
+            // }
+
+           
         }   
     );
     </script>

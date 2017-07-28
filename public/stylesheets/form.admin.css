@@ -19,6 +19,9 @@
         font-size: 60px;
     }
     /* SECTION 1 - CLIENT INFO  */
+    :required {
+        background: red;
+    }
     .section-1{
         position: relative;
         border : 2px black bold;
@@ -230,7 +233,7 @@
         box-shadow: 10px 10px 5px #888888;
         float: left;
     }
-    .job-input {
+    textarea {
         line-height: 14px;
         font-size: 14px;
         width: 100%;
@@ -285,6 +288,11 @@
     }
     .cost-table td{
         position: relative;
+    }
+    .cost-dscrpt {
+        line-height: 14px;
+        font-size: 14px;
+        width: 100%;
     }
     .cost-input{
         margin-left: 1%;

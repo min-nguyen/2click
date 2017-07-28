@@ -34,7 +34,9 @@
     </div>
     <form   method = "post" action = "/form/submit" 
             style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
+
         <div class = 'section-1'>
+
             <div class = 'client-info'>
                 <div class = row>
                     <div id = 'firstname' class = 'field'>
@@ -66,6 +68,7 @@
                         <div class = 'name'> date out </div>
                     </div>
                 </div>
+
                 <div class = row>
                     <div id = 'postcode' class = 'field'>
                         <div class = 'name'> postcode </div>
@@ -81,17 +84,18 @@
                 <div class = 'row' id = 'email'>
                         <div class = 'name'> email address </div>
                 </div>
+
             </div> 
+
+
+
             <div class = 'updates-container'>
                 <div class = 'updates' id = 'updates'>
-                    <div class = 'update'>
-                        hey
-                    </div>
-                    <div class = 'update-time'>
-                        18:00   
-                    </div>
+                    <!--   -->
                 </div>
             </div>
+
+
         </div>
         
 
@@ -111,6 +115,7 @@
         </div>
         
         <div class = 'job-info'>
+
             <div class = 'job-dscrpt' id = 'job-dscrpt'>
                 <h3> Job Description </h3>
             </div>
@@ -129,6 +134,7 @@
         </div> 
 
         <div class = 'cost-info'>
+
             <table class = 'cost-table' id = 'cost-table'>
                 <col style = "width: 2%">
                 <tr id = 'cost-table-header'>
@@ -142,7 +148,9 @@
                 <div class = 'notes'>
                 </div>
             </div>
+
         </div>
+
     </form>
 
     <script src = '../javascripts/form.client.js'> </script>
@@ -150,8 +158,6 @@
     <script>
         
         $(document).ready(function() {
-            console.log(form);
-            console.log(form.equipment);
             client_insertinfo(form);
             equipment_insertinfo(form);
             updates_insertinfo(form);

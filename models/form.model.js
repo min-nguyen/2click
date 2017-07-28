@@ -63,20 +63,37 @@ con.connect(function(err) {
 
 });
 
-Form.insert = function(req, callback) {
+Form.insert = function(req, res, callback) {
     var form = req.body;
     con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['jobref'] + "'", function(err, result){
-        console.log(result);
+        console.log(req.body);
         if(result.length > 0){
             console.log('Reference number exists');
-            Form.update(form);
         }
         else{
             console.log('New reference number');
-            Form.new(form);
+            Form.new(req, res, callback);
         }
-        callback();
     });
+}
+
+Form.replace = function(req, res, callback){
+    form = req.body;
+    console.log("Removing data from " + form.jobref);
+    con.query(  "DELETE `jobs` FROM `jobs` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
+                    console.log(result);
+                });
+    con.query(  "DELETE `costs` FROM `costs` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
+                    console.log(result);
+                });
+    con.query(  "DELETE `equipment` FROM `equipment` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
+                    console.log(result);
+                });
+    con.query(  "DELETE `jobs` FROM `installations` WHERE `installations` = '" + form.jobref + "'", function(err, result){
+                    console.log(result);
+                    Form.new(req, res, callback);
+                });
+
 }
 
 Form.load = function(req, res, callback){
@@ -89,6 +106,11 @@ Form.load = function(req, res, callback){
         con.query("SELECT * FROM jobs WHERE jobref = '" + jobref + "'", 
             function (err, result) {
                 if (err) throw err;
+                if (result.length < 1){
+                    console.log("No job reference for " + jobref + " found, redirecting back");
+                    res.redirect('back');
+                    return;
+                }
                 response.firstname = result[0].firstname;
                 response.surname = result[0].surname;
                 response.jobdscrpt = result[0].jobdscrpt;
@@ -179,6 +201,7 @@ Form.load = function(req, res, callback){
     var getcosts = function(){
         con.query("SELECT * FROM costs WHERE jobref = '" + jobref + "'", 
         function (err, result) {
+            
             if (err) throw err;
             if (result.length != 0){
                 costs = new Array();
@@ -198,9 +221,13 @@ Form.load = function(req, res, callback){
     }
     
     getjob();
+
 }
 
-Form.new = function(form){
+Form.new = function(req, res, callback){
+
+    console.log(req.body);
+    var form = req.body;
     now = new Date();
     var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
 
@@ -228,14 +255,16 @@ Form.new = function(form){
     });
                             
     //////////////////////////////////////////////////
+    if(form['Equipment'] != undefined){
     if(form['Equipment'].constructor === Array ){
+        id = 0;
         for(i = 0; i < form['Equipment'].length; i++){
             if(form['Equipment'][i] == '')
                 continue;
             else{
                 con.query(  "INSERT INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
                             "VALUES (" + "'"    + form['jobref'] + "', '"
-                                                + i + "', '"
+                                                + id + "', '"
                                                 + form['Equipment'][i] + "', '" 
                                                 + form['Make'][i] + "', '" 
                                                 + form['Cable'][i] + "', '" 
@@ -243,7 +272,9 @@ Form.new = function(form){
                                                 + form['Case'][i] + "', '" 
                                                 + form['CDs'][i] + "', '" 
                                                 + form['Manual'][i] + "', '" 
-                                                + form['Additional'][i] + "')");
+                                                + form['Additional'][i] + "')", function(){
+                                                    id++;
+                                                });
             }
         }
     }
@@ -262,9 +293,12 @@ Form.new = function(form){
                                             + form['Additional'] + "')");
         }
     }
+    }
 
     //////////////////////////////////////////////////
+    if(form['costtype'] != undefined){
     if(form['costtype'].constructor === Array){
+        id = 0;
         for(i = 0; i < cost_length; i++){
             if(form['costtype'][i] == '' || form['cost'][i] == '')
                 continue;
@@ -274,7 +308,9 @@ Form.new = function(form){
                                                 + i + "', '"
                                                 + form['costtype'][i] + "', '" 
                                                 + form['costdscrpt'][i] + "', '"
-                                                + form['cost'][i] + "')");
+                                                + form['cost'][i] + "')", function(){
+                                                    id++;
+                                                });
             }
         }
     }
@@ -288,6 +324,7 @@ Form.new = function(form){
                                             + form['cost'] + "')");
         }
     }
+    }
    
 
     if(form['totalcost'] != ''){
@@ -298,9 +335,10 @@ Form.new = function(form){
                                             + "Total Cost"+ "', '"
                                             + form['totalcost'] + "')");
     }
-
+    if(form['installation'] != undefined){
     //////////////////////////////////////////////////
     if(form['installation'].constructor === Array){
+        id = 0;
         for(i = 0; i < form['installation'].length; i++){
             if(form['installation'][i] == '')
                 continue;
@@ -309,7 +347,9 @@ Form.new = function(form){
                             "VALUES (" + "'"    + form['jobref'] + "', '"
                                                 + i + "', '"
                                                 + form['installation'][i] + "', '" 
-                                                + form['installationdscrpt'][i] + "')");
+                                                + form['installationdscrpt'][i] + "')", function(){
+                                                    id++;
+                                                });
             }
         }
     }
@@ -322,10 +362,11 @@ Form.new = function(form){
                                                 + form['installationdscrpt'] + "')");
          }
     }
-
+    }
+    callback();
 }
 
-Form.update = function(req, callback){
+Form.postUpdate = function(req, callback){
     con.query("SELECT MAX(id) AS id FROM updates WHERE jobref = '" + req.body.form.jobref + "'", function(err, results){
         if(results[0].id == null){
             id = 0;
@@ -339,7 +380,14 @@ Form.update = function(req, callback){
                     "VALUES ('" + req.body.form.jobref + "', '" + id + "', '" + req.body.entry + "', '" + time + "')");
         callback();
     });
-    
 }
+
+Form.loadIndex = function(req, callback){
+    con.query("SELECT * FROM jobs ORDER BY datein DESC", function(err, results){
+        console.log(results);
+        callback();
+    })
+}
+
 
 module.exports = Form;

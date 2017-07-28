@@ -3,6 +3,7 @@
 
 <head>
     <title>2Click</title>
+    <link rel="icon" href="data:,">
     <script src="../javascripts/jquery-3.2.1.min.js"></script>
     <style>
         .reference{
@@ -14,17 +15,16 @@
 </head>
 <!--tr, th, td  -->
 <body>
-      <div id = 'address' class = 'reference'>
+    <div style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
+      <div id = 'address' >
           <form method = "post" action = "/form/client">
-            <div class = 'name'> reference </div>
-            <input 
-            type = "text" 
-            name = "jobref">
+            <div> reference </div>
+            <input type = "text" name = "jobref">
             <br>
-            <input 
-            type = "submit" >
+            <input type = "submit" >
         </form>
       </div>
+    </div>
 </body>
 
 </html>

@@ -1,6 +1,5 @@
 ////////////////////////////////////////////////////////
-function client_insertinfo(form){
-    console.log(form.surname);
+function fixedinputs_insertinfo(form){
     $('#firstname').val(form.firstname);
     $('#surname').val(form.surname);
     $('#jobref').val(form.jobref);
@@ -10,6 +9,8 @@ function client_insertinfo(form){
     $('#postcode').val(form.postcode);
     $('#telephone').val(form.telephone);
     $('#email').val(form.email);
+    $('#jobdscrpt').val(form.jobdscrpt);
+    $('#workdone').val(form.workdone);
 }
 ////////////////////////////////////////////////////////
 function updates_insertinfo(form){
@@ -77,7 +78,6 @@ function costs_insertinfo(form){
         return;
 
     var costs = JSON.parse(form.costs);
-    console.log("  ", costs.length);
     for(i = 0; i < costs.length; i++){
         if(costs[i].type == 'total'){
             $('input[name=totalcost]').val(costs[i]['cost']);
@@ -109,7 +109,7 @@ function costs_newrow(){
                     '    <option value="labour">Labour</option> ' +
                     '    <option value="materials">Materials</option> ' +
                     '    <option value="other">Other</option> </select> </th>' +
-                    ' <td>  <textarea class = "job-input" rows = "2" type = "text" name = "costdscrpt"></textarea></td> ' +
+                    ' <td>  <textarea class = "cost-dscrpt" rows = "2" type = "text" name = "costdscrpt"></textarea></td> ' +
                     ' <td>  <input type = "number" name = "cost" class = "cost-input" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td> ' +
                     '</tr>';
     $(tablerow).insertBefore('#cost-table-total');
@@ -155,11 +155,6 @@ function installations_newrow(){
 }
 
 /////////////////////////////////////////////////////////////////
-function work_insertinfo(form){
-    $('#job-dscrpt')
-}
-
-/////////////////////////////////////////////////////////////////
 function newrow(button){
     var id = $(button).attr('id');
     if(id == 'installation-button'){
@@ -177,7 +172,7 @@ function newrow(button){
 function postUpdate(){
     var update_text = $('#update-text').val();
     $.ajax({
-        url: "//localhost:3000/form/adminedit/postupdate", 
+        url: "//localhost:3000/form/admin-edit/postupdate", 
         data: {entry : update_text, form: form}, 
         type: "POST",
         success: function(data){
