@@ -1,0 +1,40 @@
+#grad {
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, yellow); /* Standard syntax */
+}
+
+.row {
+    width: 100%;
+    position: relative;
+    background-color: #B8DDFF;
+    float: left; 
+    vertical-align: middle;
+}
+.name {
+    position: relative;
+    padding: 2%;
+    width: 20%;
+    font: 0.6vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: gray;
+    background-color:  #D2E9FF;
+    float: left;
+    border:1px #e4e4e4 solid;
+    box-shadow:outset 0 1px 2px #000000;
+    -moz-box-shadow:outset 0 1px 2px #000000;
+    -webkit-box-shadow:outset 0 1px 2px #000000;
+}
+.row .input {
+    position: relative;
+    margin-top: 0.5%;
+    padding: 1%;
+    font-size: 1vw;
+    width: 50%;
+}
+
+#reference-button{
+    position: relative;
+    width: 15%;
+}
