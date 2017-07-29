@@ -172,7 +172,7 @@ function newrow(button){
 function postUpdate(){
     var update_text = $('#update-text').val();
     $.ajax({
-        url: "//localhost:3000/form/admin-edit/postupdate", 
+        url: "//localhost:3000/admin/edit/postupdate", 
         data: {entry : update_text, form: form}, 
         type: "POST",
         success: function(data){

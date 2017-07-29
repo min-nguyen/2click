@@ -4,9 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var form_route = require('./routes/form');
-var users_route = require('./routes/users');
+var session = require('express-session');
 
 var app = express();
 
@@ -14,6 +12,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(session({
+  cookieName: 'session',
+  secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true
+}));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -22,8 +29,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-app.use('/form', form_route);
-app.use('/users', users_route);
+
+var admin_route = require('./routes/admin_route');
+var client_route = require('./routes/client_route');
+
+app.use('/admin', admin_route);
+app.use('/users', client_route);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

@@ -3,7 +3,7 @@
 
 <head>
     <title>2Click</title>
-    <link rel="stylesheet" href="../stylesheets/form.input.css">
+    <link rel="stylesheet" href="../stylesheets/form.index.css">
     <link rel="icon" href="data:,">
     <script src="../javascripts/jquery-3.2.1.min.js"></script>
 </head>
@@ -11,7 +11,7 @@
 <body>
     <div style = 'position: absolute; width: 80%; left: 10%' >
 
-        <form method = "post" action = "/form/admin-edit">
+        <form method = "post" action = "/admin/edit">
             <div class = 'row'>
                     <div class = 'name'> ENTER REFERENCE NUMBER </div>
                     <input class = "input" type = "text" name = "jobref" id = "jobref" required>
@@ -27,19 +27,20 @@
                         <th>Reference No.</th>
                         <th>Date In</th>
                         <th>Date Out</th>
+                        <th>Link</th>
                     </tr>
             </table>
         </div>
         
     </div>
-    <script src="../javascripts/form.admin-input.js"></script>
+    <script src="../javascripts/form.admin-index.js"></script>
     <script>
         $(document).ready(function(){
             getPost();
         });
         var getPost = function(){
             $.ajax({
-                url: "//localhost:3000/form/admin-index/getPost", 
+                url: "//localhost:3000/admin/index/getPost", 
                 type: "POST",
                 success: function(data){
                     var forms = JSON.parse(data);
@@ -52,10 +53,16 @@
         var insertRow = function(form){
            row = "<tr> " + "<td>" + form.surname    + "</td>"
                          + "<td>" + form.firstname  + "</td>"
-                         + "<td>" + form.jobref     + "</td>"
+                         + "<td class = 'row-jobref'>" + form.jobref     + "</td>"
                          + "<td>" + form.datein     + "</td>"
-                         + "<td>" + form.dateout    + "</td>" + "</tr>";
-           $('#index-table').append(row); 
+                         + "<td>" + form.dateout    + "</td>" 
+                         + "<td>" + "<button class = 'row-button' type = 'button'> go</button>" + " </td> </tr>";
+            $('#index-table').append(row); 
+            $('.row-button').click(function(){
+               var jobref = ($(this).closest('tr')).find('.row-jobref').text();
+               $('#jobref').val(jobref);
+               $('#submit-button').click();
+            })
         }
         
     </script>

@@ -3,6 +3,7 @@ var config = require('../config');
 var dateFormat = require('dateformat'); 
 var async = require('async');
 var path = require('path');
+
 var Form = function(){
 
 }
@@ -384,7 +385,6 @@ Form.postUpdate = function(req, res, callback){
 
 Form.getPost = function(req, res, callback){
     con.query("SELECT * FROM jobs ORDER BY datein DESC", function(err, results){
-        console.log(results);
         for(i = 0; i < results.length; i++){
             results[i].datein = String(results[i].datein);
             results[i].dateout = String(results[i].dateout);
@@ -392,8 +392,5 @@ Form.getPost = function(req, res, callback){
         res.send(JSON.stringify(results));
     })
 }
-
-Form
-
 
 module.exports = Form;
