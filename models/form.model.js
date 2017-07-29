@@ -67,7 +67,6 @@ con.connect(function(err) {
 Form.insert = function(req, res, callback) {
     var form = req.body;
     con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['jobref'] + "'", function(err, result){
-        console.log(req.body);
         if(result.length > 0){
             console.log('Reference number exists');
         }
@@ -80,7 +79,6 @@ Form.insert = function(req, res, callback) {
 
 Form.replace = function(req, res, callback){
     form = req.body;
-    console.log("Removing data from " + form.jobref);
     con.query(  "DELETE `jobs` FROM `jobs` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
                     console.log(result);
                 });
@@ -227,7 +225,6 @@ Form.load = function(req, res, callback){
 
 Form.new = function(req, res, callback){
 
-    console.log(req.body);
     var form = req.body;
     now = new Date();
     var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");

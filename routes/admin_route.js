@@ -5,33 +5,30 @@ var path = require('path');
 var form_model = require('../models/form.model');
 var user_model = require('../models/user.model');
 
-// function requireLogin(req, res, next){
-//   res.redirect('/admin/login');
-//   // if (!req.username) {
-//   //   res.redirect('/admin/login');
-//   // } else {
-//   //   next();
-//   // }
-// }
 
-// router.use(function(req, res, next){
-//   if(req.session && req.session.username){
-//     next();
-//   }
-// })
-
+// PRIORITISE IF LOGIN/ENTER IS REQUESTED
 router.get('/login', function(req, res, next){
-    res.sendfile(path.join(__dirname + '/../public/views/adminlogin.html'));
+  res.sendfile(path.join(__dirname + '/../public/views/adminlogin.html'));
 });
 
 router.post('/enter', function(req, res, next){
+  console.log(req)
     user_model.authenticate(req, res, function(){
-      req.username = req.body.username;
       req.session.username = req.body.username;
       res.locals.username = req.body.username;
       res.redirect('/admin/index');
     });
 });
+
+// IF NOT LOGIN OR ENTER, CHECK IF SESSION IS AUTHENTICATED
+// KEEP THIS BELOW LOGIN AND ENTER FUNCTIONS
+router.use(function(req, res, next){
+  if (!req.session.username) {
+    res.redirect('/admin/login');
+  } else {
+    next();
+  }
+})
 
 router.get('/new', function(req, res, next) {
   res.sendfile(path.join(__dirname + '/../public/views/form.adminnew.html'));
