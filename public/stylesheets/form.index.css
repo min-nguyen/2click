@@ -1,0 +1,57 @@
+#grad {
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, yellow); /* Standard syntax */
+}
+
+.row {
+    width: 50%;
+    position: relative;
+    background-color: #B8DDFF;
+    /* float: left;  */
+    vertical-align: middle;
+    overflow: hidden;
+}
+.name {
+    position: relative;
+    padding: 2%;
+    width: 20%;
+    font: 0.5vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: black;
+    background-color:  #D2E9FF;
+    float: left;
+    border:1px #e4e4e4 solid;
+    box-shadow:outset 0 1px 2px #000000;
+    -moz-box-shadow:outset 0 1px 2px #000000;
+    -webkit-box-shadow:outset 0 1px 2px #000000;
+}
+.row .input {
+    position: absolute;
+    top: 10%;
+    height: 60%;
+    right: 12.5%;
+    font-size: 0.8vw;
+    width: 60%;
+    left: 15;
+}
+#submit-button {
+    position: absolute;
+    right: 0%;
+    height: 100%;
+}
+
+#index-table{
+    width: 100%;
+    text-align: center;
+    font: 0.6vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: black;
+    background-color:  #D2E9FF;
+}
+#index-table tr:nth-child(even) {
+    background-color:white;
+}
+#index-table th{
+    border: 1px solid black;
+}
