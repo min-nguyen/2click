@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>2Click</title>
+    <link rel="stylesheet" href="../stylesheets/form.input.css">
+    <link rel="icon" href="data:,">
+    <script src="../javascripts/jquery-3.2.1.min.js"></script>
+</head>
+<!--tr, th, td  -->
+<body>
+    <div style = 'position: absolute; width: 80%; left: 10%' >
+
+        <form method = "post" action = "/form/admin-edit">
+            <div class = 'row'>
+                    <div class = 'name'> ENTER REFERENCE NUMBER </div>
+                    <input class = "input" type = "text" name = "jobref" id = "jobref" required>
+                    <button type = "submit" id = 'submit-button'> Submit </button>
+            </div>
+        </form>
+
+        <div class = 'row'>
+            <table id = 'index-table'>
+                    <tr>
+                        <th>Surname</th>
+                        <th>First Name</th>
+                        <th>Reference No.</th>
+                        <th>Date In</th>
+                        <th>Date Out</th>
+                    </tr>
+            </table>
+        </div>
+        
+    </div>
+    <script src="../javascripts/form.admin-input.js"></script>
+    <script>
+        $(document).ready(function(){
+            getPost();
+        });
+        var getPost = function(){
+            $.ajax({
+                url: "//localhost:3000/form/admin-index/getPost", 
+                type: "POST",
+                success: function(data){
+                    var forms = JSON.parse(data);
+                    for(i = 0; i < forms.length; i++){
+                        insertRow(forms[i]);
+                    }
+                }
+            });
+        }
+        var insertRow = function(form){
+           row = "<tr> " + "<td>" + form.surname    + "</td>"
+                         + "<td>" + form.firstname  + "</td>"
+                         + "<td>" + form.jobref     + "</td>"
+                         + "<td>" + form.datein     + "</td>"
+                         + "<td>" + form.dateout    + "</td>" + "</tr>";
+           $('#index-table').append(row); 
+        }
+        
+    </script>
+</body>
+
+
+</html>
