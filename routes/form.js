@@ -14,18 +14,19 @@ router.post('/admin-submit', function(req, res, next){
   })
 });
 
-router.get('/admin-index', function(req, res, next){
-  form_model.loadIndex(req, function(){
-    res.redirect('/form/adminnew');
-  });
-})
 
-router.get('/admin-input', function(req, res, next) {
-  res.sendfile(path.join(__dirname + '/../public/views/form.admininput.html'));
+router.post('/admin-index/getPost', function(req, res, next){
+  form_model.getPost(req, res, function(){
+    
+  });
+});
+
+router.get('/admin-index', function(req, res, next) {
+  res.sendfile(path.join(__dirname + '/../public/views/form.adminindex.html'));
 });
 
 router.post('/admin-edit/postupdate', function(req, res, next) {
-  form_model.postUpdate(req, function(){
+  form_model.postUpdate(req, res, function(){
      res.send('successful');
   });
 });

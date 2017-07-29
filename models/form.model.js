@@ -366,7 +366,7 @@ Form.new = function(req, res, callback){
     callback();
 }
 
-Form.postUpdate = function(req, callback){
+Form.postUpdate = function(req, res, callback){
     con.query("SELECT MAX(id) AS id FROM updates WHERE jobref = '" + req.body.form.jobref + "'", function(err, results){
         if(results[0].id == null){
             id = 0;
@@ -382,12 +382,18 @@ Form.postUpdate = function(req, callback){
     });
 }
 
-Form.loadIndex = function(req, callback){
+Form.getPost = function(req, res, callback){
     con.query("SELECT * FROM jobs ORDER BY datein DESC", function(err, results){
         console.log(results);
-        callback();
+        for(i = 0; i < results.length; i++){
+            results[i].datein = String(results[i].datein);
+            results[i].dateout = String(results[i].dateout);
+        }
+        res.send(JSON.stringify(results));
     })
 }
+
+Form
 
 
 module.exports = Form;
