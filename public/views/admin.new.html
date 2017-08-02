@@ -17,8 +17,8 @@
     <!--W3-CSS-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <link rel="stylesheet" href="../stylesheets/form.admin.css">
-
+    <link rel="stylesheet" href="../stylesheets/admin.form.css">
+    <link rel="stylesheet" href="../stylesheets/admin.head.css">
     <style type="text/css">
     @font-face{
         font-family: BebasNeue;
@@ -29,11 +29,25 @@
 </head>
 <!--tr, th, td  -->
 <body>
-    <div class = 'title'>
-        <h1> 2Click </h1>
+
+    <div class = 'tab-container'>
+        <div class = 'tab-margin-0'>
+            <div class = 'tab' >
+                    2Click
+            </div>
+            <div class = 'tab' id = 'tab-index' data-link = 'index'>
+                    Index
+            </div>
+            <div class = 'tab' id = 'tab-newform' data-link = 'new'>
+                    New Form
+            </div>
+        </div>
     </div>
-    <form   method = "post" action = "/admin/submit" 
-            style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
+
+
+
+    <form   method = "post" action = "/admin/submit" id = "form"
+            style = 'position: relative; padding-top: 100px;' >
 
         <div class = 'section-1'>
 
@@ -81,6 +95,13 @@
                         <div class = 'name'> telephone number </div>
                         <input class = "input" type = "text" name = "telephone" id = "telephone">
                     </div>
+                    <div class = 'field'>
+                        <div class = 'name'> status </div>
+                        <div style = 'padding-top: 3px'>
+                            <input type="radio" name="status" value="Ready" id="status-ready" disabled> <label for="status-ready">Ready</label>
+                            <input type="radio" name="status" value="Not Ready" id="status-notready" checked="checked"> <label for="status-notready">Not Ready</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class = row >
@@ -95,8 +116,8 @@
                 <div class = 'updates' id = 'updates'>
 
                 </div>
-                <textarea class = 'input' rows = '2' type = 'text' name = 'update'></textarea>
-                <button type = "button" class="button" id='update-button'> Post Update </button>
+                <textarea class = 'input' rows = '2' type = 'text' name = 'update' readonly></textarea>
+                <button type = "button" class="button" id='update-button'disabled> Post Update </button>
             </div>
 
         </div>
@@ -126,14 +147,14 @@
         <div class = 'section-3'>
 
             <div class = 'job-dscrpt'>
-                <h3> Job Description </h3>
+                <div class = 'title'> Job Description </div>
                 <div >
                     <textarea rows = '10' type = 'text' name = 'jobdscrpt' id ='jobdscrpt'></textarea>
                 </div>
             </div>
             
             <div class = 'work-done'>
-                <h3> Actual Work Done </h3>
+                <div class = 'title'> Actual Work Done </div>
                 <div>
                     <textarea rows = '10' type = 'text' name = 'workdone' id = 'workdone'></textarea>
                 </div>
@@ -141,15 +162,14 @@
             
             <table class = 'installation-table' id = 'installation-table'>
                 <tr> 
-                    <th> <h3> Installation </h3> </th>
-                    <th> <h3> Description </h3> </th>
+                    <th> Installation </th>
+                    <th> Description  </th>
                 </tr>
                 <tr id = 'installation-button-row'> 
-                    <td> <h3> </h3> </td>
+                    <td> </td>
                     <td> <button type = "button" class="button" id='installation-button'> New Row </button></td>
                 </tr>
             </table>
-            
         </div> 
 
         <div class = 'section-4'>
@@ -157,18 +177,18 @@
             <table class = 'cost-table' id = 'cost-table'>
                 <col style = "width: 2%">
                 <tr id = 'cost-table-header'>
-                    <th> <h3> Type </h3> </th>
-                    <th> <h3> Description </h3> </th>
-                    <th> <h3> Cost </h3> </th>
+                    <th> Type </th>
+                    <th> Description </th>
+                    <th> Cost </th>
                 </tr>
                 
                 <tr id = 'cost-table-total'>
-                    <th style = 'position: relative; margin: 10%;'> <h3> Total </h3> </th>
+                    <td style = 'position: relative; margin: 10%;'> <h3> Total </h3> </td>
                     <td> </td>
                     <td>  <input type = "number" name = 'totalcost' class = 'cost-input' value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"/></td>
                 </tr>
                 <tr id = 'cost-button-row'> 
-                    <th> </th>
+                    <td> </td>
                     <td> </td>
                     <td> <button type = "button" class="button" id='cost-button'> New Row </button></td>
                 </tr>
@@ -178,19 +198,23 @@
                 <div class = 'notes'>
                     <textarea rows = '18' type = 'text' name = 'notes'></textarea>
                 </div>
-                
-                <input 
+                 <input 
+                    type = 'button' 
+                    style = "box-shadow: 10px 10px 5px #888888;position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
+                    id = "dummy-submit"
+                    value = "submit"> 
+                <!-- <input 
                     type = "submit" 
                     style = "box-shadow: 10px 10px 5px #888888;position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
                     id = "submit_post"
-                    value = "submit">
-                <br>  
+                    value = "submit" >
+                <br>   -->
             </div>
         </div>
     </form>
 
 
-    <script src = '../javascripts/form.admin.js'> </script>
+    <script src = '../javascripts/admin.new.js'> </script>
     <script>
         $(document).ready(function() {
 
@@ -205,7 +229,9 @@
             $('.button').click(function() {
                 newrow(this);
             });
-
+            $('#dummy-submit').click(function(){
+                checkValidJobRef();
+            });
             $('.cost-dscrpt').on('input', function(e){
                 cost_type = ($(this).closest('tr')).find('select[name=costtype]');
                 if($(this).val() != ''){
@@ -225,14 +251,12 @@
                     cost_type.prop('required',false);
                 }
             });
-            $('input').val("20");
-            $('textarea').val("test");
-            $('#submit_post').val("submit");
-            // function forceRequired(element){
-            //     if($(element).)
-            // }
-
-           
+            $('.tab').on('click', function(){
+                if($(this).attr('data-link')){
+                    var str = $(this).attr('data-link');
+                    window.location.replace(str);
+                }
+            })
         }   
     );
     </script>

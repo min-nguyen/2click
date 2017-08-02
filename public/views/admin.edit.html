@@ -17,8 +17,8 @@
     <!--W3-CSS-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <link rel="stylesheet" href="../stylesheets/form.admin.css">
-
+    <link rel="stylesheet" href="../stylesheets/admin.form.css">
+    <link rel="stylesheet" href="../stylesheets/admin.head.css">
     <style type="text/css">
     @font-face{
         font-family: BebasNeue;
@@ -29,14 +29,24 @@
 </head>
 <!--tr, th, td  -->
 <body>
-    <div class = 'title'>
-        <h1> 2Click </h1>
+    <div class = 'tab-container'>
+        <div class = 'tab-margin-0'>
+            <div class = 'tab' >
+                    2Click
+            </div>
+            <div class = 'tab' id = 'tab-index' data-link = 'index'>
+                    Index
+            </div>
+            <div class = 'tab' id = 'tab-newform' data-link = 'new'>
+                    New Form
+            </div>
+        </div>
     </div>
     <form   method = "post" action = "/admin/submit-edit" id = "form"
-            style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
+            style = 'position: relative; padding-top: 100px;' >
 
         <div class = 'section-1'>
-
+            <input type="hidden" id="clientid" name = "clientid" value="" />
             <div class = 'client-info'>
                 <div class = row>
                     <div class = 'field'>
@@ -44,9 +54,9 @@
                         <input class = "input" type = "text" name = "firstname" id = "firstname">
                     </div>
 
-                    <div class = 'field' >
-                        <div class = 'name'> reference number </div>
-                        <input class = "input" type = "text" name = "jobref" id = "jobref">
+                    <div class = 'field'>
+                            <div class = 'name'> reference number </div>
+                            <input class = "input" type = "text" name = "jobref" id = "jobref" readonly>
                     </div>
                 </div>
 
@@ -80,6 +90,13 @@
                     <div class = 'field'>
                         <div class = 'name'> telephone number </div>
                         <input class = "input" type = "text" name = "telephone" id = "telephone">
+                    </div>
+                    <div class = 'field'>
+                        <div class = 'name'> status </div>
+                        <div style = 'padding-top: 3px'>
+                            <input type="radio" name="status" value="Ready" id="status-ready"> <label for="status-ready">Ready</label>
+                            <input type="radio" name="status" value="Not Ready" id="status-notready"> <label for="status-notready">Not Ready</label>
+                        </div>
                     </div>
                 </div>
 
@@ -126,14 +143,14 @@
         <div class = 'section-3'>
 
             <div class = 'job-dscrpt'>
-                <h3> Job Description </h3>
+                <div class = 'title'> Job Description </div>
                 <div >
                     <textarea class = 'job-input' rows = '10' type = 'text' name = 'jobdscrpt' id = 'jobdscrpt'></textarea>
                 </div>
             </div>
             
             <div class = 'work-done'>
-                <h3> Actual Work Done </h3>
+                <div class = 'title'> Actual Work Done </div>
                 <div>
                     <textarea class = 'job-input' rows = '10' type = 'text' name = 'workdone' id = 'workdone'></textarea>
                 </div>
@@ -141,11 +158,11 @@
             
             <table class = 'installation-table' id = 'installation-table'>
                 <tr> 
-                    <th> <h3> Installation </h3> </th>
-                    <th> <h3> Description </h3> </th>
+                    <th>Installation</th>
+                    <th>Description</th>
                 </tr>
                 <tr id = 'installation-button-row'> 
-                    <td> <h3> </h3> </td>
+                    <td></td>
                     <td> <button type = "button" class="button" id='installation-button'> New Row </button></td>
                 </tr>
             </table>
@@ -157,18 +174,18 @@
             <table class = 'cost-table' id = 'cost-table'>
                 <col style = "width: 2%">
                 <tr id = 'cost-table-header'>
-                    <th> <h3> Type </h3> </th>
-                    <th> <h3> Description </h3> </th>
-                    <th> <h3> Cost </h3> </th>
+                    <th> Type </th>
+                    <th> Description  </th>
+                    <th> Cost </th>
                 </tr>
                 
                 <tr id = 'cost-table-total'>
-                    <th style = 'position: relative; margin: 10%;'> <h3> Total </h3> </th>
+                    <td style = 'position: relative; margin: 10%;'> <h3> Total </h3> </td>
                     <td> </td>
                     <td>  <input type = "number" name = 'totalcost' class = 'cost-input' value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"/></td>
                 </tr>
                 <tr id = 'cost-button-row'> 
-                    <th> </th>
+                    <td> </td>
                     <td> </td>
                     <td> <button type = "button" class="button" id='cost-button'> New Row </button></td>
                 </tr>
@@ -188,20 +205,29 @@
             </div>
         </div>
     </form>
-
-    <script src = '../javascripts/form.admin.js'> </script>
+    <script src = '../javascripts/admin.edit.js'> </script>
     <script type="text/javascript">var form = <%-form%>;</script>
     <script>
         $(document).ready(function() {
             console.log(form);
-            fixedinputs_insertinfo(form);
+            client_insertinfo(form);
             equipment_insertinfo(form);
             costs_insertinfo(form);
             installations_insertinfo(form);
             updates_insertinfo(form);
-           
-            $('#update-button').click(function(){postUpdate();});
-            $('.button').click(function() {newrow(this);});
+            $('#update-button').click(function(){
+                postUpdate();
+                window.location.reload(true);
+            });
+            $('.button').click(function() {
+                newrow(this);
+            });
+            $('.tab').on('click', function(){
+                if($(this).attr('data-link')){
+                    var str = $(this).attr('data-link');
+                    window.location.replace(str);
+                }
+            })
         }
     );
     </script>

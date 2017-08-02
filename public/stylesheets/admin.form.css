@@ -1,78 +1,71 @@
     /* TITLE  */
+    
+    @font-face{
+            font-family: nova;
+            src: url("/stylesheets/fonts/nova.otf");
+    }
     .title{
         position: relative;
-        left: 17.5%;
         top: 10%;
         text-align: center;
-        width: 65%;
+        width: 100%;
         height: 10%;
-        border: 1px solid #3399ff;
-        box-shadow:  10px 10px 10px 10px grey;
-        margin-bottom: 2%;
-        }
+        background-color:#343131;
+        margin-bottom: 1%;
+    }
     .title h1 {
         position: relative;
-        font-family: BebasBeue;
-        top: 15%;
-        color: grey;
-        background-color: #B8DDFF;
-        font-size: 60px;
+        font-family: nova;
+        color: #58D4ED;
+        font-size: 40px;
     }
     /* SECTION 1 - CLIENT INFO  */
     :required {
         background: red;
     }
     .section-1{
+        margin: 0 auto;
         position: relative;
         border : 2px black bold;
-        width: 80%;
+        width: 1000px;
         min-height: 40%;
-        left: 10%;
         display: table;
         clear: both;
     }
     .client-info {
         position: relative;
-        border : 2px black bold;
         width: 50%;
-        background: #F7F7F7;
         float: left;
     }
     .row{
         margin: auto 0;
         position: relative;
         width: 100%;
+        border: 1px solid black;
         margin-bottom: 5%;
-        background: #B8DDFF;
-        text-shadow: 1px 1px 1px #949494;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
-        border-bottom:1px solid #0099ff;
     }
-    .row .field {
+     .row .field {
         width: 50%;
         position: relative;
-        background-color: #B8DDFF;
         float: left; 
-        border:1px #e4e4e4 solid;
+        border-right:1px #e4e4e4 solid;
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
         -webkit-box-shadow:outset 0 1px 2px #000000;
         vertical-align: middle;
     }
-    .name {
+    .row .name {
         position: relative;
         padding: 2%;
-        width: 50%;
-        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
-        color: gray;
-        background-color:  #D2E9FF;
+        width: 40%;
+        font: 14px nova;
         float: left;
-        border:1px #e4e4e4 solid;
-        box-shadow:outset 0 1px 2px #000000;
-        -moz-box-shadow:outset 0 1px 2px #000000;
-        -webkit-box-shadow:outset 0 1px 2px #000000;
+    }
+    label{
+        font-size: 10px;
     }
     .row h2{
         position: relative;
@@ -80,11 +73,8 @@
         margin: 0 auto;
         width: 50%;
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.9vw;
-        color: gray;
-        background-color:  #F0F8FF;
+        font-size:13px;
         float: left;
-        border:1px #e4e4e4 solid;
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
         -webkit-box-shadow:outset 0 1px 2px #000000;
@@ -99,7 +89,7 @@
         float: left;
         right: 2%;
         height: 100%;
-        width: 40%;
+        width: 60%;
     }
     .updates-container {
         position: absolute;
@@ -114,14 +104,13 @@
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
-        border-bottom:1px solid #0099ff;
     }
     .updates {
         position: absolute;
-        height: 80%;
+        overflow: auto;
+        height: 100%;
         width: 100%;
         background-color: white;
-        overflow: auto;
     }
     .updates .update{
         padding: 2%;
@@ -134,7 +123,7 @@
     }
     .updates .update-time{
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.7vw;
+        font-size: 12px;
         background-color: gray;
         position: relative;
         text-align: right;
@@ -142,20 +131,18 @@
     }
     .updates-container .input{
         position: absolute;
-        line-height: 0.7vw;
-        font-size: 0.7vw;
+        line-height: 13px;
+        font-size: 13px;
         height: 15%;
         width: 80%;
         bottom: 0;
     }
     /* SECTION 2 - EQUIPMENT INFO  */
-    .section-2 {
+     .section-2{
         position: relative;
-        border : 2px black bold;
-        width: 80%;
-        left: 10%;
-        background-color: #B8DDFF;
+        width: 1000px;
         box-shadow: 10px 10px 5px #888888;
+        margin: 0 auto;
         margin-top: 1%;
         margin-bottom: 1%;
     }
@@ -165,7 +152,7 @@
         border-collapse: collapse;
         width: 100%;
         height: 100%;
-        font-size: 1vw;
+        font-size:13px;
         table-layout:fixed;
     }
     .table-input{
@@ -178,68 +165,70 @@
         text-align: left;
         padding-left: 1%;
         width: 10%;
-        color: grey;
-        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: #58D4ED;
+        background: #343131;
+        font-family: nova;
     }
     .equipment-table td {
         position: relative;
+        border: 1px solid black;
         text-align: left;
         overflow: auto;
+        font: "Trebuchet MS", Arial, Helvetica, sans-serif;
     } 
-    .equipment-table tr:nth-child(even) {
-        background-color: #dddddd;
-    }
     /* SECTION 3 - JOB INFO  */
     .section-3{
         position: relative;
-        border : 2px black bold;
-        width: 80%;
-        min-height: 40%;
-        left: 10%;
+        width: 1000px;
+        margin: 0 auto;
         display: table;
         clear: both;
     }
     .section-3 h3{
+        margin: 0 auto;
         margin-left: 5%;
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.8vw;
-        color: grey;
+        font-size: 15px;
+        color: black;
     }
     .job-dscrpt{
+        font-family: nova;
+        background: #343131;
         display: table-row;
         position: relative;
         min-height: 100%;
+        padding-top: 5px;
         width: 30%;
-        left: 0%;
-        line-height: 2vw;
         border: 2px solid black;
-        background-color: #B8DDFF;
         box-shadow: 10px 10px 5px #888888;
         float: left;
     }
     .work-done{
+        font-family: nova;
+        background: #343131;
         display: table-row;
         position: relative;
         min-height: 100%;
+        padding-top: 5px;
         width: 30%;
         left: 5%;
-        line-height: 2vw;
-        font-size: 7px;
-        font-family: arial, sans-serif;
-        color: black;
-        font-size: 1vw;
         border: 2px solid black;
-        background-color: #B8DDFF;
         box-shadow: 10px 10px 5px #888888;
         float: left;
     }
+    .section-3 .title{
+        text-align: left;
+        padding-left: 4%;
+        line-height: 13px;
+        color: #58D4ED;
+        font-family: nova;
+        font: 15px;
+    }
     textarea {
         line-height: 14px;
-        font-size: 14px;
+        font-size: 13px;
         width: 100%;
     }
     .installation-table{
-        background-color: #B8DDFF;
         float: left;
         left: 10%;
         position: relative; 
@@ -249,19 +238,29 @@
         box-shadow: 10px 10px 5px #888888;
     }
     .installation-table td{
-        background-color:#D2E9FF;
-        padding: 0.5%;
+        color: black;
+        padding-top: 5%;
+        font-size: 13px;
+        background-color:white;
+    }
+    .drop-down{
+        font-size: 12px;
+        height: 100%;
+        position: relative;
     }
     .installation-table th{
-        font-size: 0.8vw;
-        padding-left: 2%;
+        font-family: nova;
+        font-size: 15px;
+        padding-left: 5%;
+        background-color: #343131;
+        color: #58D4ED;
     }
      /* SECTION 4 - COST INFO  */
     .section-4 {
-        position: absolute;
+        position: relative;
         border : 2px black bold;
-        width: 80%;
-        left: 10%;
+        width: 1000px;
+        margin: 0 auto;
         margin-top: 1%;
         margin-bottom: 1%;
     }
@@ -273,7 +272,6 @@
         border: 2px solid black;
         table-layout: fixed;
         float: left;
-        background-color: #D2E9FF;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
@@ -285,14 +283,20 @@
     .cost-table th{
         position: relative;
         width: 5%; 
+        font-family: nova;
+        font-size:13px;
+        background-color: #343131;
+        color: #58D4ED;
+        padding-left: 1%;
     }
     .cost-table td{
         position: relative;
     }
     .cost-dscrpt {
-        line-height: 14px;
         font-size: 14px;
         width: 100%;
+        margin-left: 1%;
+        margin: 0 auto;
     }
     .cost-input{
         margin-left: 1%;
@@ -300,11 +304,10 @@
         top: 0;
         height: 100%;
         width: 99%;
-        
     }
     .cost-table h3{
         font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.8vw;
+        font-size: 13px;
         color: grey;
         padding-left: 5%;
     }
@@ -326,6 +329,7 @@
     .drop-down{
         position: relative;
         width: 90%;
+        height: 70%;
         left: 5%;
     }
     input[text='text']{
@@ -341,7 +345,7 @@
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 0.8vw;
+        font-size: 12px;
         cursor: pointer;
     }
     .cost-table .button {
@@ -358,7 +362,7 @@
     }
     .updates-container .button{
         position: absolute;
-        font-size: 0.7vw;
+        font-size: 12px;
         height: 15%;
         left:80%;
         width:20%;

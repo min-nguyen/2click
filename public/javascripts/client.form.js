@@ -5,12 +5,14 @@ function client_insertinfo(form){
     $('#datein').append('<h2>' + form.datein + '</h2>');
     $('#dateout').append('<h2>' + form.dateout + '</h2>');
     $('#address').append('<h2>' + form.address + '</h2');
+    $('input[name="status"][value="' + form.status + '"]').attr('checked', 'checked');
     $('#postcode').append('<h2>' + form.postcode + '</h2>');
     $('#telephone').append('<h2>' + form.telephone + '</h2>');
     $('#email').append('<h2>' + form.email + '</h2>');
 }
 
 function equipment_insertinfo(form){
+    console.log(form.equipment);
     if(form.equipment == undefined)
         return;
 
@@ -30,6 +32,7 @@ function equipment_insertrow(equipment){
         var cell_input =    '<td>'  + equipment[col_name]+ ' </td>';
         tablerow += cell_input;      
     }
+    console.log("adding :" + tablerow);
     tablerow += '</tr>';
     table.append(tablerow);
 };

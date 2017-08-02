@@ -34,7 +34,7 @@ var admin_route = require('./routes/admin_route');
 var client_route = require('./routes/client_route');
 
 app.use('/admin', admin_route);
-app.use('/users', client_route);
+app.use('/client', client_route);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

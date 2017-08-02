@@ -24,7 +24,7 @@ con.connect(function(err) {
 
   con.query("CREATE TABLE IF NOT EXISTS admins (username VARCHAR(255), "
                                             +   "password VARCHAR(255))" ,
-    function (err, result) {
+    function (err, result) {;
         if (err) throw err;
   });
 });

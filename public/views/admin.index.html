@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>2Click</title>
+    
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../stylesheets/admin.index.css">
+    <link rel="stylesheet" href="../stylesheets/admin.head.css">
+    <script src="../javascripts/jquery-3.2.1.min.js"></script>
+
+</head>
+<!--tr, th, td  -->
+<body style = 'margin: 0'>
+
+    <div class = 'tab-container-index'>
+        <div class = 'tab-margin-0'>
+            <div class = 'tab' >
+                    2Click
+            </div>
+            <div class = 'tab' id = 'tab-index' data-link = 'index'>
+                    Index
+            </div>
+            <div class = 'tab' id = 'tab-newform' data-link = 'new'>
+                    New Form
+            </div>
+        </div>
+    </div>
+
+    <div style = 'margin: 0 auto; position: relative; width: 1000px; padding-top: 100px;'>
+
+        <form method = "post" action = "/admin/edit">
+            <div class = 'row-header'>
+                    <div class = 'name'> ENTER REFERENCE NUMBER </div>
+                    <input class = "input" type = "text" name = "jobref" id = "jobref" required>
+                    <button type = "submit" id = 'submit-button'> Submit </button>
+            </div>
+        </form>
+
+        <div class = 'row'>
+            <table id = 'index-table'>
+                    <tr class = 'fixed-row' id = 'header-row'>
+                        <th>Surname</th>
+                        <th>First Name</th>
+                        <th>Reference No.</th>
+                        <th>Date In</th>
+                        <th>Date Out</th>
+                        <th>Link</th>
+                    </tr>
+                    <tr class = 'fixed-row' id = 'search-row'>
+                        <th><input class = 'search' type = 'text' id = 'surname-input'></th>
+                        <th><input class = 'search' type = 'text' id = 'firstname-input'></th>
+                        <th><input class = 'search' type = 'text' id = 'jobref-input'></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+            </table>
+        </div>
+        
+    </div>
+
+    <script src="../javascripts/admin.index.js"></script>
+    <script>
+        $(document).ready(function(){
+            getPost();
+            search();
+            $('.tab').on('click', function(){
+                if($(this).attr('data-link')){
+                    var str = $(this).attr('data-link');
+                    window.location.replace(str);
+                }
+            })
+        });
+    </script>
+
+</body>
+
+
+</html>

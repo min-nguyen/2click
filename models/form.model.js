@@ -3,6 +3,8 @@ var config = require('../config');
 var dateFormat = require('dateformat'); 
 var async = require('async');
 var path = require('path');
+var q = require('q');
+
 
 var Form = function(){
 
@@ -26,76 +28,66 @@ con.connect(function(err) {
 
   con.query("USE 2click");
 
-  con.query("CREATE TABLE IF NOT EXISTS clients (firstname VARCHAR(10), "
+  con.query("CREATE TABLE IF NOT EXISTS clients (id INT(11) NOT NULL AUTO_INCREMENT,"
+                                            +   "firstname VARCHAR(10), "
                                             +   "surname VARCHAR(255)," 
                                             +   "address VARCHAR(255)," 
                                             +   "postcode VARCHAR(255),"
                                             +   "telephone VARCHAR(255),"
-                                            +   "email VARCHAR(255))", 
+                                            +   "email VARCHAR(255),"
+                                            +   "PRIMARY KEY(id))", 
     function (err, result) {
         if (err) throw err;
         console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS jobs (jobref VARCHAR(255), jobdscrpt VARCHAR(255), firstname VARCHAR(10), surname VARCHAR(255), workdone VARCHAR(255), datein DATETIME, dateout DATETIME)", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS jobs (jobref VARCHAR(255) NOT NULL PRIMARY KEY, jobdscrpt VARCHAR(255), workdone VARCHAR(255), datein DATETIME, dateout DATETIME, status SET('Ready', 'Not Ready'), clientid INT(11), FOREIGN KEY (clientid) REFERENCES clients(id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS updates (jobref VARCHAR(255), id INT(11), dscrpt VARCHAR(255), time DATETIME)", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS updates (jobref VARCHAR(255), id INT(11), dscrpt VARCHAR(255), time DATETIME, FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref VARCHAR(255), id INT(11), equipment VARCHAR(255), make VARCHAR(255), cable VARCHAR(255), charger VARCHAR(255), cases VARCHAR(255), cds VARCHAR(255), manual VARCHAR(255), additional VARCHAR(255))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref VARCHAR(255), id INT(11), equipment VARCHAR(255), make VARCHAR(255), cable VARCHAR(255), charger VARCHAR(255), cases VARCHAR(255), cds VARCHAR(255), manual VARCHAR(255), additional VARCHAR(255), FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS costs (jobref VARCHAR(255), id INT(11), type SET('labour', 'materials', 'other', 'total'), dscrpt VARCHAR(255), cost DECIMAL(10,2))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS costs (jobref VARCHAR(255), id INT(11), type SET('Labour', 'Materials', 'Other', 'Total'), dscrpt VARCHAR(255), cost DECIMAL(10,2), FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS installations (jobref VARCHAR(255), id INT(11), type SET('hardware', 'software', 'other'), dscrpt VARCHAR(255))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS installations (jobref VARCHAR(255), id INT(11), type SET('Hardware', 'Software', 'Other'), dscrpt VARCHAR(255), FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
 });
 
-Form.insert = function(req, res, callback) {
-    var form = req.body;
-    con.query("SELECT 1 FROM jobs WHERE jobref = '" + form['jobref'] + "'", function(err, result){
-        if(result.length > 0){
-            console.log('Reference number exists');
-        }
-        else{
-            console.log('New reference number');
-            Form.new(req, res, callback);
-        }
-    });
-}
+var form_db = require('./form.db')(con);
 
-Form.replace = function(req, res, callback){
+
+
+Form.replaceForm = function(req, res, callback){
     form = req.body;
-    con.query(  "DELETE `jobs` FROM `jobs` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
-                    console.log(result);
-                });
-    con.query(  "DELETE `costs` FROM `costs` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
-                    console.log(result);
-                });
-    con.query(  "DELETE `equipment` FROM `equipment` WHERE `jobref` = '" + form.jobref + "'", function(err, result){
-                    console.log(result);
-                });
-    con.query(  "DELETE `jobs` FROM `installations` WHERE `installations` = '" + form.jobref + "'", function(err, result){
-                    console.log(result);
-                    Form.new(req, res, callback);
-                });
-
+    con.query("SET FOREIGN_KEY_CHECKS=0", function(){
+        form_db.newClient(form, "REPLACE");
+        form_db.newJob(form, "REPLACE");
+        form_db.newCost(form, "REPLACE");
+        form_db.newInstallation(form, "REPLACE");
+        form_db.newEquipment(form, "REPLACE");
+    }, function(){
+        con.query("SET FOREIGN_KEY_CHECKS=1");
+        console.log("checks on");
+    })
+    callback();
 }
 
-Form.load = function(req, res, callback){
+Form.loadForm = function(req, res, callback){
     var jobref = req.body.jobref;
 
     var response = {};
@@ -110,21 +102,23 @@ Form.load = function(req, res, callback){
                     res.redirect('back');
                     return;
                 }
-                response.firstname = result[0].firstname;
-                response.surname = result[0].surname;
                 response.jobdscrpt = result[0].jobdscrpt;
                 response.workdone = result[0].workdone;
+                response.status = result[0].status;
                 response.datein =   String(result[0].datein);
                 response.dateout = String(result[0].dateout);
+                response.clientid = result[0].clientid;
                 getclient();
                 return;
         });
     }
     var getclient = function(){
-        con.query("SELECT * FROM clients WHERE firstname = '" + response.firstname + "' AND surname = '" + response.surname + "'", 
+        con.query("SELECT * FROM clients WHERE id = '" + response.clientid + "'", 
             function (err, result) {
                 if (err) throw err;
                 if (result.length != 0){
+                    response.firstname = result[0].firstname;
+                    response.surname = result[0].surname;
                     response.address = result[0].address;
                     response.postcode = result[0].postcode;
                     response.telephone = result[0].telephone;
@@ -223,145 +217,33 @@ Form.load = function(req, res, callback){
 
 }
 
-Form.new = function(req, res, callback){
-
-    var form = req.body;
-    now = new Date();
-    var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
-
-    //////////////////////////////////////////////////
-    con.query(  "INSERT INTO `jobs` (`jobref`,`jobdscrpt`,`firstname`, `surname`, `workdone`, `datein`) " + 
-                "VALUES (" + "'"    + form['jobref'] + "', '" 
-                                    + form['jobdscrpt'] + "', '" 
-                                    + form['firstname'] + "', '" 
-                                    + form['surname'] + "', '" 
-                                    + form['workdone'] + "', '" 
-                                    + datein + "')");
-
-    //////////////////////////////////////////////////
-    con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", function(err, result){
-        if(result.length == 0)
-            con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
-            "VALUES (" + "'"    + form['firstname'] + "', '" 
-                                + form['surname'] + "', '" 
-                                + form['address'] + "', '" 
-                                + form['postcode'] + "', '" 
-                                + form['telephone'] + "', '" 
-                                + form['email'] + "')", function(err, results){
-                                    if(err) console.log(err);
-                                });
+Form.checkValidJobRef = function(req, res, callback){
+  con.query("SELECT 1 FROM jobs WHERE jobref = '" + req.body['jobref'] + "'", function(err, result){
+        if(result.length > 0){
+            console.log('Reference number exists');
+            res.send(500, 'Reference number in use'); 
+        }
+        else{
+            console.log('New reference number');
+            res.send("good");
+        }
     });
-                            
-    //////////////////////////////////////////////////
-    if(form['Equipment'] != undefined){
-    if(form['Equipment'].constructor === Array ){
-        id = 0;
-        for(i = 0; i < form['Equipment'].length; i++){
-            if(form['Equipment'][i] == '')
-                continue;
-            else{
-                con.query(  "INSERT INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
-                            "VALUES (" + "'"    + form['jobref'] + "', '"
-                                                + id + "', '"
-                                                + form['Equipment'][i] + "', '" 
-                                                + form['Make'][i] + "', '" 
-                                                + form['Cable'][i] + "', '" 
-                                                + form['Charger'][i] + "', '" 
-                                                + form['Case'][i] + "', '" 
-                                                + form['CDs'][i] + "', '" 
-                                                + form['Manual'][i] + "', '" 
-                                                + form['Additional'][i] + "')", function(){
-                                                    id++;
-                                                });
-            }
-        }
-    }
-    else{ 
-        if(form['Equipment'] != ''){
-            con.query(  "INSERT INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
-                        "VALUES (" + "'"    + form['jobref'] + "', '"
-                                            + 0 + "', '"
-                                            + form['Equipment'] + "', '" 
-                                            + form['Make'] + "', '" 
-                                            + form['Cable'] + "', '" 
-                                            + form['Charger'] + "', '" 
-                                            + form['Case'] + "', '" 
-                                            + form['CDs'] + "', '" 
-                                            + form['Manual'] + "', '" 
-                                            + form['Additional'] + "')");
-        }
-    }
-    }
+}
 
-    //////////////////////////////////////////////////
-    if(form['costtype'] != undefined){
-    if(form['costtype'].constructor === Array){
-        id = 0;
-        for(i = 0; i < cost_length; i++){
-            if(form['costtype'][i] == '' || form['cost'][i] == '')
-                continue;
-            else{
-                con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
-                            "VALUES (" + "'"    + form['jobref'] + "', '"
-                                                + i + "', '"
-                                                + form['costtype'][i] + "', '" 
-                                                + form['costdscrpt'][i] + "', '"
-                                                + form['cost'][i] + "')", function(){
-                                                    id++;
-                                                });
-            }
-        }
-    }
-    else {
-        if(form['costtype'] != '' && form['cost'] != ''){
-            con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
-                        "VALUES (" + "'"    + form['jobref'] + "', '"
-                                            + 0 + "', '"
-                                            + form['costtype'] + "', '" 
-                                            + form['costdscrpt'] + "', '"
-                                            + form['cost'] + "')");
-        }
-    }
-    }
-   
+Form.insertForm = function(req, res, callback){
+    var form = req.body;
+  
+    form_db.newClient(form, "INSERT", 
+        function(form_, action_){   
+            form_db.newJob(form_, action_, 
+                function(form__, action__){
+                    form_db.newCost(form__, action__);
+                    form_db.newInstallation(form__, action__);
+                    form_db.newEquipment(form__, action__);
+                    callback();
+                });
+    });
 
-    if(form['totalcost'] != ''){
-            con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
-                        "VALUES (" + "'"    + form['jobref'] + "', '"
-                                            + 0 + "', '"
-                                            + "total" + "', '" 
-                                            + "Total Cost"+ "', '"
-                                            + form['totalcost'] + "')");
-    }
-    if(form['installation'] != undefined){
-    //////////////////////////////////////////////////
-    if(form['installation'].constructor === Array){
-        id = 0;
-        for(i = 0; i < form['installation'].length; i++){
-            if(form['installation'][i] == '')
-                continue;
-            else{
-                con.query(  "INSERT INTO `installations` (`jobref`, `id`, `type`, `dscrpt`) " + 
-                            "VALUES (" + "'"    + form['jobref'] + "', '"
-                                                + i + "', '"
-                                                + form['installation'][i] + "', '" 
-                                                + form['installationdscrpt'][i] + "')", function(){
-                                                    id++;
-                                                });
-            }
-        }
-    }
-    else{
-         if(form['installation'] != ''){
-                con.query(  "INSERT INTO `installations` (`jobref`, `id`, `type`, `dscrpt`) " + 
-                            "VALUES (" + "'"    + form['jobref'] + "', '"
-                                                + 0 + "', '"
-                                                + form['installation'] + "', '" 
-                                                + form['installationdscrpt'] + "')");
-         }
-    }
-    }
-    callback();
 }
 
 Form.postUpdate = function(req, res, callback){
@@ -382,11 +264,23 @@ Form.postUpdate = function(req, res, callback){
 
 Form.getPost = function(req, res, callback){
     con.query("SELECT * FROM jobs ORDER BY datein DESC", function(err, results){
+        var getClient = function(j, length){
+            if(j >= length){
+                res.send(JSON.stringify(results));
+                return;
+            }
+            con.query("SELECT * FROM clients WHERE id='" + results[j].clientid + "'", function(err, results_){
+                results[j].firstname = results_[0].firstname;
+                results[j].surname   = results_[0].surname;
+                getClient(j+1, length);
+            })
+        }
+
         for(i = 0; i < results.length; i++){
             results[i].datein = String(results[i].datein);
             results[i].dateout = String(results[i].dateout);
         }
-        res.send(JSON.stringify(results));
+        getClient(0, results.length);
     })
 }
 

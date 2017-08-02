@@ -17,7 +17,7 @@
     <!--W3-CSS-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <link rel="stylesheet" href="../stylesheets/form.client.css">
+    <link rel="stylesheet" href="../stylesheets/client.form.css">
 
     <style type="text/css">
     @font-face{
@@ -29,11 +29,8 @@
 </head>
 <!--tr, th, td  -->
 <body>
-    <div class = 'title'>
-        <h1> 2Click </h1>
-    </div>
-    <form   method = "post" action = "/form/submit" 
-            style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
+    
+    <form  >
 
         <div class = 'section-1'>
 
@@ -73,16 +70,28 @@
                     <div id = 'postcode' class = 'field'>
                         <div class = 'name'> postcode </div>
                     </div>
+                     <div id = 'status' class = 'field' >
+                        <div class = 'name'> status: </div>
+                    </div>
                 </div>
 
                 <div class = row>
                     <div id = 'telephone' class = 'field'>
                         <div class = 'name'> telephone number </div>
                     </div>
+                    <div class = 'field'>
+                        <div class = 'name'> status </div>
+                        <div style = 'padding-top: 3px'>
+                            <input type="radio" name="status" value="Ready" id="status-ready" disabled> <label for="status-ready">Ready</label>
+                            <input type="radio" name="status" value="Not Ready" id="status-notready" disabled> <label for="status-notready">Not Ready</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class = 'row' id = 'email'>
-                        <div class = 'name'> email address </div>
+                <div class = row>
+                        <div  id = 'email' class = 'field' style = 'width: 100%'> 
+                            <div class = 'name'> email address </div>
+                        </div>
                 </div>
 
             </div> 
@@ -99,7 +108,7 @@
         </div>
         
 
-        <div class = 'equipment-info'>
+        <div class = 'section-2'>
             <table id = 'equipment-table'>
                 <tr>
                     <th>Equipment</th>
@@ -114,26 +123,26 @@
             </table>
         </div>
         
-        <div class = 'job-info'>
+        <div class = 'section-3'>
 
             <div class = 'job-dscrpt' id = 'job-dscrpt'>
-                <h3> Job Description </h3>
+                <div class = 'title'> Job Description </div>
             </div>
             
             <div class = 'work-done' id = 'work-done'>
-                <h3> Actual Work Done </h3>
+                <div class = 'title'> Actual Work Done </div>
             </div>
             
             <table class = 'installation-table' id = 'installation-table'>
                 <tr> 
-                    <th> <h3> Installation </h3> </th>
-                    <th> <h3> Description </h3> </th>
+                    <th> Installation </th>
+                    <th> Description </th>
                 </tr>
             </table>
             
         </div> 
 
-        <div class = 'cost-info'>
+        <div class = 'section-4'>
 
             <table class = 'cost-table' id = 'cost-table'>
                 <col style = "width: 2%">
@@ -153,7 +162,7 @@
 
     </form>
 
-    <script src = '../javascripts/form.client.js'> </script>
+    <script src = '../javascripts/client.form.js'> </script>
     <script type="text/javascript">var form = <%-form%>;</script>
     <script>
         

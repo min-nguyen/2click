@@ -1,58 +1,58 @@
 /* TITLE  */
+
+    @font-face{
+            font-family: nova;
+            src: url("/stylesheets/fonts/nova.otf");
+    }
     .title{
         position: relative;
-        left: 17.5%;
         top: 10%;
         text-align: center;
-        width: 65%;
+        width: 100%;
         height: 10%;
-        border: 1px solid #3399ff;
-        box-shadow:  10px 10px 10px 10px grey;
-        margin-bottom: 2%;
-        }
+        background-color:#343131;
+        margin-bottom: 1%;
+    }
     .title h1 {
         position: relative;
-        font-family: BebasBeue;
-        top: 15%;
-        color: grey;
-        background-color: #B8DDFF;
-        font-size: 60px;
+        font-family: nova;
+        color: #58D4ED;
+        font-size: 40px;
+    }
+    label{
+        font-size: 10px;
     }
     /* SECTION 1 - CLIENT INFO  */
     .section-1{
         position: relative;
         border : 2px black bold;
-        width: 80%;
+        width: 1000px;
+        margin: 0 auto;
         min-height: 40%;
-        left: 10%;
         display: table;
         clear: both;
+        margin-top: 50px;
     }
     .client-info {
         position: relative;
-        border : 2px black bold;
         width: 50%;
-        background: #F7F7F7;
         float: left;
     }
     .row{
         margin: auto 0;
         position: relative;
         width: 100%;
+        border: 1px solid black;
         margin-bottom: 5%;
-        background: #B8DDFF;
-        text-shadow: 1px 1px 1px #949494;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
-        border-bottom:1px solid #0099ff;
     }
     .row .field {
         width: 50%;
         position: relative;
-        background-color: #B8DDFF;
         float: left; 
-        border:1px #e4e4e4 solid;
+        border-right:1px #e4e4e4 solid;
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
         -webkit-box-shadow:outset 0 1px 2px #000000;
@@ -61,15 +61,9 @@
     .row .name {
         position: relative;
         padding: 2%;
-        width: 50%;
-        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
-        color: gray;
-        background-color:  #D2E9FF;
+        width: 40%;
+        font: 14px nova;
         float: left;
-        border:1px #e4e4e4 solid;
-        box-shadow:outset 0 1px 2px #000000;
-        -moz-box-shadow:outset 0 1px 2px #000000;
-        -webkit-box-shadow:outset 0 1px 2px #000000;
     }
     .updates-container {
         position: absolute;
@@ -84,7 +78,6 @@
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
-        border-bottom:1px solid #0099ff;
     }
     .updates {
         position: absolute;
@@ -95,7 +88,6 @@
     }
     .updates .update{
         padding: 2%;
-        background-color: lightgray;
         position: relative;
         width: 100%;
         border: 1px #e4e4e4 solid;
@@ -104,7 +96,7 @@
     }
     .updates .update-time{
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.7vw;
+        font-size: 12px;
         background-color: gray;
         position: relative;
         text-align: right;
@@ -116,99 +108,98 @@
         margin: 0 auto;
         width: 50%;
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.9vw;
-        color: gray;
-        background-color:  #F0F8FF;
+        font-size:13px;
         float: left;
-        border:1px #e4e4e4 solid;
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
         -webkit-box-shadow:outset 0 1px 2px #000000;
     }
     /* SECTION 2 - EQUIPMENT INFO  */
-    .equipment-info {
+    .section-2{
         position: relative;
         border : 2px black bold;
-        width: 80%;
-        left: 10%;
-        background-color: #B8DDFF;
+        width: 1000px;
+        margin: 0 auto;
+        min-height: 40%;
+        display: table;
+        clear: both;
         box-shadow: 10px 10px 5px #888888;
-        margin-top: 1%;
-        margin-bottom: 1%;
+        margin-top: 50px;
     }
-    .equipment-info table {
+    .section-2 table {
         position: relative;
-        font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
         height: 100%;
-        font-size: 1vw;
+        font-size:13px;
         table-layout:fixed;
     }
-    .equipment-info th {
+    .section-2 th {
         position: relative;
         border: 1px solid black;
         text-align: left;
         padding-left: 1%;
         width: 10%;
-        color: grey;
-        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: #58D4ED;
+        background: #343131;
+        font-family: nova;
     }
-     .equipment-info td {
+    .section-2 td {
+        padding: 2px;
         position: relative;
         border: 1px solid black;
         text-align: left;
         overflow: auto;
-        padding-left: 1%;
-        font: 0.9vw "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font: "Trebuchet MS", Arial, Helvetica, sans-serif;
     } 
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
+    
     /* SECTION 3 - JOB INFO  */
-    .job-info{
+    .section-3{
         position: relative;
         border : 2px black bold;
-        width: 80%;
+        width: 1000px;
+        margin: 0 auto;
         min-height: 40%;
-        left: 10%;
         display: table;
         clear: both;
+        margin-top: 50px;
     }
-    .job-info h3{
+    .section-3 h3{
         margin: 0 auto;
         margin-left: 5%;
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.8vw;
-        color: grey;
+        font-size: 15px;
+        color: black;
     }
-    .job-info .job-dscrpt{
+    .section-3 .job-dscrpt{
+        background: #343131;
         display: table-row;
         position: relative;
         min-height: 100%;
+        padding-top: 5px;
         width: 30%;
-        left: 0%;
-        line-height: 2vw;
         border: 2px solid black;
-        background-color: #B8DDFF;
         box-shadow: 10px 10px 5px #888888;
         float: left;
     }
-    .job-info .work-done{
+    .section-3 .work-done{
+        background: #343131;
         display: table-row;
         position: relative;
         min-height: 100%;
+        padding-top: 5px;
         width: 30%;
         left: 5%;
-        line-height: 2vw;
-        font-size: 7px;
-        font-family: arial, sans-serif;
-        color: black;
-        font-size: 1vw;
         border: 2px solid black;
-        background-color: #B8DDFF;
         box-shadow: 10px 10px 5px #888888;
         float: left;
+    }
+    .section-3 .title{
+        text-align: left;
+        padding-left: 4%;
+        line-height: 13px;
+        color: #58D4ED;
+        font-family: nova;
+        font: 15px;
     }
     .text-container{
         position: relative;
@@ -217,11 +208,10 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         color: black;
         padding-left: 5%;
-        font-size:0.7vw;
-        background-color: lightgray;
+        font-size:13px;
+        background-color: white;
     }
     .installation-table{
-        background-color: #B8DDFF;
         float: left;
         left: 10%;
         position: relative; 
@@ -231,27 +221,30 @@
         box-shadow: 10px 10px 5px #888888;
     }
     .installation-table td{
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         color: black;
         padding-left: 5%;
-        font-size:0.7vw;
-        background-color:#D2E9FF;
+        font-size: 13px;
+        background-color:white;
     }
     .installation-table th{
-        font-size: 0.8vw;
-        padding: 0%;
-        padding-left: 2%;
+        font-family: nova;
+        font-size: 15px;
+        padding-left: 5%;
+        background-color: #343131;
+        color: #58D4ED;
     }
      /* SECTION 4 - COST INFO  */
-    .cost-info {
-        position: absolute;
+    .section-4 {
+        position: relative;
         border : 2px black bold;
-        width: 80%;
-        left: 10%;
-        margin-top: 1%;
-        margin-bottom: 1%;
+        width: 1000px;
+        margin: 0 auto;
+        min-height: 40%;
+        display: table;
+        clear: both;
+        margin-top: 50px;
     }
-    .cost-info .cost-table{
+    .section-4 .cost-table{
         position: relative;
         border-collapse: collapse;
         width: 65%;
@@ -259,7 +252,6 @@
         border: 2px solid black;
         table-layout: fixed;
         float: left;
-        background-color: #D2E9FF;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
@@ -268,9 +260,10 @@
     .cost-table th{
         position: relative;
         width: 5%; 
-        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 0.8vw;
-        color: grey;
+        font-family: nova;
+        font-size:13px;
+        background-color: #343131;
+        color: #58D4ED;
         padding-left: 1%;
     }
     .cost-table td{
@@ -278,15 +271,15 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         color: black;
         padding-left: 1%;
-        font-size:0.7vw;
+        font-size:13px;
     }
-    .cost-info .float-r-container{
+    .section-4 .float-r-container{
         height: 100%;
         width: 30%;
         position: relative;
         float: right;
     }
-    .cost-info .notes {
+    .section-4 .notes {
         padding: 2%;
         height: 100%;
         width: 100%;

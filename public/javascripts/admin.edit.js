@@ -1,11 +1,13 @@
 ////////////////////////////////////////////////////////
-function fixedinputs_insertinfo(form){
+function client_insertinfo(form){
     $('#firstname').val(form.firstname);
     $('#surname').val(form.surname);
     $('#jobref').val(form.jobref);
+    $('#clientid').val(form.clientid);
     $('#datein').append('<h2>' + form.datein + '</h2>');
     $('#dateout').append('<h2>' + form.dateout + '</h2>');
     $('#address').val(form.address);
+    $('input[name="status"][value="' + form.status + '"]').attr('checked', 'checked');
     $('#postcode').val(form.postcode);
     $('#telephone').val(form.telephone);
     $('#email').val(form.email);
@@ -106,9 +108,9 @@ function costs_newrow(){
     var tablerow = '<tr>' +
                     '<td> <select name = "costtype" class = "drop-down">' +
                     '    <option value=""></option> ' +
-                    '    <option value="labour">Labour</option> ' +
-                    '    <option value="materials">Materials</option> ' +
-                    '    <option value="other">Other</option> </select> </th>' +
+                    '    <option value="Labour">Labour</option> ' +
+                    '    <option value="Materials">Materials</option> ' +
+                    '    <option value="Other">Other</option> </select> </th>' +
                     ' <td>  <textarea class = "cost-dscrpt" rows = "2" type = "text" name = "costdscrpt"></textarea></td> ' +
                     ' <td>  <input type = "number" name = "cost" class = "cost-input" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td> ' +
                     '</tr>';
@@ -136,7 +138,6 @@ function installations_insertinfo(form){
     }
 }
 
-
 function installations_newrow(){
     var table = $('.installation-table');
 
@@ -144,9 +145,9 @@ function installations_newrow(){
         '<tr>' +
             '<td> <select name = "installation" class = "drop-down">' +
                     '<option value="" ></option>' +
-                    '<option value="hardware">Hardware</option>' +
-                    '<option value="software">Software</option>' +
-                    '<option value="other">Other</option>' +
+                    '<option value="Hardware">Hardware</option>' +
+                    '<option value="Software">Software</option>' +
+                    '<option value="Other">Other</option>' +
                 '</select> </td>' +
             '<td> <textarea class = "job-input" rows = "2" type = "text" name = "installationdscrpt"></textarea></td>' +
         '</tr>';
