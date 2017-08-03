@@ -25,24 +25,30 @@ var insertRow = function(form){
         $('#submit-button').click();
     })
 }
+
 function search() { 
     $('.search').on('input', function(){
         var search_index = ($(this).parent('th')).index() + 1;
-        var value  = $(this).val();
-        var rows = $('#index-table').children();
+        var search_value  = $(this).val();
+        
         $("#index-table tr").each(function(){
-            var text = $(this).find('td:nth-child(' + search_index + ')').first().text();
+            var col_value = $(this).find('td:nth-child(' + search_index + ')').first().text();
+            //Ignore header rows 
             if($(this).attr('class') == 'fixed-row')
                 $(this).show();
-            else if(text.indexOf(value) != 0){
+            //Column value doesnt match input search value
+            else if(col_value.indexOf(search_value) != 0 && search_value != ''){
                 $(this).hide();
+                console.log("Search is : '" + search_value + " Hiding " + col_value + " immediately due to result " + search_value.indexOf(col_value));
+
             }
+            //Column value matches input search value - check rest of row's corresponding search values
             else{
                 var shown = true;
                 for(var i = 1; i < 4; i++){
                     var search_i = ($('#search-row').find('th:nth-child(' + i + ')')).find('.search').val();
-                    var val_i    = $(this).find('td:nth-child('+i+')').first().text();
-                    if(search_i.indexOf(val_i) != 0 && search_i != ''){
+                    var col_i    = $(this).find('td:nth-child('+i+')').first().text();
+                    if(col_i.indexOf(search_i) != 0 && search_i != ''){
                         shown = false;
                         return;
                     }
