@@ -64,19 +64,27 @@ module.newJob = function(form, action, callback){
     else if(action == "REPLACE"){
         con.query("SELECT * FROM jobs WHERE jobref='" + form.jobref + "'", function(err, result){
             if(err) throw err;
-
+            
             var datein = result[0].datein;
-            datein = dateFormat(datein, "yyyy-mm-dd'T'HH:MM:ss");
+            datein = "'" + dateFormat(datein, "yyyy-mm-dd'T'HH:MM:ss") + "'";
+            
+            var dateout = result[0].dateout;
             if(form.status == "Ready"){
-                now = new Date();
-                var dateout = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
+                if(dateout == null){
+                    now = new Date();
+                    dateout = "'" + dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss") + "'";
+                }
+                else{
+                    dateout = "'" + dateFormat(dateout, "yyyy-mm-dd'T'HH:MM:ss") + "'";
+                }
             }
-            else{
-                var dateout = ("1000-01-01 00:00:00.000000");
+            else {
+                dateout = ("NULL");
             }
+
             con.query(  "REPLACE INTO jobs(jobref, jobdscrpt, workdone, datein, dateout, status, clientid) " 
-                    + "VALUES('" + form.jobref + "','" + form.jobdscrpt + "','" + form.workdone + "','" 
-                    + datein + "','" + dateout + "','" + form.status + "','" + form.clientid + "')", 
+                    + "VALUES('" + form.jobref + "','" + form.jobdscrpt + "','" + form.workdone + "'," 
+                    + datein + "," + dateout + ",'" + form.status + "','" + form.clientid + "')", 
                     function(err, result){
                         if(err)
                             throw err;
