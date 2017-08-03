@@ -15,6 +15,7 @@ var insertRow = function(form){
     row = "<tr> " + "<td>" + form.surname    + "</td>"
                     + "<td>" + form.firstname  + "</td>"
                     + "<td class = 'row-jobref'>" + form.jobref     + "</td>"
+                    + "<td>" + form.equipment + "</td>"
                     + "<td>" + form.datein     + "</td>"
                     + "<td>" + form.dateout    + "</td>" 
                     + "<td>" + "<button class = 'row-button' type = 'button'> EDIT </button>" + " </td> </tr>";

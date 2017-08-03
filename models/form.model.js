@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../config');
 var dateFormat = require('dateformat'); 
 var async = require('async');
+var sync = require('synchronize');
 var path = require('path');
 var q = require('q');
 
@@ -74,17 +75,21 @@ var form_db = require('./form.db')(con);
 
 Form.replaceForm = function(req, res, callback){
     form = req.body;
-    con.query("SET FOREIGN_KEY_CHECKS=0", function(){
-        form_db.newClient(form, "REPLACE");
-        form_db.newJob(form, "REPLACE");
-        form_db.newCost(form, "REPLACE");
-        form_db.newInstallation(form, "REPLACE");
-        form_db.newEquipment(form, "REPLACE");
-    }, function(){
-        con.query("SET FOREIGN_KEY_CHECKS=1");
-        console.log("checks on");
-    })
-    callback();
+    con.query("SET FOREIGN_KEY_CHECKS=0");
+    
+    try{
+        sync.fiber(function(){
+            var new_form = sync.await(form_db.newClient(form, "REPLACE", sync.defer()));
+            sync.await(form_db.newJob(new_form, "REPLACE", sync.defer()));
+            sync.await(form_db.newCost(new_form, "REPLACE", sync.defer()));
+            sync.await(form_db.newInstallation(new_form, "REPLACE", sync.defer()));
+            sync.await(form_db.newEquipment(new_form, "REPLACE", sync.defer()));
+            sync.await(callback());
+        });
+    } catch(err){
+        console.log(JSON.stringify(err));
+    }
+
 }
 
 Form.loadForm = function(req, res, callback){
@@ -232,17 +237,19 @@ Form.checkValidJobRef = function(req, res, callback){
 
 Form.insertForm = function(req, res, callback){
     var form = req.body;
-  
-    form_db.newClient(form, "INSERT", 
-        function(form_, action_){   
-            form_db.newJob(form_, action_, 
-                function(form__, action__){
-                    form_db.newCost(form__, action__);
-                    form_db.newInstallation(form__, action__);
-                    form_db.newEquipment(form__, action__);
-                    callback();
-                });
-    });
+    con.query("SET FOREIGN_KEY_CHECKS=1");
+    try{
+        sync.fiber(function(){
+            sync.await(form_db.newClient(form, "INSERT", sync.defer()));
+            sync.await(form_db.newJob(form, "INSERT", sync.defer()));
+            sync.await(form_db.newCost(form, "INSERT", sync.defer()));
+            sync.await(form_db.newInstallation(form, "INSERT", sync.defer()));
+            sync.await(form_db.newEquipment(form, "INSERT", sync.defer()));
+            sync.await(callback());
+        });
+    } catch(err){
+        console.log(err);
+    }
 
 }
 
@@ -272,14 +279,23 @@ Form.getPost = function(req, res, callback){
             con.query("SELECT * FROM clients WHERE id='" + results[j].clientid + "'", function(err, results_){
                 results[j].firstname = results_[0].firstname;
                 results[j].surname   = results_[0].surname;
-                getClient(j+1, length);
+                con.query("SELECT * FROM equipment WHERE jobref='" + results[j].jobref + "'", function(err, results__){
+                    if(results__.length > 0)
+                        results[j].equipment = results__.map(function(x){
+                            return x.equipment;
+                        }) 
+                    getClient(j+1, length);
+                });
+                
             })
         }
 
-        for(i = 0; i < results.length; i++){
-            results[i].datein = String(results[i].datein);
-            results[i].dateout = String(results[i].dateout);
-        }
+        results = results.map(function(result){
+            result.datein = String(result.datein);
+            result.dateout = String(result.dateout);
+            return result;
+        })
+
         getClient(0, results.length);
     })
 }
