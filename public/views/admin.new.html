@@ -251,6 +251,9 @@
                     cost_type.prop('required',false);
                 }
             });
+            $('.tab').hover( function(){
+                $(this).css('cursor', 'pointer');
+            })
             $('.tab').on('click', function(){
                 if($(this).attr('data-link')){
                     var str = $(this).attr('data-link');

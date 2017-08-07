@@ -48,8 +48,8 @@
         </form>
 
         <div class = 'row'>
-            <table id = 'index-table'>
-                    <tr class = 'fixed-row' id = 'header-row'>
+            <table class = 'index-table' id = 'job-table'>
+                    <tr class = 'fixed-row' id = 'job-header-row'>
                         <th>Surname</th>
                         <th>First Name</th>
                         <th>Reference No.</th>
@@ -58,7 +58,7 @@
                         <th>Date Out</th>
                         <th>Link</th>
                     </tr>
-                    <tr class = 'fixed-row' id = 'search-row'>
+                    <tr class = 'fixed-row' id = 'job-search-row'>
                         <th><input class = 'search' type = 'text' id = 'surname-input'></th>
                         <th><input class = 'search' type = 'text' id = 'firstname-input'></th>
                         <th><input class = 'search' type = 'text' id = 'jobref-input'></th>
@@ -69,7 +69,29 @@
                     </tr>
             </table>
         </div>
-        
+        <div class = 'row'>
+            <table class = 'index-table' id = 'client-table'>
+                    <tr class = 'fixed-row' id = 'client-header-row'>
+                        <th>Surname</th>
+                        <th>First Name</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Postcode</th>
+                        <th>Link</th>
+                    </tr>
+                    <tr class = 'fixed-row' id = 'client-search-row'>
+                        <th><input class = 'search' type = 'text' id = 'surname-input'></th>
+                        <th><input class = 'search' type = 'text' id = 'firstname-input'></th>
+                        <th><input class = 'search' type = 'text' id = 'jobref-input'></th>
+                        <th><input class = 'search' type = 'text' id = 'equipment-input'></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+            </table>
+        </div>
+
     </div>
 
     <script src="../javascripts/admin.index.js"></script>
@@ -77,6 +99,9 @@
         $(document).ready(function(){
             getPost();
             search();
+            $('.tab').hover( function(){
+                $(this).css('cursor', 'pointer');
+            })
             $('.tab').on('click', function(){
                 if($(this).attr('data-link')){
                     var str = $(this).attr('data-link');

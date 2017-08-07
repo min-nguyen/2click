@@ -64,17 +64,17 @@
     height: 100%;
 }
 
-#index-table{
+.index-table{
     width: 100%;
     text-align: center;
     font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: black;
 }
-#index-table th{
+.index-table th{
     border: 1px solid black;
-    width: 16%;
+    width: 15%;
 }
-#index-table td{
+.index-table td{
     border: 1px solid black;
 }
 .search {

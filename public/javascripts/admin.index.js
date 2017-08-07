@@ -19,7 +19,7 @@ var insertRow = function(form){
                     + "<td>" + form.datein     + "</td>"
                     + "<td>" + form.dateout    + "</td>" 
                     + "<td>" + "<button class = 'row-button' type = 'button'> EDIT </button>" + " </td> </tr>";
-    $('#index-table').append(row); 
+    $('#job-table').append(row); 
     $('.row-button').click(function(){
         var jobref = ($(this).closest('tr')).find('.row-jobref').text();
         $('#jobref').val(jobref);
@@ -32,7 +32,8 @@ function search() {
         var search_index = ($(this).parent('th')).index() + 1;
         var search_value  = $(this).val();
         
-        $("#index-table tr").each(function(){
+        $(".index-table tr").each(function(){
+            
             var col_value = $(this).find('td:nth-child(' + search_index + ')').first().text();
             //Ignore header rows 
             if($(this).attr('class') == 'fixed-row')
@@ -47,7 +48,7 @@ function search() {
             else{
                 var shown = true;
                 for(var i = 1; i < 4; i++){
-                    var search_i = ($('#search-row').find('th:nth-child(' + i + ')')).find('.search').val();
+                    var search_i = ($('#job-search-row').find('th:nth-child(' + i + ')')).find('.search').val();
                     var col_i    = $(this).find('td:nth-child('+i+')').first().text();
                     if(col_i.indexOf(search_i) != 0 && search_i != ''){
                         shown = false;

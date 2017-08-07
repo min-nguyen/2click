@@ -10,7 +10,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/submit', function(req, res, next){
-  form_model.load(req, res, function(stringed){
+  form_model.loadForm(req, res, function(stringed){
     res.render(__dirname + '/../public/views/client.form.html', 
                 {form: stringed});
   })
