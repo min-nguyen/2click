@@ -44,8 +44,13 @@ router.post('/submit', function(req, res, next){
 });
 
 
-router.post('/index/getPost', function(req, res, next){
-  form_model.getPost(req, res, function(){
+router.post('/index/getJobs', function(req, res, next){
+  form_model.getJobs(req, res, function(){
+    
+  });
+});
+router.post('/index/getClients', function(req, res, next){
+  form_model.getClients(req, res, function(){
     
   });
 });

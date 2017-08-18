@@ -31,10 +31,10 @@
 
          <div class = 'row-header' style = 'margin-bottom: 1%'>
                     <div class = 'name' style = 'margin: 0 auto; padding: 0%; text-align: center; font-size: 17px;'> View By </div>
-                    <div class = 'tab' style = 'height: 100%; font-size: 17px'>
+                    <div id = 'jobs-button' class = 'tab' style = 'height: 100%; font-size: 17px'>
                         Job
                     </div>
-                    <div class = 'tab' style = 'height: 100%; font-size: 17px'>
+                    <div id = 'clients-button' class = 'tab' style = 'height: 100%; font-size: 17px'>
                         Client
                     </div>
         </div>
@@ -70,7 +70,7 @@
             </table>
         </div>
         <div class = 'row'>
-            <table class = 'index-table' id = 'client-table'>
+            <table class = 'index-table' id = 'client-table' hidden>
                     <tr class = 'fixed-row' id = 'client-header-row'>
                         <th>Surname</th>
                         <th>First Name</th>
@@ -91,14 +91,29 @@
                     </tr>
             </table>
         </div>
-
     </div>
 
     <script src="../javascripts/admin.index.js"></script>
     <script>
         $(document).ready(function(){
-            getPost();
-            search();
+            getJobs();
+            getClients();
+            search('#job-table');
+            //Alternate between index tables
+            $('#clients-button').on('click', function(){
+                $('#job-table').hide();
+                ($('#job-table').find('.search')).val("");
+                ($('#job-table').find('.search')).trigger("input");
+                search('#client-table');
+                $('#client-table').show();
+            })
+            $('#jobs-button').on('click', function(){
+                $('#client-table').hide();
+                ($('#client-table').find('.search')).val("");
+                ($('#client-table').find('.search')).trigger("input");
+                search('#job-table');
+                $('#job-table').show();
+            })
             $('.tab').hover( function(){
                 $(this).css('cursor', 'pointer');
             })

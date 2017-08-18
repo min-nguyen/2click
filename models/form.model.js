@@ -268,8 +268,14 @@ Form.postUpdate = function(req, res, callback){
         callback();
     });
 }
-
-Form.getPost = function(req, res, callback){
+Form.getClients = function(req, res, callback){
+    con.query("SELECT * FROM clients ORDER BY surname DESC", function(err, results){
+        // console.log(results);
+        // results.map((id, fn, sn, addr, pc, tele, email => console.log(x))
+        res.send(JSON.stringify(results))
+    })
+}
+Form.getJobs = function(req, res, callback){
     con.query("SELECT * FROM jobs ORDER BY datein DESC", function(err, results){
         var getClient = function(j, length){
             if(j >= length){
