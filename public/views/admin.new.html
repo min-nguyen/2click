@@ -165,6 +165,15 @@
                     <th> Installation </th>
                     <th> Description  </th>
                 </tr>
+                <tr class = 'installation-row'> 
+                    <td> <select name = "installation" class = "drop-down">
+                            <option value="" ></option>
+                            <option value="Hardware">Hardware</option>
+                            <option value="Software">Software</option>
+                            <option value="Other">Other</option>
+                        </select> </td>
+                    <td> <textarea class = "job-input" rows = "2" type = "text" name = "installationdscrpt"></textarea></td>
+                </tr>
                 <tr id = 'installation-button-row'> 
                     <td> </td>
                     <td> <button type = "button" class="button" id='installation-button'> New Row </button></td>
@@ -181,7 +190,15 @@
                     <th> Description </th>
                     <th> Cost </th>
                 </tr>
-                
+                <tr class = "cost-row">
+                    <td> <select name = "costtype" class = "drop-down">
+                            <option value=""></option> 
+                            <option value="Labour">Labour</option> 
+                            <option value="Materials">Materials</option> 
+                            <option value="Other">Other</option> </select> </th>
+                    <td>  <textarea class = "cost-dscrpt" rows = "2" type = "text" name = "costdscrpt"></textarea></td> 
+                    <td>  <input type = "number" name = "cost" class = "cost-input" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td> 
+                </tr>
                 <tr id = 'cost-table-total'>
                     <td style = 'position: relative; margin: 10%;'> <h3> Total </h3> </td>
                     <td> </td>

@@ -5,7 +5,6 @@ var path = require('path');
 var form_model = require('../models/form.model');
 var user_model = require('../models/user.model');
 
-
 // PRIORITISE IF LOGIN/ENTER IS REQUESTED
 router.get('/login', function(req, res, next){
   res.sendfile(path.join(__dirname + '/../public/views/admin.login.html'));
@@ -43,6 +42,17 @@ router.post('/submit', function(req, res, next){
   })
 });
 
+
+router.post('/index/newClientJob', function(req, res, next){
+  form_model.newClientJob(req, res, function(stringed){
+    console.log(stringed);
+      res.render(__dirname + '/../public/views/admin.edit.html', 
+                  {form: stringed}, function(err, html){
+                    if(err) console.log(err)
+                      else res.end(html)
+      });
+    })
+});
 
 router.post('/index/getJobs', function(req, res, next){
   form_model.getJobs(req, res, function(){

@@ -28,7 +28,6 @@
     </div>
 
     <div style = 'margin: 0 auto; position: relative; width: 1000px; padding-top: 100px;'>
-
          <div class = 'row-header' style = 'margin-bottom: 1%'>
                     <div class = 'name' style = 'margin: 0 auto; padding: 0%; text-align: center; font-size: 17px;'> View By </div>
                     <div id = 'jobs-button' class = 'tab' style = 'height: 100%; font-size: 17px'>
@@ -45,10 +44,6 @@
                     <input class = "input" type = "text" name = "jobref" id = "jobref" required>
                     <button type = "submit" id = 'submit-button'> Submit </button>
             </div>
-        </form>
-
-        <form method="post" action="/admin/index/newClientJob" id="newClientJob">
-            <input class = "input" type = "text" name = "clientId" id = "postClientId" required>
         </form>
 
         <div class = 'row'>
@@ -73,46 +68,16 @@
                     </tr>
             </table>
         </div>
-        <div class = 'row'>
-            <table class = 'index-table' id = 'client-table' hidden>
-                    <tr class = 'fixed-row' id = 'client-header-row'>
-                        <th>Surname</th>
-                        <th>First Name</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Postcode</th>
-                        <th>Link</th>
-                        <th>New Job</th>
-                    </tr>
-                    <tr class = 'fixed-row' id = 'client-search-row'>
-                        <th><input class = 'search' type = 'text' id = 'surname-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'firstname-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'jobref-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'equipment-input'></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-            </table>
         </div>
     </div>
 
     <script src="../javascripts/admin.index.js"></script>
+    <script src="../javascripts/admin.client.js"></script>
     <script>
         $(document).ready(function(){
             getJobs();
             getClients();
             search('#job-table');
-            //Alternate between index tables
-            $('#clients-button').on('click', function(){
-                $('#job-table').hide();
-                ($('#job-table').find('.search')).val("");
-                ($('#job-table').find('.search')).trigger("input");
-                search('#client-table');
-                $('#client-table').show();
-            })
             $('#jobs-button').on('click', function(){
                 $('#client-table').hide();
                 ($('#client-table').find('.search')).val("");

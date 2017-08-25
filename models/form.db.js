@@ -5,6 +5,8 @@ var q = require('q');
 
 module.exports = function(con){
 module.newClient = function(form, action, callback){
+    //Insert new job form
+    console.log(form);
     if(action == "INSERT"){
         con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", 
         function(err, result){
@@ -33,6 +35,7 @@ module.newClient = function(form, action, callback){
             }     
         });
     }
+    //Replace existing job form
     else if(action == "REPLACE"){
             con.query(  "REPLACE INTO clients(id, firstname, surname, address, postcode, telephone, email) "
                     + " VALUES('"  + form.clientid + "', '" + form.firstname + "','" + form.surname + "','" 
@@ -46,6 +49,7 @@ module.newClient = function(form, action, callback){
 
 //////////////////////////////////////////////////
 module.newJob = function(form, action, callback){
+    //Insert new job form
     if(action == "INSERT"){
             now = new Date();
             var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
@@ -61,6 +65,7 @@ module.newJob = function(form, action, callback){
                                         callback(null, form);
                                 });
     }
+    //Replace existing job form
     else if(action == "REPLACE"){
         con.query("SELECT * FROM jobs WHERE jobref='" + form.jobref + "'", function(err, result){
             if(err) throw err;
@@ -98,6 +103,7 @@ module.newJob = function(form, action, callback){
 ////////////////////////////////////////////////////
 module.newEquipment = function(form, action, callback){
     if(form['Equipment'] != undefined){
+        //Handle multiple equipment entries
         if(form['Equipment'].constructor === Array ){
             id = 0;
             i = 0;
@@ -130,6 +136,7 @@ module.newEquipment = function(form, action, callback){
             }
             newEquipment_(i, id);
         }
+        //Handle single equipment entry
         else if(form['Equipment'] != ''){
                 con.query(  action + " INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
                             "VALUES (" + "'"    + form['jobref'] + "', '"
@@ -162,7 +169,7 @@ module.newEquipment = function(form, action, callback){
 module.newCost = function(form, action, callback){
     var processCosts = function(){
         if(form['costtype'] != undefined){
-            //Add non-total costs to cost-table synchronously
+            //Add multiple non-total costs to cost-table synchronously
             if(form['costtype'].constructor === Array){
                 id = 1;
                 i = 0;
@@ -225,6 +232,7 @@ module.newCost = function(form, action, callback){
 module.newInstallation = function(form, action, callback){
     console.log(JSON.stringify(form));
     if(form['installation'] != undefined){
+        ///Handle multiple installations
         if(form['installation'].constructor === Array){
             id = 0;
             i = 0;
@@ -237,7 +245,7 @@ module.newInstallation = function(form, action, callback){
                         return;
                 }
                 else if(form['installation'][i] == '')
-                    newInstallation__(i+1, id);
+                    newInstallation_(i+1, id);
                 else{
                     con.query(  action + " INTO `installations` (`jobref`, `id`, `type`, `dscrpt`) " + 
                                 "VALUES (" + "'"    + form['jobref'] + "', '"
@@ -251,6 +259,7 @@ module.newInstallation = function(form, action, callback){
             }
             newInstallation_(i, id);
         }
+        //Handle single installation
         else if(form['installation'] != ''){
                     con.query(  action + " INTO `installations` (`jobref`, `id`, `type`, `dscrpt`) " + 
                                 "VALUES (" + "'"    + form['jobref'] + "', '"

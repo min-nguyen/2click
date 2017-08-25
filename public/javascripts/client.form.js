@@ -1,14 +1,14 @@
 function client_insertinfo(form){
-    $('#firstname').append('<h2>' + form.firstname + '</h2>');
-    $('#surname').append('<h2>' + form.surname + '</h2>');
-    $('#jobref').append('<h2>' + form.jobref + '</h2>');
-    $('#datein').append('<h2>' + form.datein + '</h2>');
-    $('#dateout').append('<h2>' + form.dateout + '</h2>');
-    $('#address').append('<h2>' + form.address + '</h2');
-    $('input[name="status"][value="' + form.status + '"]').attr('checked', 'checked');
-    $('#postcode').append('<h2>' + form.postcode + '</h2>');
-    $('#telephone').append('<h2>' + form.telephone + '</h2>');
-    $('#email').append('<h2>' + form.email + '</h2>');
+    $('#firstname').append('<h2>'    + form.firstname   + '</h2>');
+    $('#surname').append('<h2>'      + form.surname     + '</h2>');
+    $('#jobref').append('<h2>'       + form.jobref      + '</h2>');
+    $('#datein').append('<h2>'       + form.datein      + '</h2>');
+    $('#dateout').append('<h2>'      + form.dateout     + '</h2>');
+    $('#address').append('<h2>'      + form.address     + '</h2');
+    $('input[name="status"][value="' + form.status      + '"]').attr('checked', 'checked');
+    $('#postcode').append('<h2>'     + form.postcode    + '</h2>');
+    $('#telephone').append('<h2>'    + form.telephone   + '</h2>');
+    $('#email').append('<h2>'        + form.email       + '</h2>');
 }
 
 function equipment_insertinfo(form){

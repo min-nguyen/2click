@@ -4,7 +4,6 @@ function equipment_newrow(){
     var table = $('#equipment-table');
     var numcols = (table.find("tr:first")).find('th').length;
     var table  = $('#equipment-table');
-  
     var tablerow = '<tr>';
     for(j = 1; j < numcols + 1; j++){
         
@@ -19,37 +18,15 @@ function equipment_newrow(){
 };
 
 function costs_newrow(){
-
-    var table = $('#cost-table');
-    var numcols = (table.find("tr:first")).find('th').length;
-
-    var tablerow = '<tr>' +
-                    '<td> <select name = "costtype" class = "drop-down">' +
-                    '    <option value=""></option> ' +
-                    '    <option value="Labour">Labour</option> ' +
-                    '    <option value="Materials">Materials</option> ' +
-                    '    <option value="Other">Other</option> </select> </th>' +
-                    ' <td>  <textarea class = "cost-dscrpt" rows = "2" type = "text" name = "costdscrpt"></textarea></td> ' +
-                    ' <td>  <input type = "number" name = "cost" class = "cost-input" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" style/> </td> ' +
-                    '</tr>';
-    $(tablerow).insertBefore('#cost-table-total');
+    var tableRow = $('.cost-row')[0];
+    newRow = $(tableRow).clone();
+    $(newRow).insertBefore('#cost-table-total');
 }
 
 function installations_newrow(){
-    var table = $('.installation-table');
-
-    var tablerow = 
-        '<tr>' +
-            '<td> <select name = "installation" class = "drop-down">' +
-                    '<option value="" ></option>' +
-                    '<option value="Hardware">Hardware</option>' +
-                    '<option value="Software">Software</option>' +
-                    '<option value="Other">Other</option>' +
-                '</select> </td>' +
-            '<td> <textarea class = "job-input" rows = "2" type = "text" name = "installationdscrpt"></textarea></td>' +
-        '</tr>';
-    $(tablerow).insertBefore('#installation-button-row');
-    
+    var tableRow = $('.installation-row')[0];
+    newRow = $(tableRow).clone();
+    $(newRow).insertBefore('#installation-button-row');
 }
 
 /////////////////////////////////////////////////////////////////
