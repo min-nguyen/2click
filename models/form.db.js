@@ -6,7 +6,7 @@ var q = require('q');
 module.exports = function(con){
 module.newClient = function(form, action, callback){
     //Insert new job form
-    console.log(form);
+    console.log(form)
     if(action == "INSERT"){
         con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", 
         function(err, result){

@@ -10,6 +10,7 @@ var getJobs = function(){
     });
 }
 
+<<<<<<< HEAD
 var parseForms = function(forms){
     var row = forms.map((form) => {
         var job = "<tr> " 
@@ -56,6 +57,8 @@ var newClientJob = function(id){
     //     }
     // });
 }
+=======
+>>>>>>> ed6ebc3c404079bf178b3cfe8236b2be78fe7a90
 
 var getClients = function(){
     $.ajax({
