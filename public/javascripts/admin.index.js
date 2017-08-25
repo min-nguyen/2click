@@ -27,6 +27,7 @@ var getJobs = function(){
     });
 }
 
+
 var getClients = function(){
     $.ajax({
         url: "//localhost:3000/admin/index/getClients", 

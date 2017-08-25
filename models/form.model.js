@@ -42,27 +42,57 @@ con.connect(function(err) {
         console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS jobs (jobref VARCHAR(255) NOT NULL PRIMARY KEY, jobdscrpt VARCHAR(255), workdone VARCHAR(255), datein DATETIME, dateout DATETIME, status SET('Ready', 'Not Ready'), clientid INT(11), FOREIGN KEY (clientid) REFERENCES clients(id))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS jobs    (jobref VARCHAR(255) NOT NULL PRIMARY KEY," + 
+                                                "jobdscrpt VARCHAR(255), "                  + 
+                                                "workdone VARCHAR(255),"                    + 
+                                                "datein DATETIME, "                         + 
+                                                "dateout DATETIME, "                        + 
+                                                "status SET('Ready', 'Not Ready'), "        + 
+                                                "clientid INT(11), "                        + 
+                                                "FOREIGN KEY (clientid) REFERENCES clients(id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS updates (jobref VARCHAR(255), id INT(11), dscrpt VARCHAR(255), time DATETIME, FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS updates (jobref VARCHAR(255),"  + 
+                                                " id INT(11), "         + 
+                                                "dscrpt VARCHAR(255), " +
+                                                "time DATETIME,"        +
+                                                "FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref VARCHAR(255), id INT(11), equipment VARCHAR(255), make VARCHAR(255), cable VARCHAR(255), charger VARCHAR(255), cases VARCHAR(255), cds VARCHAR(255), manual VARCHAR(255), additional VARCHAR(255), FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref VARCHAR(255),"    +
+                                                  "id INT(11), "            +
+                                                  "equipment VARCHAR(255)," +
+                                                  " make VARCHAR(255),"     +
+                                                  " cable VARCHAR(255),"    +
+                                                  " charger VARCHAR(255),"  +
+                                                  " cases VARCHAR(255), "   +
+                                                  "cds VARCHAR(255), "      +
+                                                  "manual VARCHAR(255), "   +
+                                                  "additional VARCHAR(255),"+
+                                                  "FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS costs (jobref VARCHAR(255), id INT(11), type SET('Labour', 'Materials', 'Other', 'Total'), dscrpt VARCHAR(255), cost DECIMAL(10,2), FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS costs   (jobref VARCHAR(255),"                              +
+                                                " id INT(11), "                                     +
+                                                "type SET('Labour', 'Materials', 'Other', 'Total'),"+
+                                                "dscrpt VARCHAR(255), "                             +
+                                                "cost DECIMAL(10,2), "                              +
+                                                "FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS installations (jobref VARCHAR(255), id INT(11), type SET('Hardware', 'Software', 'Other'), dscrpt VARCHAR(255), FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
+  con.query("CREATE TABLE IF NOT EXISTS installations   (jobref VARCHAR(255),"                          +
+                                                        "id INT(11), "                                  +
+                                                        "type SET('Hardware', 'Software', 'Other'), "   +
+                                                        "dscrpt VARCHAR(255), "                         +
+                                                        "FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
   });
@@ -264,7 +294,10 @@ Form.postUpdate = function(req, res, callback){
         now = new Date();
         var time = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
         con.query(  "INSERT INTO `updates` (`jobref`, `id`, `dscrpt`, `time`)" + 
-                    "VALUES ('" + req.body.form.jobref + "', '" + id + "', '" + req.body.entry + "', '" + time + "')");
+                    "VALUES ('" + req.body.form.jobref + 
+                    "', '"      + id + 
+                    "', '"      + req.body.entry + 
+                    "', '"      + time + "')");
         callback();
     });
 }
