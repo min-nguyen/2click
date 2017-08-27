@@ -10,7 +10,6 @@ var getJobs = function(){
     });
 }
 
-<<<<<<< HEAD
 var parseForms = function(forms){
     var row = forms.map((form) => {
         var job = "<tr> " 
@@ -48,17 +47,7 @@ var newClientJob = function(id){
     console.log("sending " + id)
     $('#postClientId').val(id);
     $('#newClientJob').submit();
-    // $.ajax({
-    //     url: "//localhost:3000/admin/index/newClientJob", 
-    //     data: {clientId: id}, 
-    //     type: "GET",
-    //     success: function(data){
-    //        location.reload();
-    //     }
-    // });
 }
-=======
->>>>>>> ed6ebc3c404079bf178b3cfe8236b2be78fe7a90
 
 var getClients = function(){
     $.ajax({
@@ -75,8 +64,8 @@ var getClients = function(){
             + "<td>" + client.email         + "</td>"
             + "<td>" + client.address       + "</td>" 
             + "<td>" + client.postcode      + "</td>" 
-            + "<td>" + "<button class = 'client-viewjobs-button' type = 'button'> JOBS </button> </td>"
-            + "<td>" + "<button class = 'client-newjob-button' type = 'button'> NEW JOB </button> </td>"
+            + "<td>" + "<button class = 'client-viewjobs-button' type = 'button'> View Jobs </button> </td>"
+            + "<td>" + "<button class = 'client-newjob-button' type = 'button'> New Job </button> </td>"
             + "<td hidden class = 'client-id'>" + client.id + "</td>"
             + " </tr>";
             return cl}

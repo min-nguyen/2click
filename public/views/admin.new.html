@@ -29,7 +29,6 @@
 </head>
 <!--tr, th, td  -->
 <body>
-
     <div class = 'tab-container'>
         <div class = 'tab-margin-0'>
             <div class = 'tab' >
@@ -50,7 +49,7 @@
             style = 'position: relative; padding-top: 100px;' >
 
         <div class = 'section-1'>
-
+            <input type="hidden" id="clientid" name = "clientid" value="" />
             <div class = 'client-info'>
                 <div class = row>
                     <div class = 'field'>
@@ -230,11 +229,11 @@
         </div>
     </form>
 
-
+    <script type="text/javascript">var client = <%-client%>;</script>
     <script src = '../javascripts/admin.new.js'> </script>
     <script>
         $(document).ready(function() {
-
+            
             equipment_newrow();
             costs_newrow();
             installations_newrow();
@@ -277,6 +276,10 @@
                     window.location.replace(str);
                 }
             })
+
+            if(client != undefined){
+                client_insertinfo(client);
+            }
         }   
     );
     </script>

@@ -43,11 +43,11 @@ router.post('/submit', function(req, res, next){
 });
 
 
-router.post('/index/newClientJob', function(req, res, next){
+router.post('/newClientJob', function(req, res, next){
   form_model.newClientJob(req, res, function(stringed){
     console.log(stringed);
-      res.render(__dirname + '/../public/views/admin.edit.html', 
-                  {form: stringed}, function(err, html){
+      res.render(__dirname + '/../public/views/admin.new.html', 
+                  {client: stringed}, function(err, html){
                     if(err) console.log(err)
                       else res.end(html)
       });

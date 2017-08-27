@@ -32,10 +32,10 @@
          <div class = 'row-header' style = 'margin-bottom: 1%'>
                     <div class = 'name' style = 'margin: 0 auto; padding: 0%; text-align: center; font-size: 17px;'> View By </div>
                     <div id = 'jobs-button' class = 'tab' style = 'height: 100%; font-size: 17px'>
-                        Job
+                        Jobs
                     </div>
                     <div id = 'clients-button' class = 'tab' style = 'height: 100%; font-size: 17px'>
-                        Client
+                        Clients
                     </div>
         </div>
 
@@ -47,7 +47,7 @@
             </div>
         </form>
 
-        <form method="post" action="/admin/index/newClientJob" id="newClientJob">
+        <form hidden method="post" action="/admin/newClientJob" id="newClientJob">
             <input class = "input" type = "text" name = "clientId" id = "postClientId" required>
         </form>
 
@@ -63,10 +63,10 @@
                         <th>Link</th>
                     </tr>
                     <tr class = 'fixed-row' id = 'job-search-row'>
-                        <th><input class = 'search' type = 'text' id = 'surname-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'firstname-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'jobref-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'equipment-input'></th>
+                        <th><input class = 'search' type = 'text'></th>
+                        <th><input class = 'search' type = 'text'></th>
+                        <th><input class = 'search' type = 'text'></th>
+                        <th><input class = 'search' type = 'text'></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -86,12 +86,12 @@
                         <th>New Job</th>
                     </tr>
                     <tr class = 'fixed-row' id = 'client-search-row'>
-                        <th><input class = 'search' type = 'text' id = 'surname-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'firstname-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'jobref-input'></th>
-                        <th><input class = 'search' type = 'text' id = 'equipment-input'></th>
-                        <th></th>
-                        <th></th>
+                        <th><input class = 'search' type = 'text' ></th>
+                        <th><input class = 'search' type = 'text' ></th>
+                        <th><input class = 'search' type = 'text' ></th>
+                        <th><input class = 'search' type = 'text' ></th>
+                        <th><input class = 'search' type = 'text' ></th>
+                        <th><input class = 'search' type = 'text' ></th>
                         <th></th>
                         <th></th>
                     </tr>

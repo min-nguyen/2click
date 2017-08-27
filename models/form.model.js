@@ -136,8 +136,9 @@ Form.newClientJob = function(req, res, callback){
                     response.postcode = result[0].postcode;
                     response.telephone = result[0].telephone;
                     response.email = result[0].email;
-                    response.clientid = result[0].clientid;
-                    callback(JSON.stringify(response));
+                    response.clientid = result[0].id;
+                    var stringed = JSON.stringify(response);
+                    callback(stringed);
                 }
         });
     }

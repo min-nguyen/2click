@@ -1,4 +1,17 @@
 
+function client_insertinfo(form){
+    $('#firstname').val(form.firstname);
+    $('#surname').val(form.surname);
+    $('#jobref').val(form.jobref);
+    $('#clientid').val(form.clientid);
+    $('#address').val(form.address);
+    $('#postcode').val(form.postcode);
+    $('#telephone').val(form.telephone);
+    $('#email').val(form.email);
+    console.log(form);
+    console.log($('#clientid').val());
+}
+
 
 function equipment_newrow(){
     var table = $('#equipment-table');

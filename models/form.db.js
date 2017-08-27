@@ -8,9 +8,15 @@ module.newClient = function(form, action, callback){
     //Insert new job form
     console.log(form)
     if(action == "INSERT"){
-        con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", 
-        function(err, result){
-            if(result.length == 0){
+        //Using existing client
+        if(form.clientid){
+            callback(null, form);
+        }
+        //Creating new client
+        else {
+            con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", 
+            function(err, result){
+                if(result.length == 0){
                 con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
                 "VALUES (" + "'"    + form['firstname'] + "', '" 
                                     + form['surname'] + "', '" 
@@ -26,14 +32,15 @@ module.newClient = function(form, action, callback){
                                             return form;
                                         })
                                     });
-            }
-            else{
-                form.clientid = result[0].id;
-                if(callback)
-                    callback(null, form);
-                return form;
-            }     
-        });
+                }
+                else{
+                    form.clientid = result[0].id;
+                    if(callback)
+                        callback(null, form);
+                    return form;
+                }     
+            });
+        }
     }
     //Replace existing job form
     else if(action == "REPLACE"){
