@@ -36,19 +36,11 @@ function costs_newrow(){
     $(newRow).insertBefore('#cost-table-total');
 }
 
-function installations_newrow(){
-    var tableRow = $('.installation-row')[0];
-    newRow = $(tableRow).clone();
-    $(newRow).insertBefore('#installation-button-row');
-}
 
 /////////////////////////////////////////////////////////////////
 function newrow(button){
     var id = $(button).attr('id');
-    if(id == 'installation-button'){
-        installations_newrow();
-    }
-    else if(id == 'equipment-button'){
+    if(id == 'equipment-button'){
         equipment_newrow();
     }
     else if(id == 'cost-button'){

@@ -29,6 +29,7 @@
 </head>
 <!--tr, th, td  -->
 <body>
+
     <div class = 'tab-container'>
         <div class = 'tab-margin-0'>
             <div class = 'tab' >
@@ -72,20 +73,22 @@
                 </div>
 
                 <div class = row>
-                    <div class = 'field'>
+                    <div class = 'field' style = 'height: 100px'>
                         <div class = 'name'> address </div>
-                        <input class = "input" type = "text" name = "address" id = "address">
+                        <textarea class = "input" type = "text" name = "address" id = "address"> </textarea>
                     </div>
 
                     <div id = 'dateout' class = 'field' id = 'dateout'>
                         <div class = 'name'> date out </div>
                     </div>
+                    
+                </div>
+                <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> postcode </div>
                         <input class = "input" type = "text" name = "postcode" id = "postcode">
                     </div>
                 </div>
-
                 <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> telephone number </div>
@@ -108,14 +111,6 @@
                 </div>
             </div> 
 
-            <div class = 'updates-container'>
-                <div class = 'updates' id = 'updates'>
-
-                </div>
-                <textarea class = 'input' rows = '2' type = 'text' id = 'update-text'></textarea>
-                <button type = "button" class="button" id='update-button'> Post Update </button>
-            </div>
-
         </div>
         
 
@@ -127,7 +122,7 @@
                     <th>Make</th>
                     <th>Cable</th>
                     <th>Charger</th>
-                    <th>Case</th>
+                    <th>Cases</th>
                     <th>CDs</th>
                     <th>Manual</th>
                     <th>Additional</th>
@@ -155,27 +150,6 @@
                     <textarea class = 'job-input' rows = '10' type = 'text' name = 'workdone' id = 'workdone'></textarea>
                 </div>
             </div>
-            
-            <table class = 'installation-table' id = 'installation-table'>
-                <tr> 
-                    <th>Installation</th>
-                    <th>Description</th>
-                </tr>
-                <tr class = 'installation-row'> 
-                    <td> <select name = "installation" class = "drop-down">
-                            <option value="" ></option>
-                            <option value="Hardware">Hardware</option>
-                            <option value="Software">Software</option>
-                            <option value="Other">Other</option>
-                        </select> </td>
-                    <td> <textarea class = "job-input" rows = "2" type = "text" name = "installationdscrpt"></textarea></td>
-                </tr>
-                <tr id = 'installation-button-row'> 
-                    <td></td>
-                    <td> <button type = "button" class="button" id='installation-button'> New Row </button></td>
-                </tr>
-            </table>
-            
         </div> 
 
         <div class = 'section-4'>
@@ -207,12 +181,7 @@
                     <td> <button type = "button" class="button" id='cost-button'> New Row </button></td>
                 </tr>
             </table>
-
             <div class = 'submit-container'>
-                <div class = 'notes'>
-                    <textarea rows = '18' type = 'text' name = 'notes' id='notes'></textarea>
-                </div>
-                
                 <input 
                     type = "submit" 
                     style = "box-shadow: 10px 10px 5px #888888;position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
@@ -220,22 +189,20 @@
                     value = "submit">
                 <br>  
             </div>
+            
         </div>
     </form>
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src = '../javascripts/admin.edit.js'> </script>
     <script type="text/javascript">var form = <%-form%>;</script>
     <script>
         $(document).ready(function() {
+            test();
             console.log(form);
             client_insertinfo(form);
             equipment_insertinfo(form);
             costs_insertinfo(form);
-            installations_insertinfo(form);
-            updates_insertinfo(form);
-            $('#update-button').click(function(){
-                postUpdate();
-                window.location.reload(true);
-            });
             $('.button').click(function() {
                 newrow(this);
             });
@@ -252,7 +219,6 @@
     );
     </script>
 </body>
-
 
 
 </html>

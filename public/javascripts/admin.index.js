@@ -58,9 +58,9 @@ var getClients = function(){
            console.log(obj)
            var row = obj.map((client) => {
             var cl = "<tr> " 
-            + "<td class = 'row-surname'>" + client.surname       + "</td>"
-            + "<td class = 'row-firstname'>" + client.firstname     + "</td>"
-            + "<td class = 'row-telephone'>" + client.telephone     + "</td>"
+            + "<td >" + client.surname       + "</td>"
+            + "<td >" + client.firstname     + "</td>"
+            + "<td >" + client.telephone     + "</td hidden>"
             + "<td>" + client.email         + "</td>"
             + "<td>" + client.address       + "</td>" 
             + "<td>" + client.postcode      + "</td>" 

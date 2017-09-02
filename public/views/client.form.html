@@ -97,14 +97,6 @@
             </div> 
 
 
-
-            <div class = 'updates-container'>
-                <div class = 'updates' id = 'updates'>
-                    <!--   -->
-                </div>
-            </div>
-
-
         </div>
         
 
@@ -115,7 +107,7 @@
                     <th>Make</th>
                     <th>Cable</th>
                     <th>Charger</th>
-                    <th>Case</th>
+                    <th>Cases</th>
                     <th>CDs</th>
                     <th>Manual</th>
                     <th>Additional</th>
@@ -125,20 +117,15 @@
         
         <div class = 'section-3'>
 
-            <div class = 'job-dscrpt' id = 'job-dscrpt'>
+            <div class = 'job-dscrpt'>
                 <div class = 'title'> Job Description </div>
+                <div id='job-dscrpt' class = 'text-container'> &nbsp</div>
             </div>
             
-            <div class = 'work-done' id = 'work-done'>
+            <div class = 'work-done'>
                 <div class = 'title'> Actual Work Done </div>
+                <div id = 'work-done' class = 'text-container'> &nbsp</div>
             </div>
-            
-            <table class = 'installation-table' id = 'installation-table'>
-                <tr> 
-                    <th> Installation </th>
-                    <th> Description </th>
-                </tr>
-            </table>
             
         </div> 
 
@@ -153,11 +140,6 @@
                 </tr>
             </table>
 
-            <div class = 'float-r-container'>
-                <div class = 'notes'>
-                </div>
-            </div>
-
         </div>
 
     </form>
@@ -169,7 +151,6 @@
         $(document).ready(function() {
             client_insertinfo(form);
             equipment_insertinfo(form);
-            updates_insertinfo(form);
             work_insertinfo(form);
             costs_insertinfo(form);
         }

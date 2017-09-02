@@ -12,7 +12,6 @@ function client_insertinfo(form){
 }
 
 function equipment_insertinfo(form){
-    console.log(form.equipment);
     if(form.equipment == undefined)
         return;
 
@@ -32,47 +31,22 @@ function equipment_insertrow(equipment){
         var cell_input =    '<td>'  + equipment[col_name]+ ' </td>';
         tablerow += cell_input;      
     }
-    console.log("adding :" + tablerow);
     tablerow += '</tr>';
     table.append(tablerow);
 };
 
-function updates_insertinfo(form){
-    if(form.updates == undefined){
-        return;
-    }
-    var updates = JSON.parse(form.updates);
-    var updates_DOM  = $('#updates');
-    
-   for(i = updates.length - 1; i >= 0; i--){
-        var update_html = "<div class = 'update'>" + updates[i].dscrpt + "</div>"
-                    + "<div class = 'update-time'>" + updates[i].time + "</div>";
-        updates_DOM.append(update_html);
-    }
-}
 
 function work_insertinfo(form){
     if(form.jobdscrpt != undefined){
         var jobdscrpt_DOM = $('#job-dscrpt');
         var jobdscrpt_info_html = "<div class = 'text-container'> " + form.jobdscrpt + " </div>";
-        jobdscrpt_DOM.append(jobdscrpt_info_html);
+        jobdscrpt_DOM.text(form.jobdscrpt);
     }
 
     if(form.workdone != undefined){
         var workdone_DOM = $('#work-done');
         var workdone_info_html = "<div class = 'text-container'> " + form.workdone + " </div>";
-        workdone_DOM.append(workdone_info_html);
-    }
-
-    if(form.installations != undefined){
-        var installations_DOM = $('#installation-table');
-        var installations = JSON.parse(form.installations);
-        
-        for(i = 0; i < installations.length; i++){
-            var installation_html = "<tr> <td>" + installations[i].type + "</td>"
-                                    + "<td>" + installations[i].dscrpt + "</td> </tr>";
-            installations_DOM.append(installation_html);
-        }
+        workdone_DOM.text(form.workdone);
     }
 }
 

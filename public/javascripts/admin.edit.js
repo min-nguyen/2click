@@ -14,19 +14,7 @@ function client_insertinfo(form){
     $('#jobdscrpt').val(form.jobdscrpt);
     $('#workdone').val(form.workdone);
 }
-////////////////////////////////////////////////////////
-function updates_insertinfo(form){
-    if(form.updates == undefined){
-        return;
-    }
-    var updates = JSON.parse(form.updates);
-    var updates_DOM  = $('#updates');
-    for(i = updates.length - 1; i >= 0; i--){
-        var update_html = "<div class = 'update'>" + updates[i].dscrpt + "</div>"
-                    + "<div class = 'update-time'>" + updates[i].time + "</div>";
-        updates_DOM.append(update_html);
-    }
-}
+
 ////////////////////////////////////////////////////////
 function equipment_insertinfo(){
     if(form.equipment == undefined)
@@ -54,6 +42,11 @@ function equipment_newrow(){
     }
     tablerow += '</tr>';
     $(tablerow).insertBefore('#equipment-button-row');
+
+    //* NEED TO DO
+    // $('input[name=Make]').autocomplete({
+    //     source: ['hi','hey']
+    // })
 };
 
 function equipment_loadrow(row_num, equipment){
@@ -72,6 +65,10 @@ function equipment_loadrow(row_num, equipment){
         input_DOM.val(cell_text);
     }
 };
+
+// "[{"type":"Total","dscrpt":"Total Cost","cost":0},
+// {"type":"Materials","dscrpt":"s","cost":5},
+// {"type":"Labour","dscrpt":"2","cost":40}]
 
 //////////////////////////////////////////////////////////////
 function costs_insertinfo(form){
@@ -101,43 +98,16 @@ function costs_insertinfo(form){
 function costs_newrow(){
     var tableRow = $('.cost-row')[0];
     newRow = $(tableRow).clone();
+    newRow.find('select[name=costtype]').val('');
+    newRow.find('textarea[name=costdscrpt]').val('');
+    newRow.find('input[name=cost]').val('');
     $(newRow).insertBefore('#cost-table-total');
-}
-
-function installations_newrow(){
-    var tableRow = $('.installation-row')[0];
-    newRow = $(tableRow).clone();
-    $(newRow).insertBefore('#installation-button-row');
-}
-
-//////////////////////////////////////////////////////////////////
-function installations_insertinfo(form){
-    if(form.installations == undefined)
-        return;
-
-    var installations = JSON.parse(form.installations);
-   
-    for(i = 0; i < installations.length; i++){
-        installations_newrow();
-
-        row_num = i + 2;
-        row_DOM = $('#installation-table tr:nth-child(' + row_num + ')');
-
-        var cell_type = row_DOM.find('select[name=installation]');
-        cell_type.val(installations[i]['type']);
-        var cell_dscrpt = row_DOM.find('textarea[name=installationdscrpt]');
-        cell_dscrpt.val(installations[i]['dscrpt']);
-
-    }
 }
 
 /////////////////////////////////////////////////////////////////
 function newrow(button){
     var id = $(button).attr('id');
-    if(id == 'installation-button'){
-        installations_newrow();
-    }
-    else if(id == 'equipment-button'){
+    if(id == 'equipment-button'){
         equipment_newrow();
     }
     else if(id == 'cost-button'){
@@ -145,15 +115,18 @@ function newrow(button){
     }
 }
 
-/////////////////////////////////////////////////////////////////
-function postUpdate(){
-    var update_text = $('#update-text').val();
+function test(){
+    var jobref = $('#jobref').val();
     $.ajax({
-        url: "//localhost:3000/admin/edit/postupdate", 
-        data: {entry : update_text, form: form}, 
+        url: "//localhost:3000/admin/loadSuggestions", 
         type: "POST",
         success: function(data){
-           console.log("received");
+            console.log(data)
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+            alert("Error " + xhr.status + " : " + xhr.responseText);
         }
     });
 }

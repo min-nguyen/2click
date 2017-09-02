@@ -11,7 +11,7 @@ router.get('/login', function(req, res, next){
 });
 
 router.post('/enter', function(req, res, next){
-    user_model.authenticate(req, res, function(){
+    user_model.authenticateAdmin(req, res, function(){
       req.session.username = req.body.username;
       res.locals.username = req.body.username;
       res.redirect('/admin/index');
@@ -27,6 +27,10 @@ router.post('/enter', function(req, res, next){
 //     next();
 //   }
 // })
+
+router.post('/loadSuggestions', function(req, res, next){
+  form_model.loadEquipmentModels(req, res, next);
+})
 
 router.post('/new/checkValidJobRef', function(req, res, next){
   form_model.checkValidJobRef(req, res);

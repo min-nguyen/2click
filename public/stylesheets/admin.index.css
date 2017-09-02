@@ -24,14 +24,14 @@
     font-size: 40px;
 }
 .row-header{
-    width: 1000px;
+    width: 1400px;
     position: relative;
     vertical-align: middle;
     overflow: hidden;
     background-color: #343131;
 }
 .row {
-    width: 1000px;
+    width: 1400px;
     position: relative;
     vertical-align: middle;
     overflow: hidden;
@@ -63,11 +63,9 @@
     right: 0%;
     height: 100%;
 }
-
-
-
 .index-table{
     width: 100%;
+    table-layout: fixed;
     text-align: center;
     font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: black;
@@ -77,7 +75,8 @@
     width: 15%;
 }
 .index-table td{
-    border: 1px solid black;
+    border: 2px solid black;
+    overflow: hidden;
 }
 td button {
     position: relative;

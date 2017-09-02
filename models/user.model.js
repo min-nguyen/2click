@@ -27,16 +27,40 @@ con.connect(function(err) {
     function (err, result) {;
         if (err) throw err;
   });
+  
 });
 
-User.authenticate = function(req, res, callback){
+User.authenticateClient = function(req, res, callback){
+    con.query("SELECT * FROM jobs WHERE jobref ='" + req.body.jobref + "'", function(err,results){
+        if(results.length != 0 && results[0].clientid != undefined){
+            con.query("SELECT * FROM clients WHERE id ='" + results[0].clientid + "'", function(err, results){
+                if(results.length != 0 && results[0].id){
+                    if(results[0].telephone == req.body.password){
+                        callback();
+                    }
+                    else
+                        res.redirect("/client/login"); 
+                }
+                else
+                    res.redirect("/client/login");
+            })
+        }
+        else {
+            res.redirect("/client/login");
+        }
+    })
+}
+
+User.authenticateAdmin = function(req, res, callback){
     console.log("calling");
     console.log(req.body);
     con.query("SELECT * FROM admins WHERE username = '" + req.body.username + "'" ,
     function (err, result) {
         if (err) throw err;
-        if(result.length < 1)
+        if(result.length < 1){
             console.log("No user exists");
+            res.redirect('/admin/login');
+        }
         else if(req.body.password == result[0].password)
             callback();
         else

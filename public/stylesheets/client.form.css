@@ -26,7 +26,7 @@
     .section-1{
         position: relative;
         border : 2px black bold;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         min-height: 40%;
         display: table;
@@ -35,7 +35,7 @@
     }
     .client-info {
         position: relative;
-        width: 50%;
+        width: 100%;
         float: left;
     }
     .row{
@@ -43,7 +43,7 @@
         position: relative;
         width: 100%;
         border: 1px solid black;
-        margin-bottom: 5%;
+        margin-bottom: 1%;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
@@ -59,10 +59,12 @@
         vertical-align: middle;
     }
     .row .name {
+        word-wrap: break-word;
+        white-space: initial;
         position: relative;
         padding: 2%;
         width: 40%;
-        font: 14px nova;
+        right: 0;
         float: left;
     }
     .updates-container {
@@ -108,7 +110,8 @@
         margin: 0 auto;
         width: 50%;
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size:13px;
+        font-size:16px;
+        overflow: auto;
         float: left;
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
@@ -118,7 +121,7 @@
     .section-2{
         position: relative;
         border : 2px black bold;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         min-height: 40%;
         display: table;
@@ -133,6 +136,7 @@
         height: 100%;
         font-size:13px;
         table-layout:fixed;
+       
     }
     .section-2 th {
         position: relative;
@@ -142,22 +146,21 @@
         width: 10%;
         color: #58D4ED;
         background: #343131;
+        font-size: 16px;
         font-family: nova;
     }
     .section-2 td {
         padding: 2px;
         position: relative;
-        border: 1px solid black;
+        border: 3px solid black;
         text-align: left;
-        overflow: auto;
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
     } 
-    
     /* SECTION 3 - JOB INFO  */
     .section-3{
         position: relative;
         border : 2px black bold;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         min-height: 40%;
         display: table;
@@ -176,21 +179,23 @@
         position: relative;
         min-height: 100%;
         padding-top: 5px;
-        width: 30%;
+        width: 45%;
         border: 2px solid black;
         box-shadow: 10px 10px 5px #888888;
+        font-size: 16px;
         float: left;
     }
     .section-3 .work-done{
         background: #343131;
         display: table-row;
-        position: relative;
+        position: absolute;
         min-height: 100%;
         padding-top: 5px;
-        width: 30%;
-        left: 5%;
+        width: 45%;
+        right: 0%;
         border: 2px solid black;
         box-shadow: 10px 10px 5px #888888;
+        font-size: 16px;
         float: left;
     }
     .section-3 .title{
@@ -211,33 +216,11 @@
         font-size:13px;
         background-color: white;
     }
-    .installation-table{
-        float: left;
-        left: 10%;
-        position: relative; 
-        width: 30%; 
-        min-height: 100%;
-        border: 2px solid black;
-        box-shadow: 10px 10px 5px #888888;
-    }
-    .installation-table td{
-        color: black;
-        padding-left: 5%;
-        font-size: 13px;
-        background-color:white;
-    }
-    .installation-table th{
-        font-family: nova;
-        font-size: 15px;
-        padding-left: 5%;
-        background-color: #343131;
-        color: #58D4ED;
-    }
      /* SECTION 4 - COST INFO  */
     .section-4 {
         position: relative;
         border : 2px black bold;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         min-height: 40%;
         display: table;
@@ -247,7 +230,7 @@
     .section-4 .cost-table{
         position: relative;
         border-collapse: collapse;
-        width: 65%;
+        width: 100%;
         height: 100%;
         border: 2px solid black;
         table-layout: fixed;
@@ -261,12 +244,14 @@
         position: relative;
         width: 5%; 
         font-family: nova;
-        font-size:13px;
+        text-align: center;
+        font-size:16px;
         background-color: #343131;
         color: #58D4ED;
         padding-left: 1%;
     }
     .cost-table td{
+        border: 3px solid black;
         position: relative;
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         color: black;

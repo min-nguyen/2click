@@ -59,10 +59,8 @@
 
                     <div class = 'field' >
                         <div class = 'name'> reference number </div>
-                        <input class = "input" type = "text" name = "jobref" id = "jobref" required>
                     </div>
                 </div>
-
                 <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> surname </div>
@@ -73,22 +71,22 @@
                         <div class = 'name'> date in </div>
                     </div>
                 </div>
-
                 <div class = row>
-                    <div class = 'field'>
+                    <div class = 'field' style = 'height: 100px'>
                         <div class = 'name'> address </div>
-                        <input class = "input" type = "text" name = "address" id = "address">
+                        <textarea class = "input" type = "text" name = "address" id = "address"> </textarea>
                     </div>
 
                     <div id = 'dateout' class = 'field' id = 'dateout'>
                         <div class = 'name'> date out </div>
                     </div>
+                </div>
+                <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> postcode </div>
                         <input class = "input" type = "text" name = "postcode" id = "postcode">
                     </div>
                 </div>
-
                 <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> telephone number </div>
@@ -109,16 +107,7 @@
                         <input class = "input" type = "text" name = "email" id = "email">
                     </div>
                 </div>
-            </div> 
-
-             <div class = 'updates-container'>
-                <div class = 'updates' id = 'updates'>
-
-                </div>
-                <textarea class = 'input' rows = '2' type = 'text' name = 'update' readonly></textarea>
-                <button type = "button" class="button" id='update-button'disabled> Post Update </button>
             </div>
-
         </div>
         
 
@@ -130,7 +119,7 @@
                     <th>Make</th>
                     <th>Cable</th>
                     <th>Charger</th>
-                    <th>Case</th>
+                    <th>Cases</th>
                     <th>CDs</th>
                     <th>Manual</th>
                     <th>Additional</th>
@@ -159,25 +148,7 @@
                 </div>
             </div>
             
-            <table class = 'installation-table' id = 'installation-table'>
-                <tr> 
-                    <th> Installation </th>
-                    <th> Description  </th>
-                </tr>
-                <tr class = 'installation-row'> 
-                    <td> <select name = "installation" class = "drop-down">
-                            <option value="" ></option>
-                            <option value="Hardware">Hardware</option>
-                            <option value="Software">Software</option>
-                            <option value="Other">Other</option>
-                        </select> </td>
-                    <td> <textarea class = "job-input" rows = "2" type = "text" name = "installationdscrpt"></textarea></td>
-                </tr>
-                <tr id = 'installation-button-row'> 
-                    <td> </td>
-                    <td> <button type = "button" class="button" id='installation-button'> New Row </button></td>
-                </tr>
-            </table>
+            
         </div> 
 
         <div class = 'section-4'>
@@ -211,20 +182,11 @@
             </table>
 
             <div class = 'submit-container'>
-                <div class = 'notes'>
-                    <textarea rows = '18' type = 'text' name = 'notes'></textarea>
-                </div>
                  <input 
                     type = 'button' 
                     style = "box-shadow: 10px 10px 5px #888888;position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
-                    id = "dummy-submit"
+                    id = "submit-button"
                     value = "submit"> 
-                <!-- <input 
-                    type = "submit" 
-                    style = "box-shadow: 10px 10px 5px #888888;position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
-                    id = "submit_post"
-                    value = "submit" >
-                <br>   -->
             </div>
         </div>
     </form>
@@ -236,17 +198,12 @@
             
             equipment_newrow();
             costs_newrow();
-            installations_newrow();
-
-            $('#update-button').click(function(){
-                alert("No job reference exists to post an update on");
-            });
 
             $('.button').click(function() {
                 newrow(this);
             });
-            $('#dummy-submit').click(function(){
-                checkValidJobRef();
+            $('#submit-button').click(function(){
+                $('#form').submit();
             });
             $('.cost-dscrpt').on('input', function(e){
                 cost_type = ($(this).closest('tr')).find('select[name=costtype]');

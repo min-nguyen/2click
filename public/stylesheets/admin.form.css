@@ -27,14 +27,14 @@
         margin: 0 auto;
         position: relative;
         border : 2px black bold;
-        width: 1000px;
+        width: 1400px;
         min-height: 40%;
         display: table;
         clear: both;
     }
     .client-info {
         position: relative;
-        width: 50%;
+        width: 100%;
         float: left;
     }
     .row{
@@ -42,12 +42,12 @@
         position: relative;
         width: 100%;
         border: 1px solid black;
-        margin-bottom: 5%;
+        margin-bottom: 1%;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         -moz-border-radius: 5px 5px 0px 0px;
     }
-     .row .field {
+    .row .field {
         width: 50%;
         position: relative;
         float: left; 
@@ -61,7 +61,7 @@
         position: relative;
         padding: 2%;
         width: 40%;
-        font: 14px nova;
+        font-size: 20px nova;
         float: left;
     }
     label{
@@ -73,7 +73,7 @@
         margin: 0 auto;
         width: 50%;
         font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size:13px;
+        font-size: 16px;
         float: left;
         box-shadow:outset 0 1px 2px #000000;
         -moz-box-shadow:outset 0 1px 2px #000000;
@@ -85,62 +85,17 @@
         box-shadow:inset 0 1px 2px #000000;
         -moz-box-shadow:inset 0 1px 2px #000000;
         -webkit-box-shadow:inset 0 1px 2px #000000;
+        font-size:15px;
         position: absolute; 
         float: left;
         right: 2%;
         height: 100%;
         width: 60%;
     }
-    .updates-container {
-        position: absolute;
-        float: left;
-        width: 40%;
-        height: 100%;
-        right: 0;
-        border: 2px solid black;
-        margin: auto 0;
-        background: #B8DDFF;
-        text-shadow: 1px 1px 1px #949494;
-        border-radius: 5px 5px 0px 0px;
-        -webkit-border-radius: 5px 5px 0px 0px;
-        -moz-border-radius: 5px 5px 0px 0px;
-    }
-    .updates {
-        position: absolute;
-        overflow: auto;
-        height: 100%;
-        width: 100%;
-        background-color: white;
-    }
-    .updates .update{
-        padding: 2%;
-        background-color: lightgray;
-        position: relative;
-        width: 100%;
-        border: 1px #e4e4e4 solid;
-        box-shadow: 0 1px 2px #000000;
-        -webkit-box-shadow:inset 0 1px 2px #000000;
-    }
-    .updates .update-time{
-        font: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size: 12px;
-        background-color: gray;
-        position: relative;
-        text-align: right;
-        width: 100%;
-    }
-    .updates-container .input{
-        position: absolute;
-        line-height: 13px;
-        font-size: 13px;
-        height: 15%;
-        width: 80%;
-        bottom: 0;
-    }
     /* SECTION 2 - EQUIPMENT INFO  */
      .section-2{
         position: relative;
-        width: 1000px;
+        width: 1400px;
         box-shadow: 10px 10px 5px #888888;
         margin: 0 auto;
         margin-top: 1%;
@@ -164,6 +119,7 @@
         border: 1px solid black;
         text-align: left;
         padding-left: 1%;
+        font-size: 16px;
         width: 10%;
         color: #58D4ED;
         background: #343131;
@@ -179,7 +135,7 @@
     /* SECTION 3 - JOB INFO  */
     .section-3{
         position: relative;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         display: table;
         clear: both;
@@ -191,26 +147,28 @@
         color: black;
     }
     .job-dscrpt{
+        font-size: 16px;
         font-family: nova;
         background: #343131;
         display: table-row;
         position: relative;
         min-height: 100%;
         padding-top: 5px;
-        width: 30%;
+        width: 45%;
         border: 2px solid black;
         box-shadow: 10px 10px 5px #888888;
         float: left;
     }
     .work-done{
+        font-size: 16px;
         font-family: nova;
         background: #343131;
         display: table-row;
-        position: relative;
+        position: absolute;
         min-height: 100%;
         padding-top: 5px;
-        width: 30%;
-        left: 5%;
+        width: 45%;
+        right: 0%;
         border: 2px solid black;
         box-shadow: 10px 10px 5px #888888;
         float: left;
@@ -225,41 +183,19 @@
     }
     textarea {
         line-height: 14px;
-        font-size: 13px;
+        font-size: 15px;
         width: 100%;
-    }
-    .installation-table{
-        float: left;
-        left: 10%;
-        position: relative; 
-        width: 30%; 
-        min-height: 100%;
-        border: 2px solid black;
-        box-shadow: 10px 10px 5px #888888;
-    }
-    .installation-table td{
-        color: black;
-        padding-top: 5%;
-        font-size: 13px;
-        background-color:white;
     }
     .drop-down{
         font-size: 12px;
         height: 100%;
         position: relative;
     }
-    .installation-table th{
-        font-family: nova;
-        font-size: 15px;
-        padding-left: 5%;
-        background-color: #343131;
-        color: #58D4ED;
-    }
      /* SECTION 4 - COST INFO  */
     .section-4 {
         position: relative;
         border : 2px black bold;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         margin-top: 1%;
         margin-bottom: 1%;
@@ -281,10 +217,11 @@
         background-color: #dddddd;
     }
     .cost-table th{
+        text-align: center;
         position: relative;
         width: 5%; 
         font-family: nova;
-        font-size:13px;
+        font-size:16px;
         background-color: #343131;
         color: #58D4ED;
         padding-left: 1%;
@@ -295,16 +232,28 @@
     .cost-dscrpt {
         font-size: 14px;
         width: 100%;
+        height: 90%;
         margin-left: 1%;
         margin: 0 auto;
     }
     .cost-input{
-        margin-left: 1%;
         position: absolute;
-        top: 0;
-        height: 100%;
-        width: 99%;
+        top: 5%;
+        left: 5%;
+        height: 90%;
+        width: 90%;
     }
+    
+    /* Hide arrows */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
+
     .cost-table h3{
         font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
         font-size: 13px;
