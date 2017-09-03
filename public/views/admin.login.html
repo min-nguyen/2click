@@ -9,7 +9,7 @@
     <script src="../javascripts/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<form method = "post" action = "/admin/enter">
+<form id = "form" method = "post" action = "/admin/enter">
         <div class = 'container'>
         <div class = 'login-container'>
                 <div> 
@@ -29,7 +29,6 @@
 <script>        
         $(document).ready(function() {
                 $('#submit-button').on('click', function(){
-
                 var username = $('[name="username"]').val();
                 var password = $('[name="password"]').val();
                 $.ajax({

@@ -107,13 +107,17 @@ module.newEquipment = function(form, callback){
         //Handle multiple equipment entries
         if(form['Equipment'].constructor != Array ){
             form['Equipment'] = Array(form['Equipment']);
-            console.log(form['Equipment']);
+            form['Make'] = Array(form['Make']);
+            form['Cable'] = Array(form['Cable']);
+            form['Charger'] = Array(form['Charger']);
+            form['Cases'] = Array(form['Cases']);
+            form['CDs'] = Array(form['CDs']);
+            form['Manual'] = Array(form['Manual']);
+            form['Additional'] = Array(form['Additional']);
         }
-        
         id = 0;
         i = 0;
         length = form['Equipment'].length;
-        console.log("length is " + length)
         var newEquipment_ = function(i, id){
             if(i >= length){
                 if(callback)
@@ -124,7 +128,6 @@ module.newEquipment = function(form, callback){
             else if(form['Equipment'][i] == '')
                 newEquipment_(i+1, id);
             else{
-                console.log("job ref is " + form['jobref']);
                 con.query(  "INSERT INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
                             "VALUES (" + "'"    + form['jobref'] + "', '"
                                                 + id + "', '"
@@ -159,6 +162,8 @@ module.newCost = function(form, callback){
             //Add multiple non-total costs to cost-table synchronously
             if(form['costtype'].constructor != Array){
                 form.costtype = Array(form.costtype);
+                form.costdscrpt = Array(form.costdscrpt);
+                form.cost = Array(form.cost);
             }
             id = 1;
             i = 0;
