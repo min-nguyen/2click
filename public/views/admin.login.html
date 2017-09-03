@@ -4,22 +4,46 @@
 
 <head>
     <title>2Click</title>
-    <link rel="stylesheet" href="../stylesheets/admin.index.css">
+    <link rel="stylesheet" href="../stylesheets/login.css">
     <link rel="icon" href="data:,">
     <script src="../javascripts/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <form method = "post" action = "/admin/enter">
-            <div class = 'row'>
-                    <div class = 'name'> USER</div>
-                    <input class = "input" type = "text" name = "username" id = "jobref" required>
-            </div>
-            <div class = 'row'>
-                    <div class = 'name'> PASSWORD</div>
-                    <input class = "input" type = "text" name = "password" id = "jobref" required>
-            </div>
-            <div>
-                    <button value = "submit" > Submit </button>
-            </div>
+        <div class = 'container'>
+        <div class = 'login-container'>
+                <div> 
+                        <div class = 'input-name' > Username  </div>
+                        <input class = 'input' type = "text" name = "username">
+                </div>
+                <div> 
+                        <div class = 'input-name'> Password </div>
+                        <input class = 'input' type = "password" name = "password">
+                </div>
+                <br>
+                <input id = 'submit-button' type = "button" value = "LOGIN">
+        </div>
+        </div>
 </form>
+
+<script>        
+        $(document).ready(function() {
+                $('#submit-button').on('click', function(){
+
+                var username = $('[name="username"]').val();
+                var password = $('[name="password"]').val();
+                $.ajax({
+                        url: "//localhost:3000/admin/loginattempt", 
+                        type: "POST",
+                        data: {password: password, username: username},
+                        success: function(data){
+                                $('#form').submit();
+                        },
+                        error: function(xhr, ajaxOptions, thrownError){
+                                alert("Error:  " + xhr.responseText);
+                        }
+                });
+                });
+        });
+</script>
 </body>

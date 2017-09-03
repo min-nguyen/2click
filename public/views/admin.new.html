@@ -54,7 +54,7 @@
                 <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> first name </div>
-                        <input class = "input" type = "text" name = "firstname" id = "firstname">
+                        <input class = "input" type = "text" name = "firstname" id = "firstname" required>
                     </div>
 
                     <div class = 'field' >
@@ -64,7 +64,7 @@
                 <div class = row>
                     <div class = 'field'>
                         <div class = 'name'> surname </div>
-                        <input class = "input" type = "text" name = "surname" id = "surname">
+                        <input class = "input" type = "text" name = "surname" id = "surname" required>
                     </div>
 
                     <div class = 'field' id = 'datein'>
@@ -183,7 +183,7 @@
 
             <div class = 'submit-container'>
                  <input 
-                    type = 'button' 
+                    type = 'submit' 
                     style = "box-shadow: 10px 10px 5px #888888;position: relative; width: 100%; bottom: 0; margin-top: 1vh" 
                     id = "submit-button"
                     value = "submit"> 
@@ -195,15 +195,11 @@
     <script src = '../javascripts/admin.new.js'> </script>
     <script>
         $(document).ready(function() {
-            
+            loadSuggestions();
             equipment_newrow();
             costs_newrow();
-
             $('.button').click(function() {
                 newrow(this);
-            });
-            $('#submit-button').click(function(){
-                $('#form').submit();
             });
             $('.cost-dscrpt').on('input', function(e){
                 cost_type = ($(this).closest('tr')).find('select[name=costtype]');

@@ -33,7 +33,13 @@
     <form  >
 
         <div class = 'section-1'>
-
+            <div class = row>
+                    <div id = 'status' class = 'field' >
+                        <div class = 'status'> STATUS: </div>
+                        <div id = 'status-message' class = 'status'> 
+                        </div>
+                    </div>
+            </div>
             <div class = 'client-info'>
                 <div class = row>
                     <div id = 'firstname' class = 'field'>
@@ -70,28 +76,19 @@
                     <div id = 'postcode' class = 'field'>
                         <div class = 'name'> postcode </div>
                     </div>
-                     <div id = 'status' class = 'field' >
-                        <div class = 'name'> status: </div>
-                    </div>
+                     
                 </div>
 
                 <div class = row>
                     <div id = 'telephone' class = 'field'>
                         <div class = 'name'> telephone number </div>
                     </div>
-                    <div class = 'field'>
-                        <div class = 'name'> status </div>
-                        <div style = 'padding-top: 3px'>
-                            <input type="radio" name="status" value="Ready" id="status-ready" disabled> <label for="status-ready">Ready</label>
-                            <input type="radio" name="status" value="Not Ready" id="status-notready" disabled> <label for="status-notready">Not Ready</label>
-                        </div>
-                    </div>
                 </div>
 
                 <div class = row>
-                        <div  id = 'email' class = 'field' style = 'width: 100%'> 
-                            <div class = 'name'> email address </div>
-                        </div>
+                    <div id = 'email' class = 'field'> 
+                        <div class = 'name'> email address </div>
+                    </div>
                 </div>
 
             </div> 

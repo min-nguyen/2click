@@ -28,6 +28,8 @@ function equipment_newrow(){
     }
     tablerow += '</tr>';
     $(tablerow).insertBefore('#equipment-button-row');
+    $('[name="Make"]').attr('list', 'suggestions');
+    $('[name="Make"]').attr('autocomplete', 'off');
 };
 
 function costs_newrow(){
@@ -47,6 +49,33 @@ function newrow(button){
         costs_newrow();
     }
 }
+
+function loadSuggestions(){
+    var jobref = $('#jobref').val();
+    $.ajax({
+        url: "//localhost:3000/admin/loadSuggestions", 
+        type: "POST",
+        success: function(data){
+            console.log(data)
+            var dataObj = JSON.parse(data);
+            var datalist = "<datalist id='suggestions'>";
+            for(i = 0; i < dataObj.length; i++){
+                datalist += "<option value = '" + dataObj[i] + "'>"
+            }
+            datalist += "</datalist>";
+            $('#equipment-table').append(datalist);
+            var equipmentElements = $('[name="Make"]');
+            $(equipmentElements).attr('list', 'suggestions');
+            $(equipmentElements).attr('autocomplete', 'off');
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+            alert("Error " + xhr.status + " : " + xhr.responseText);
+        }
+    });
+}
+
 
 function checkValidJobRef(){
     var jobref = $('#jobref').val();

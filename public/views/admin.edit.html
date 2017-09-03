@@ -198,7 +198,7 @@
     <script type="text/javascript">var form = <%-form%>;</script>
     <script>
         $(document).ready(function() {
-            test();
+            
             console.log(form);
             client_insertinfo(form);
             equipment_insertinfo(form);
@@ -215,6 +215,7 @@
                     window.location.replace(str);
                 }
             })
+            loadSuggestions();
         }
     );
     </script>

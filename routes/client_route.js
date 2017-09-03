@@ -5,10 +5,16 @@ var user_model = require('../models/user.model');
 var form_model = require('../models/form.model');
 
 
+
 router.get('/login', function(req, res, next) {
   res.sendfile(path.join(__dirname + '/../public/views/client.login.html'));
 });
 
+router.post('/loginattempt', function(req, res, next){
+  user_model.authenticateClient(req, res, function(){
+    res.send("OK");
+  })
+});
 
 router.post('/submit', function(req, res, next){
   user_model.authenticateClient(req, res, function(){

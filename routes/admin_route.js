@@ -10,6 +10,12 @@ router.get('/login', function(req, res, next){
   res.sendfile(path.join(__dirname + '/../public/views/admin.login.html'));
 });
 
+router.post('/loginattempt', function(req, res, next){
+  user_model.authenticateAdmin(req, res, function(){
+    res.send("OK");
+  });
+});
+
 router.post('/enter', function(req, res, next){
     user_model.authenticateAdmin(req, res, function(){
       req.session.username = req.body.username;

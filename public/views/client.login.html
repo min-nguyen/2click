@@ -5,7 +5,7 @@
     <title>2Click</title>
     <link rel="icon" href="data:,">
     <script src="../javascripts/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="../stylesheets/client.form.css">
+    <link rel="stylesheet" href="../stylesheets/login.css">
     <style>
         .reference{
             position: absolute;
@@ -16,17 +16,45 @@
 </head>
 <!--tr, th, td  -->
 <body>
-    <div style = 'position: relative; width: 80%; left: 10%; height: 50vh' >
-      <div id = 'address' >
-          <form method = "post" action = "/client/submit">
-            <div> reference </div>
-            <input type = "text" name = "jobref">
-            <input type = "password" name = "password">
+<div class = 'container'>
+    <div class = 'login-container'>
+          <form id = 'form' method = "post" action = "/client/submit">
+            <div> 
+                <div class = 'input-name' > Reference Number  </div>
+                <input class = 'input' type = "text" name = "jobref">
+            </div>
+            <div> 
+                <div class = 'input-name'> Password </div>
+                <input class = 'input' type = "password" name = "password">
+            </div>
             <br>
-            <input type = "submit" >
+            <input id = 'submit-button' type = "button" value = "SUBMIT"> 
         </form>
-      </div>
     </div>
+</div>
+
+    <script>        
+        $(document).ready(function() {
+            $('#submit-button').on('click', function(){
+
+                var jobref = $('[name="jobref"]').val();
+                var pw = $('[name="password"]').val();
+                $.ajax({
+                    url: "//localhost:3000/client/loginattempt", 
+                    type: "POST",
+                    data: {password: pw, jobref: jobref},
+                    success: function(data){
+                        $('#form').submit();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert("Error:  " + xhr.responseText);
+                    }
+                });
+            })
+        }
+        );
+    </script>
+
 </body>
 
 </html>

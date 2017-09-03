@@ -30,6 +30,8 @@ con.connect(function(err) {
   
 });
 
+
+
 User.authenticateClient = function(req, res, callback){
     con.query("SELECT * FROM jobs WHERE jobref ='" + req.body.jobref + "'", function(err,results){
         if(results.length != 0 && results[0].clientid != undefined){
@@ -39,14 +41,14 @@ User.authenticateClient = function(req, res, callback){
                         callback();
                     }
                     else
-                        res.redirect("/client/login"); 
+                        res.status(401).send("Incorrect reference number or password");
                 }
                 else
-                    res.redirect("/client/login");
+                    res.status(401).send("Incorrect reference number or password");
             })
         }
         else {
-            res.redirect("/client/login");
+            res.status(401).send("Incorrect reference number or password");
         }
     })
 }
@@ -59,12 +61,12 @@ User.authenticateAdmin = function(req, res, callback){
         if (err) throw err;
         if(result.length < 1){
             console.log("No user exists");
-            res.redirect('/admin/login');
+            res.status(401).send("Incorrect username or password");
         }
         else if(req.body.password == result[0].password)
             callback();
         else
-            console.log("Wrong password");
+            res.status(401).send("Incorrect username or password");
   });
 }
 
