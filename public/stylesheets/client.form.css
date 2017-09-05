@@ -11,11 +11,12 @@
     .tab-container{
         position: relative;
         width: 100vw; 
-        height: 40px; 
+        height: 60px; 
         z-index: 1; 
         background-color: #140F0F; 
         text-align: center;
         margin-bottom: 50px;
+        border-bottom: 5px solid #343131;
     }
     .tab-margin-0{
         display: block; 
@@ -93,7 +94,7 @@
         margin: auto 0;
         position: relative;
         width: 100%;
-        border: 1px solid black;
+        border: 3px solid black;
         margin-bottom: 1%;
         border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
@@ -168,7 +169,7 @@
     }
     .section-2 th {
         position: relative;
-        border: 1px solid black;
+        border: 3px solid black;
         text-align: left;
         padding-left: 1%;
         width: 10%;
@@ -271,6 +272,7 @@
     .cost-table th{
         position: relative;
         width: 5%; 
+        border: 3px solid black;
         font-family: nova;
         text-align: center;
         font-size:16px;
@@ -299,4 +301,12 @@
         border: solid 2px black;
         position: relative;
         box-shadow: 10px 10px 5px #888888;
+    }
+    .footer {
+        width: 1400px; 
+        margin: 0 auto; 
+        margin-top: 50px; 
+        margin-bottom:50px; 
+        padding-top: 10px; 
+        border-top: 5px solid #645D5D;
     }

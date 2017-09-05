@@ -42,7 +42,7 @@
     padding: 2%;
     width: 20%;
     font-family: nova, Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     color: #58D4ED;
     float: left;
     box-shadow:outset 0 1px 2px #000000;
@@ -54,7 +54,7 @@
     top: 10%;
     height: 60%;
     right: 12.5%;
-    font-size: 12px;
+    font-size: 20px;
     width: 60%;
     left: 15;
 }
@@ -70,9 +70,9 @@
     font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: black;
 }
-.index-table th{
+.index-table tr th{
     border: 1px solid black;
-    width: 15%;
+    width: 1%;
 }
 .index-table td{
     border: 2px solid black;

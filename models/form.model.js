@@ -84,6 +84,7 @@ con.connect(function(err) {
 var form_db = require('./form.db')(con);
 
 
+
 Form.newClientJob = function(req, res, callback){
     console.log(req.body)
     if(req.body.clientId){
@@ -229,6 +230,10 @@ Form.insertForm = function(req, res, callback){
     } catch(err){
         console.log(err);
     }
+}
+
+Form.outputForm = function(req, res, callback){
+
 }
 
 Form.getClients = function(req, res, callback){

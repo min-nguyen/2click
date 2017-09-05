@@ -6,7 +6,7 @@
 .tab-container{
     position: fixed; 
     width: 100vw; 
-    height: 40px; 
+    height: 60px; 
     z-index: 1; 
     padding-top: 10px;
     background-color: #140F0F; 

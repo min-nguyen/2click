@@ -161,9 +161,9 @@ module.newCost = function(form, callback){
         if(form['costtype'] != undefined){
             //Add multiple non-total costs to cost-table synchronously
             if(form['costtype'].constructor != Array){
-                form.costtype = Array(form.costtype);
-                form.costdscrpt = Array(form.costdscrpt);
-                form.cost = Array(form.cost);
+                form['costtype'] = Array(form['costtype']);
+                form['costdscrpt'] = Array(form['costdscrpt']);
+                form['cost'] = Array(form['cost']);
             }
             id = 1;
             i = 0;
