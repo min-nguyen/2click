@@ -27,7 +27,7 @@ var excelForm = {
 for(z in file[0].data){
   if(file[0].data[z].length != 0 ){
     var line = file[0].data[z];
-    console.log(line[0]);
+    console.log(z + ": " + line);
 
   }
     
