@@ -33,7 +33,7 @@ con.connect(function(err) {
 
 
 User.authenticateClient = function(req, res, callback){
-    con.query("SELECT * FROM jobs WHERE jobref ='" + req.body.jobref + "'", function(err,results){
+    con.query("SELECT * FROM jobs WHERE jobref =" + con.escape(req.body.jobref), function(err,results){
         if(results.length != 0 && results[0].clientid != undefined){
             con.query("SELECT * FROM clients WHERE id ='" + results[0].clientid + "'", function(err, results){
                 if(results.length != 0 && results[0].id){
@@ -56,7 +56,7 @@ User.authenticateClient = function(req, res, callback){
 User.authenticateAdmin = function(req, res, callback){
     console.log("calling");
     console.log(req.body);
-    con.query("SELECT * FROM admins WHERE username = '" + req.body.username + "'" ,
+    con.query("SELECT * FROM admins WHERE username = " + con.escape(req.body.username),
     function (err, result) {
         if (err) throw err;
         if(result.length < 1){
