@@ -120,15 +120,30 @@ function loadSuggestions(){
         url: "//localhost:3000/admin/loadSuggestions", 
         type: "POST",
         success: function(data){
-            var dataObj = JSON.parse(data);
-            var datalist = "<datalist id='suggestions'>";
-            for(i = 0; i < dataObj.length; i++){
-                datalist += "<option value = '" + dataObj[i] + "'>"
+            console.log(data)
+            var suggestions = JSON.parse(data);
+
+            // Load make suggestions
+            var makeSuggestions = suggestions.make;
+            var datalist = "<datalist id='make-suggestions'>";
+            for(i = 0; i < makeSuggestions.length; i++){
+                datalist += "<option value = '" + makeSuggestions[i] + "'>"
             }
             datalist += "</datalist>";
             $('#equipment-table').append(datalist);
             var equipmentElements = $('[name="Make"]');
-            $(equipmentElements).attr('list', 'suggestions');
+            $(equipmentElements).attr('list', 'make-suggestions');
+            $(equipmentElements).attr('autocomplete', 'off');
+            // Load equipment suggestions
+            var equipmentSuggestions = suggestions.equipment;
+            var datalist = "<datalist id='equipment-suggestions'>";
+            for(i = 0; i < equipmentSuggestions.length; i++){
+                datalist += "<option value = '" + equipmentSuggestions[i] + "'>"
+            }
+            datalist += "</datalist>";
+            $('#equipment-table').append(datalist);
+            var equipmentElements = $('[name="Equipment"]');
+            $(equipmentElements).attr('list', 'equipment-suggestions');
             $(equipmentElements).attr('autocomplete', 'off');
         },
         error: function(xhr, ajaxOptions, thrownError){
