@@ -28,7 +28,7 @@ function equipment_newrow(){
     }
     tablerow += '</tr>';
     $(tablerow).insertBefore('#equipment-button-row');
-    $('[name="Make"]').attr('list', 'suggestions');
+    $('[name="Make"]').attr('list', 'make-suggestions');
     $('[name="Make"]').attr('autocomplete', 'off');
 };
 
@@ -50,6 +50,7 @@ function newrow(button){
     }
 }
 
+
 function loadSuggestions(){
     var jobref = $('#jobref').val();
     $.ajax({
@@ -57,15 +58,29 @@ function loadSuggestions(){
         type: "POST",
         success: function(data){
             console.log(data)
-            var dataObj = JSON.parse(data);
-            var datalist = "<datalist id='suggestions'>";
-            for(i = 0; i < dataObj.length; i++){
-                datalist += "<option value = '" + dataObj[i] + "'>"
+            var suggestions = JSON.parse(data);
+
+            // Load make suggestions
+            var makeSuggestions = suggestions.make;
+            var datalist = "<datalist id='make-suggestions'>";
+            for(i = 0; i < makeSuggestions.length; i++){
+                datalist += "<option value = '" + makeSuggestions[i] + "'>"
             }
             datalist += "</datalist>";
             $('#equipment-table').append(datalist);
             var equipmentElements = $('[name="Make"]');
-            $(equipmentElements).attr('list', 'suggestions');
+            $(equipmentElements).attr('list', 'make-suggestions');
+            $(equipmentElements).attr('autocomplete', 'off');
+            // Load equipment suggestions
+            var equipmentSuggestions = suggestions.equipment;
+            var datalist = "<datalist id='equipment-suggestions'>";
+            for(i = 0; i < equipmentSuggestions.length; i++){
+                datalist += "<option value = '" + equipmentSuggestions[i] + "'>"
+            }
+            datalist += "</datalist>";
+            $('#equipment-table').append(datalist);
+            var equipmentElements = $('[name="Equipment"]');
+            $(equipmentElements).attr('list', 'equipment-suggestions');
             $(equipmentElements).attr('autocomplete', 'off');
         },
         error: function(xhr, ajaxOptions, thrownError){

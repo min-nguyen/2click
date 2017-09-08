@@ -202,6 +202,7 @@ Form.loadForm = function(req, res, callback){
 
 Form.replaceForm = function(req, res, callback){
     form = req.body;
+   
     con.query("SET FOREIGN_KEY_CHECKS=0");
     try{
         sync.fiber(function(){
@@ -243,12 +244,26 @@ Form.getClients = function(req, res, callback){
     })
 }
 
+
+
 Form.loadEquipmentModels = function(req, res, callback){
     con.query("SELECT * FROM equipment", function(err, results){
-        var make = results.map(result => result.make)
-                          .filter(function(elem, index, self) {return self.indexOf(elem) == index})
-                          .filter(result => result != ('undefined' || null) && result.length != 0)
-        var string = JSON.stringify(make)
+        var filterSuggestions 
+            = results.map(result => Array(result.equipment, result.make))
+                    .reduce(function(accumulator, current){
+                        return [accumulator[0].concat(current[0]), 
+                                accumulator[1].concat(current[1])]
+                    }, [Array(),Array()] )
+                    .map(arr => 
+                        arr.filter(function(elem, index, self) {
+                            return self.indexOf(elem) == index
+                        }).filter(result => 
+                            result != ('undefined' || null) && result.length != 0)
+                    )
+        var suggestions = new Object();
+        suggestions.equipment = filterSuggestions[0]
+        suggestions.make = filterSuggestions[1]           
+        var string = JSON.stringify(suggestions)
         res.send(string)
     })
 }
