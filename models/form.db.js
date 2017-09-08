@@ -8,27 +8,50 @@ module.newClient = function(form, action, callback){
     //Insert new job form
     console.log(form)
     if(action == "INSERT"){
-        //Using existing client
+        //Using existing client from client's corresponding 'new job' button
         if(form.clientid){
             callback(null, form);
         }
-        //Creating new client
+        //Creating new client from home page 'new job' button
         else {
-            con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
-            "VALUES (" + "'"    + form['firstname'] + "', '" 
-                                + form['surname'] + "', '" 
-                                + form['address'] + "', '" 
-                                + form['postcode'] + "', '" 
-                                + form['telephone'] + "', '" 
-                                + form['email'] + "')", function(err, result){
-                                    con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", 
-                                    function(err, result){
-                                        form.clientid = result[0].id;    
-                                        if(callback)
-                                            callback(null, form); 
-                                        return form;
-                                    })
-                                });
+            con.query("SELECT * FROM `clients` WHERE (firstname, surname, telephone) = ('" +
+            form['firstname'] + "', '" + form['surname'] + "','" + form['telephone'] + "')", function(err, results){
+                if(err){
+                    console.log("Error on " + form + " :" + err);
+                }
+                //If firstname, surname and telephone exist, assume existing client and fetch id
+                if(results.length > 0){
+                    form.clientid = results[0].id;
+                    if(callback)
+                        callback(null, form);
+                    return form;
+                }
+                else{
+                //If no matchings fields, create new client
+                    con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
+                    "VALUES (" + "'"    + form['firstname'] + "', '" 
+                                        + form['surname'] + "', '" 
+                                        + form['address'] + "', '" 
+                                        + form['postcode'] + "', '" 
+                                        + form['telephone'] + "', '" 
+                                        + form['email'] + "')", function(err, result){
+                                            if(err){
+                                                console.log("Error on " + form + " :" + err);
+                                            }
+                                            con.query("SELECT * FROM clients WHERE firstname = '" + form['firstname'] + "' AND surname = '" + form['surname'] + "'", 
+                                            function(err, result){
+                                                if(err){
+                                                    console.log("Error on " + form + " :" + err);
+                                                }
+                                                form.clientid = result[0].id;    
+                                                if(callback)
+                                                    callback(null, form); 
+                                                return form;
+                                            })
+                                        });
+                }
+            })
+            
         }
     }
     //Replace existing job form
@@ -37,7 +60,10 @@ module.newClient = function(form, action, callback){
                     + " VALUES('"  + form.clientid + "', '" + form.firstname + "','" + form.surname + "','" 
                     + form.address + "','" + form.postcode + "','" + form.telephone + "','" + form.email + "')", 
                     function(err, result){
-                        console.log("REPLACING " + form.firstname + " INTO " + form.clientid )
+                        if(err){
+                            console.log("Error on " + form + " :" + err);
+                        }
+
                         if(callback)
                             callback(null, form);//(form, action);  
                     });
@@ -57,6 +83,9 @@ module.newJob = function(form, action, callback){
                                 + form['status'] + "', '"
                                 + form.clientid + "')", 
                                 function(err, results){
+                                    if(err){
+                                        console.log("Error on " + form + " :" + err);
+                                    }
                                     form['jobref'] = results.insertId
                                     if(callback)
                                         callback(null, form);
@@ -88,8 +117,9 @@ module.newJob = function(form, action, callback){
                     + "VALUES('" + form.jobref + "','" + form.jobdscrpt + "','" + form.workdone + "'," 
                     + datein + "," + dateout + ",'" + form.status + "','" + form.clientid + "')", 
                     function(err, result){
-                        if(err)
-                            throw err;
+                        if(err){
+                            console.log("Error on " + form + " :" + err);
+                        }
                         if(callback)
                             callback(null, form);
             });
@@ -140,6 +170,9 @@ module.newEquipment = function(form, callback){
                                                 + form['Manual'][i] + "', '" 
                                                 + form['Additional'][i] + "')", 
                                                 function(err, result){
+                                                    if(err){
+                                                        console.log("Error on " + form + " :" + err);
+                                                    }
                                                     newEquipment_(i+1, id+1);
                                                 });
             }
@@ -154,6 +187,7 @@ module.newEquipment = function(form, callback){
 
 // //////////////////////////////////////////////////
 module.newCost = function(form, callback){
+    console.log("INSERTING COSTS")
     con.query("DELETE FROM costs WHERE jobref = '" + form['jobref'] + "'", function(err, results){
         console.log(results);
     })
@@ -172,8 +206,10 @@ module.newCost = function(form, callback){
                 if(i >= length){
                         return;
                 }
-                else if(form['costtype'][i] == '' || form['cost'][i] == '')
+                else if(form['costtype'][i] == '' || form['cost'][i] == ''){
+                    console.log("ignoring")
                     newCost_(i+1, id);
+                }
                 else{
                     con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
                                 "VALUES (" + "'"    + form['jobref'] + "', '"
@@ -182,7 +218,10 @@ module.newCost = function(form, callback){
                                                     + form['costdscrpt'][i] + "', '"
                                                     + form['cost'][i] + "')", 
                                                     function(err, result){
-                                                            newCost_(i+1, id+1);
+                                                        if(err){
+                                                            console.log("Error on " + form + " :" + err);
+                                                        }
+                                                        newCost_(i+1, id+1);
                                                     });
                 }
             }
@@ -198,6 +237,9 @@ module.newCost = function(form, callback){
                                         + "Total" + "', '" 
                                         + "Total Cost"+ "', '"
                                         + form['totalcost'] + "')", function(err, result){
+                                            if(err){
+                                                console.log("Error on " + form + " :" + err);
+                                            }
                                             if(callback)
                                                 callback();
                                         });

@@ -5,21 +5,22 @@ var async = require('async');
 var sync = require('synchronize');
 var path = require('path');
 var q = require('q');
-
+var xlsx = require('node-xlsx');
 
 var Form = function(){
 
 }
 
-var con = mysql.createConnection({
+Form.con = mysql.createConnection({
   port: 3306,
   host: "localhost",
   user: config.username(),
   password: config.password()
 });
 
+var con = Form.con;
 
-con.connect(function(err) {
+Form.con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
   con.query("CREATE DATABASE IF NOT EXISTS 2click", function (err, result) {
@@ -82,6 +83,7 @@ con.connect(function(err) {
 });
 
 var form_db = require('./form.db')(con);
+
 
 
 
@@ -202,7 +204,7 @@ Form.loadForm = function(req, res, callback){
 
 Form.replaceForm = function(req, res, callback){
     form = req.body;
-   
+    console.log(form)
     con.query("SET FOREIGN_KEY_CHECKS=0");
     try{
         sync.fiber(function(){
@@ -233,9 +235,74 @@ Form.insertForm = function(req, res, callback){
     }
 }
 
-Form.outputForm = function(req, res, callback){
-
+//  '/../excel/4086_Minh_Ng.xlsx'
+function excelToDB(dirpath){
+    var file = xlsx.parse(__dirname + dirpath);
+    //Fixed co-ordinates of excel fields
+    var excelForm = {
+    //[y-index, x-index, length]
+        firstname: [2, 1],
+        jobref: [2, 6],
+        surname: [4, 1],
+        address: [6, 2],
+        postcode: [11, 1],
+        email: [15, 1],
+        telephone: [14, 1],
+        Equipment: [18, 0, 5], // (18 to 22)
+        Make: [18, 1, 5],
+        Cable: [18, 2, 5],
+        Charger: [18, 3, 5],
+        Cases: [18, 4, 5],
+        CDs: [18, 5, 5],
+        Manual: [18, 6, 5],
+        Additional: [18, 7, 5],
+        jobdscrpt: [28, 0],
+        workdone: [28, 3],
+        costtype: [41, 0, 8],    //41 to 48
+        costdscrpt: [41, 1, 8],
+        cost: [41, 3, 8],
+        totalcost: [49, 0]
+    };
+    var myform = new Object();
+    myform.status = 'Ready';
+    Object.keys(excelForm).forEach(key => {
+        var field = key;
+        var y = excelForm[key][0];
+        var x = excelForm[key][1];
+        var offset = 0;
+        if(excelForm[key][2]){
+            var offset = excelForm[key][2]
+        }
+        for(i = 0; i < offset + 1; i++){
+            if(file[0].data[y + i].length != 0 ){
+            var line = file[0].data[y + i];
+            var data = line[x];
+            if(data == undefined){
+                data = "";
+            }
+            if(myform[key]){
+                if(excelForm[key][2]){
+                myform[key].push(data)
+                }
+            }
+            else if(excelForm[key][2]){
+                myform[key] = Array();
+                myform[key].push(data);
+            }
+            else{
+                myform[key] = data;
+            }
+            }
+        }  
+    })
+    var reqobj = new Object();
+    reqobj.body = myform;
+    con.on('connect', function(){
+        con.query('USE 2click');
+        Form.insertForm(reqobj, reqobj, function(){});
+    });
 }
+
 
 Form.getClients = function(req, res, callback){
     con.query("SELECT * FROM clients ORDER BY surname DESC", function(err, results){
@@ -244,7 +311,28 @@ Form.getClients = function(req, res, callback){
     })
 }
 
-
+function form(){
+    this.firstname
+    this.surname
+    this.address
+    this.postcode
+    this.telephone
+    this.email
+    this.Equipment
+    this.Make
+    this.Cable
+    this.Charger
+    this.Cases
+    this.CDs
+    this.Manual
+    this.Additional
+    this.jobdscrpt
+    this.workdone
+    this.costtype
+    this.costdscrpt
+    this.cost
+    this.totalcost
+}
 
 Form.loadEquipmentModels = function(req, res, callback){
     con.query("SELECT * FROM equipment", function(err, results){
