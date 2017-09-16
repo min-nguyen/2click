@@ -5,6 +5,7 @@ var path = require('path');
 var form_model = require('../models/form.model');
 var user_model = require('../models/user.model');
 
+
 // PRIORITISE IF LOGIN/ENTER IS REQUESTED
 router.get('/login', function(req, res, next){
   res.sendfile(path.join(__dirname + '/../public/views/admin.login.html'));

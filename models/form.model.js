@@ -6,6 +6,7 @@ var sync = require('synchronize');
 var path = require('path');
 var q = require('q');
 var xlsx = require('node-xlsx');
+var jsxlsx = require('xlsx');
 
 var Form = function(){
 
@@ -83,7 +84,6 @@ Form.con.connect(function(err) {
 });
 
 var form_db = require('./form.db')(con);
-
 
 
 
@@ -235,73 +235,7 @@ Form.insertForm = function(req, res, callback){
     }
 }
 
-//  '/../excel/4086_Minh_Ng.xlsx'
-function excelToDB(dirpath){
-    var file = xlsx.parse(__dirname + dirpath);
-    //Fixed co-ordinates of excel fields
-    var excelForm = {
-    //[y-index, x-index, length]
-        firstname: [2, 1],
-        jobref: [2, 6],
-        surname: [4, 1],
-        address: [6, 2],
-        postcode: [11, 1],
-        email: [15, 1],
-        telephone: [14, 1],
-        Equipment: [18, 0, 5], // (18 to 22)
-        Make: [18, 1, 5],
-        Cable: [18, 2, 5],
-        Charger: [18, 3, 5],
-        Cases: [18, 4, 5],
-        CDs: [18, 5, 5],
-        Manual: [18, 6, 5],
-        Additional: [18, 7, 5],
-        jobdscrpt: [28, 0],
-        workdone: [28, 3],
-        costtype: [41, 0, 8],    //41 to 48
-        costdscrpt: [41, 1, 8],
-        cost: [41, 3, 8],
-        totalcost: [49, 0]
-    };
-    var myform = new Object();
-    myform.status = 'Ready';
-    Object.keys(excelForm).forEach(key => {
-        var field = key;
-        var y = excelForm[key][0];
-        var x = excelForm[key][1];
-        var offset = 0;
-        if(excelForm[key][2]){
-            var offset = excelForm[key][2]
-        }
-        for(i = 0; i < offset + 1; i++){
-            if(file[0].data[y + i].length != 0 ){
-            var line = file[0].data[y + i];
-            var data = line[x];
-            if(data == undefined){
-                data = "";
-            }
-            if(myform[key]){
-                if(excelForm[key][2]){
-                myform[key].push(data)
-                }
-            }
-            else if(excelForm[key][2]){
-                myform[key] = Array();
-                myform[key].push(data);
-            }
-            else{
-                myform[key] = data;
-            }
-            }
-        }  
-    })
-    var reqobj = new Object();
-    reqobj.body = myform;
-    con.on('connect', function(){
-        con.query('USE 2click');
-        Form.insertForm(reqobj, reqobj, function(){});
-    });
-}
+
 
 
 Form.getClients = function(req, res, callback){
@@ -387,4 +321,106 @@ Form.getJobs = function(req, res, callback){
     })
 }
 
+
+
+function validForm(){
+    this.firstname = ""
+    this.surname = ""
+    this.address = ""
+    this.status = {Ready: "Ready", NotReady: "Not Ready"}
+    this.postcode = ""
+    this.telephone = ""
+    this.email = ""
+    this.Equipment = []
+    this.Make = []
+    this.Cable = []
+    this.Charger = []
+    this.Cases = []
+    this.CDs = []
+    this.Manual = []
+    this.Additional = []
+    this.jobdscrpt = ""
+    this.workdone = ""
+    this.costtype = {Labour: "Labour", Materials: "Materials", Other: "Other"}
+    this.costdscrpt = ""
+    this.cost = ""
+    this.totalcost = ""
+}
+
+function formatExcelDate(dirpath){
+    var f = jsxlsx.readFile(__dirname + dirpath)
+    var sheet = f.SheetNames[0]
+    var address = 'G5';
+    var worksheet = f.Sheets[sheet];
+    var cell = worksheet[address].w;
+    if(cell != ("" || undefined))
+        datein = dateFormat(cell, "yyyy-mm-dd'T'HH:MM:ss");
+    else 
+        datein = ""
+    return datein;
+}
+
+//  '/../excel/4086_Minh_Ng.xlsx'
+function excelToDB(dirpath){
+    var file = xlsx.parse(__dirname + dirpath);
+    //Fixed co-ordinates of excel fields
+    var excelForm = {
+    //[y-index, x-index, length]
+        firstname:  [2, 1],
+        jobref:     [2, 6],
+        surname:    [4, 1],
+        address:    [6, 1],
+        postcode:   [11, 1],
+        email:      [15, 1],
+        telephone:  [13, 1],
+        Equipment:  [18, 0, 5], Make: [18, 1, 4], Cable: [18, 2, 4], Charger: [18, 3, 4], Cases: [18, 4, 5], CDs: [18, 5, 5], Manual: [18, 6, 5], Additional: [18, 7, 5],
+        jobdscrpt:  [28, 0],
+        workdone:   [28, 3],
+        costtype:   [41, 0, 7], costdscrpt: [41, 1, 7], cost: [41, 3, 7],
+        totalcost:  [49, 3]
+    };
+    var myform = new Object();
+    myform.status = 'Ready';
+    // myform.datein = formatExcelDate(dirpath);
+    Object.keys(excelForm).forEach(key => {
+        //Get corresponding grid coordinates
+        var field = key;
+        var y = excelForm[key][0];
+        var x = excelForm[key][1];
+        var offset = 0;
+        if(excelForm[key][2]){
+            var offset = excelForm[key][2]
+        }
+        //Loop through entries in y direction
+        for(i = 0; i < offset + 1; i++){
+            if(file[0].data[y + i].length != 0 ){
+                var line = file[0].data[y + i];
+                var data = line[x];
+                if(data == undefined){
+                    data = "";
+                }
+                //Array exists, add another entry
+                if(myform[key]){
+                    if(excelForm[key][2]){
+                        myform[key].push(data)
+                    }
+                }
+                //Start of new array for multiple entries
+                else if(excelForm[key][2]){
+                    myform[key] = Array();
+                    myform[key].push(data);
+                }
+                else{
+                    myform[key] = data;
+                }
+            }
+        }  
+    })
+    var reqobj = new Object();
+    reqobj.body = myform;
+    con.on('connect', function(){
+        con.query('USE 2click');
+        Form.insertForm(reqobj, reqobj, function(){});
+    });
+}
 module.exports = Form;

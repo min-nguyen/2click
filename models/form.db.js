@@ -42,6 +42,7 @@ module.newClient = function(form, action, callback){
                                             function(err, result){
                                                 if(err){
                                                     console.log("Error on " + form + " :" + err);
+                                                    console.log("Function insertclient");
                                                 }
                                                 form.clientid = result[0].id;    
                                                 if(callback)
@@ -62,6 +63,7 @@ module.newClient = function(form, action, callback){
                     function(err, result){
                         if(err){
                             console.log("Error on " + form + " :" + err);
+                            console.log("Function replace client");
                         }
 
                         if(callback)
@@ -70,26 +72,55 @@ module.newClient = function(form, action, callback){
     }   
 }
 
+// module.customJobRef()
+
 //////////////////////////////////////////////////
 module.newJob = function(form, action, callback){
     //Insert new job form
     if(action == "INSERT"){
-            now = new Date();
+        now = new Date();
+        //Custom datein
+        if(form['datein']){
+            datein = form['datein'];
+        }
+        else{ 
             var datein = dateFormat(now, "yyyy-mm-dd'T'HH:MM:ss");
+        }
+        //Custom job ref 
+        if(form['jobref']){
+            con.query(  action + " INTO `jobs` (`jobref`, `jobdscrpt`, `workdone`, `datein`, `status`, `clientid`) " + 
+            "VALUES (" + "'"    + form['jobref'] + "', '"
+                                + form['jobdscrpt'] + "', '" 
+                                + form['workdone'] + "', '" 
+                                + datein + "', '" 
+                                + form['status'] + "', '"
+                                + form['clientid']+ "')", function(err, results){
+                                    nextCallback(err, results)
+                                });
+        }
+        //Auto job ref
+        else {
             con.query(  action + " INTO `jobs` (`jobdscrpt`, `workdone`, `datein`, `status`, `clientid`) " + 
             "VALUES (" + "'"    + form['jobdscrpt'] + "', '" 
                                 + form['workdone'] + "', '" 
                                 + datein + "', '" 
                                 + form['status'] + "', '"
-                                + form.clientid + "')", 
-                                function(err, results){
-                                    if(err){
-                                        console.log("Error on " + form + " :" + err);
-                                    }
-                                    form['jobref'] = results.insertId
-                                    if(callback)
-                                        callback(null, form);
+                                + form['clientid']+ "')", function(err, results){
+                                    nextCallback(err, results)
                                 });
+        }
+        //Shared callback
+        function nextCallback(err, results){
+            if(err){
+                console.log("Error on " + form + " :" + err);
+                console.log("Function newjob");
+            }
+            else {
+                form['jobref'] = results.insertId
+                if(callback)
+                    callback(null, form);
+            }
+        }
     }
     //Replace existing job form
     else if(action == "REPLACE"){
@@ -119,6 +150,7 @@ module.newJob = function(form, action, callback){
                     function(err, result){
                         if(err){
                             console.log("Error on " + form + " :" + err);
+                            console.log("Function replace job");
                         }
                         if(callback)
                             callback(null, form);
@@ -172,6 +204,7 @@ module.newEquipment = function(form, callback){
                                                 function(err, result){
                                                     if(err){
                                                         console.log("Error on " + form + " :" + err);
+                                                        console.log("Function equip");
                                                     }
                                                     newEquipment_(i+1, id+1);
                                                 });
@@ -184,6 +217,8 @@ module.newEquipment = function(form, callback){
             callback(null, form);
     }
 }
+
+
 
 // //////////////////////////////////////////////////
 module.newCost = function(form, callback){
@@ -199,18 +234,21 @@ module.newCost = function(form, callback){
                 form['costdscrpt'] = Array(form['costdscrpt']);
                 form['cost'] = Array(form['cost']);
             }
-            id = 1;
-            i = 0;
+            id = 1; i = 0;
             length = form['costtype'].length;
             var newCost_ = function(i, id){
                 if(i >= length){
                         return;
                 }
-                else if(form['costtype'][i] == '' || form['cost'][i] == ''){
+                else if(form['costtype'][i] == ''){
                     console.log("ignoring")
                     newCost_(i+1, id);
                 }
                 else{
+                    // Validify cost
+                    if(!form['cost'][i]){
+                        form['cost'][i] = 0;
+                    }
                     con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
                                 "VALUES (" + "'"    + form['jobref'] + "', '"
                                                     + id + "', '"
@@ -220,6 +258,7 @@ module.newCost = function(form, callback){
                                                     function(err, result){
                                                         if(err){
                                                             console.log("Error on " + form + " :" + err);
+                                                            console.log("Function newcost" + i);
                                                         }
                                                         newCost_(i+1, id+1);
                                                     });
@@ -239,6 +278,7 @@ module.newCost = function(form, callback){
                                         + form['totalcost'] + "')", function(err, result){
                                             if(err){
                                                 console.log("Error on " + form + " :" + err);
+                                                console.log("Function totalcost");
                                             }
                                             if(callback)
                                                 callback();
