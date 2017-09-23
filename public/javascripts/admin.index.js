@@ -45,7 +45,7 @@ var getClientJobs = function(id){
 
 var newClientJob = function(id){
     console.log("sending " + id)
-    $('#postClientId').val(id);
+    $('#postClientid').val(id);
     $('#newClientJob').submit();
 }
 
@@ -72,14 +72,14 @@ var getClients = function(){
             )
             row.map(client => {$('#client-table').append(client)})
             $('.client-viewjobs-button').click(function(){
-                var clientId = ($(this).closest('tr')).find('.client-id').text();
-                console.log(clientId)
-                getClientJobs(clientId);
+                var clientid = ($(this).closest('tr')).find('.client-id').text();
+                console.log(clientid)
+                getClientJobs(clientid);
             })
             $('.client-newjob-button').click(function(){
-                var clientId = ($(this).closest('tr')).find('.client-id').text();
-                console.log(clientId)
-                newClientJob(clientId);
+                var clientid = ($(this).closest('tr')).find('.client-id').text();
+                console.log(clientid)
+                newClientJob(clientid);
             })
         }
     });

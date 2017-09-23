@@ -4,6 +4,7 @@ var dateFormat = require('dateformat');
 var async = require('async');
 var sync = require('synchronize');
 var path = require('path');
+var fs = require('fs');
 var q = require('q');
 var xlsx = require('node-xlsx');
 var jsxlsx = require('xlsx');
@@ -56,13 +57,13 @@ Form.con.connect(function(err) {
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref INT(11),"    +
+  con.query("CREATE TABLE IF NOT EXISTS equipment (jobref INT(11),"         +
                                                   "id INT(11), "            +
                                                   "equipment VARCHAR(255)," +
-                                                  " make VARCHAR(255),"     +
-                                                  " cable VARCHAR(255),"    +
-                                                  " charger VARCHAR(255),"  +
-                                                  " cases VARCHAR(255), "   +
+                                                  "make VARCHAR(255),"      +
+                                                  "cable VARCHAR(255),"     +
+                                                  "charger VARCHAR(255),"   +
+                                                  "cases VARCHAR(255), "    +
                                                   "cds VARCHAR(255), "      +
                                                   "manual VARCHAR(255), "   +
                                                   "additional VARCHAR(255),"+
@@ -71,8 +72,8 @@ Form.con.connect(function(err) {
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS costs   (jobref  INT(11),"                              +
-                                                " id INT(11), "                                     +
+  con.query("CREATE TABLE IF NOT EXISTS costs   (jobref  INT(11),"                                  +
+                                                "id INT(11), "                                      +
                                                 "type SET('Labour', 'Materials', 'Other', 'Total'),"+
                                                 "dscrpt VARCHAR(255), "                             +
                                                 "cost DECIMAL(10,2), "                              +
@@ -87,9 +88,9 @@ var form_db = require('./form.db')(con);
 
 Form.newClientJob = function(req, res, callback){
     console.log(req.body)
-    if(req.body.clientId){
+    if(req.body.clientid){
         var response = {};
-        con.query("SELECT * FROM clients WHERE id = '" + req.body.clientId + "'", 
+        con.query("SELECT * FROM clients WHERE id = '" + req.body.clientid + "'", 
             function (err, result) {
                 console.log(result)
                 if (err) throw err;
@@ -202,7 +203,6 @@ Form.loadForm = function(req, res, callback){
 
 Form.replaceForm = function(req, res, callback){
     form = req.body;
-    console.log(form)
     con.query("SET FOREIGN_KEY_CHECKS=0");
     try{
         sync.fiber(function(){
@@ -421,4 +421,26 @@ function excelToDB(dirpath){
         Form.insertForm(reqobj, reqobj, function(){});
     });
 }
+
+// **  Read excel files to database         **//
+
+function xlsxDirToDB(){ 
+    var excelDir = __dirname + '/../excel';
+    fs.readdir( excelDir, function( err, files ) {
+        if( err ) {
+            console.error( "Could not list the directory.", err );
+            process.exit( 1 );
+        } 
+        files.forEach( function( file, index ) {
+                // Make one pass and make the file complete
+                // var fromPath = path.join( moveFrom, file );
+                // var toPath = path.join( moveTo, file );
+                if(file.split('.').pop() == 'xlsx'){
+                    var filePath = '/../excel/' + file;
+                    excelToDB(filePath);
+                }
+        } );
+    } );
+}
+
 module.exports = Form;

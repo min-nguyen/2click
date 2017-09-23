@@ -26,8 +26,8 @@ module.newClient = function(form, action, callback){
                         callback(null, form);
                     return form;
                 }
-                else{
                 //If no matchings fields, create new client
+                else{
                     con.query(  "INSERT INTO `clients` (`firstname`,`surname`,`address`, `postcode`, `telephone`, `email`) " + 
                     "VALUES (" + "'"    + form['firstname'] + "', '" 
                                         + form['surname'] + "', '" 
@@ -57,7 +57,7 @@ module.newClient = function(form, action, callback){
     }
     //Replace existing job form
     else if(action == "REPLACE"){
-            con.query(  "REPLACE INTO clients(id, firstname, surname, address, postcode, telephone, email) "
+            con.query(" REPLACE INTO clients(id, firstname, surname, address, postcode, telephone, email) "
                     + " VALUES('"  + form.clientid + "', '" + form.firstname + "','" + form.surname + "','" 
                     + form.address + "','" + form.postcode + "','" + form.telephone + "','" + form.email + "')", 
                     function(err, result){
@@ -167,7 +167,7 @@ module.newEquipment = function(form, callback){
     if(form['Equipment'] != undefined){
         console.log("EQUIPMENT " + form['Equipment']);
         //Handle multiple equipment entries
-        if(form['Equipment'].constructor != Array ){
+        if( form['Equipment'].constructor != Array ){
             form['Equipment'] = Array(form['Equipment']);
             form['Make'] = Array(form['Make']);
             form['Cable'] = Array(form['Cable']);
@@ -177,8 +177,7 @@ module.newEquipment = function(form, callback){
             form['Manual'] = Array(form['Manual']);
             form['Additional'] = Array(form['Additional']);
         }
-        id = 0;
-        i = 0;
+        id = 0; i = 0;
         length = form['Equipment'].length;
         var newEquipment_ = function(i, id){
             if(i >= length){
