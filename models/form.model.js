@@ -85,8 +85,6 @@ Form.con.connect(function(err) {
 
 var form_db = require('./form.db')(con);
 
-
-
 Form.newClientJob = function(req, res, callback){
     console.log(req.body)
     if(req.body.clientId){
