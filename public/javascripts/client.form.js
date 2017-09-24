@@ -64,8 +64,8 @@ function costs_insertinfo(form){
         var costs = JSON.parse(form.costs);
         
         for(i = 0; i < costs.length; i++){
-            var cost_html = "<tr> <td>" + costs[i].type + "</td>"
-                            + "<td>" + costs[i].dscrpt + "</td>"
+            var cost_html = "<tr> <td>" + costs[i].costtype + "</td>"
+                            + "<td>" + costs[i].costdscrpt + "</td>"
                             + "<td> £" + (costs[i].cost).toFixed(2) + "</tr>";
             costs_DOM.append(cost_html);
         }

@@ -44,8 +44,8 @@ function equipment_newrow(){
     $(tablerow).insertBefore('#equipment-button-row');
 
 
-    $('[name="Make"]').attr('list', 'suggestions');
-    $('[name="Make"]').attr('autocomplete', 'off');
+    $('[name="make"]').attr('list', 'suggestions');
+    $('[name="make"]').attr('autocomplete', 'off');
 };
 
 function equipment_loadrow(row_num, equipment){
@@ -76,7 +76,7 @@ function costs_insertinfo(form){
 
     var costs = JSON.parse(form.costs);
     for(i = 0; i < costs.length; i++){
-        if(costs[i].type == 'Total'){
+        if(costs[i].costtype == 'Total'){
             $('input[name=totalcost]').val(costs[i]['cost']);
         }
         else{
@@ -85,9 +85,9 @@ function costs_insertinfo(form){
             row_DOM = $('#cost-table tr:nth-child(' + row_num + ')');
     
             var cell_type = row_DOM.find('select[name=costtype]');
-            cell_type.val(costs[i]['type']);
+            cell_type.val(costs[i]['costtype']);
             var cell_dscrpt = row_DOM.find('textarea[name=costdscrpt]');
-            cell_dscrpt.val(costs[i]['dscrpt']);
+            cell_dscrpt.val(costs[i]['costdscrpt']);
             var cell_cost = row_DOM.find('input[name=cost]');
             cell_cost.val(costs[i]['cost']);
         }
@@ -131,7 +131,7 @@ function loadSuggestions(){
             }
             datalist += "</datalist>";
             $('#equipment-table').append(datalist);
-            var equipmentElements = $('[name="Make"]');
+            var equipmentElements = $('[name="make"]');
             $(equipmentElements).attr('list', 'make-suggestions');
             $(equipmentElements).attr('autocomplete', 'off');
             // Load equipment suggestions
@@ -142,7 +142,7 @@ function loadSuggestions(){
             }
             datalist += "</datalist>";
             $('#equipment-table').append(datalist);
-            var equipmentElements = $('[name="Equipment"]');
+            var equipmentElements = $('[name="equipment"]');
             $(equipmentElements).attr('list', 'equipment-suggestions');
             $(equipmentElements).attr('autocomplete', 'off');
         },

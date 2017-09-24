@@ -72,11 +72,11 @@ Form.con.connect(function(err) {
        console.log("Table created");
   });
 
-  con.query("CREATE TABLE IF NOT EXISTS costs   (jobref  INT(11),"                                  +
-                                                "id INT(11), "                                      +
-                                                "type SET('Labour', 'Materials', 'Other', 'Total'),"+
-                                                "dscrpt VARCHAR(255), "                             +
-                                                "cost DECIMAL(10,2), "                              +
+  con.query("CREATE TABLE IF NOT EXISTS costs   (jobref  INT(11),"                                      +
+                                                "id INT(11), "                                          +
+                                                "costtype SET('Labour', 'Materials', 'Other', 'Total'),"+
+                                                "costdscrpt VARCHAR(255), "                             +
+                                                "cost DECIMAL(10,2), "                                  +
                                                 "FOREIGN KEY (jobref) REFERENCES jobs(jobref), PRIMARY KEY(jobref, id))", function (err, result) {
         if (err) throw err;
        console.log("Table created");
@@ -158,15 +158,15 @@ Form.loadForm = function(req, res, callback){
                     equipment = new Array();
                     for(i = 0; i < result.length; i++){
                         var item = new function(){};
-                        item.Equipment = result[i].equipment;
+                        item.equipment = result[i].equipment;
                         item.id = result[i].id;
-                        item.Make = result[i].make;
-                        item.Cable = result[i].cable;
-                        item.Charger = result[i].charger;
-                        item.Cases = result[i].cases;
-                        item.CDs = result[i].cds;
-                        item.Manual = result[i].manual;
-                        item.Additional = result[i].additional;
+                        item.make = result[i].make;
+                        item.cable = result[i].cable;
+                        item.charger = result[i].charger;
+                        item.cases = result[i].cases;
+                        item.cds = result[i].cds;
+                        item.manual = result[i].manual;
+                        item.additional = result[i].additional;
                         equipment.push(item);
                     }
                     response.equipment = JSON.stringify(equipment);
@@ -185,8 +185,8 @@ Form.loadForm = function(req, res, callback){
                 costs = new Array();
                 for(i = 0; i < result.length; i++){
                     var cost = new function(){};
-                    cost.type = result[i].type;
-                    cost.dscrpt = result[i].dscrpt;
+                    cost.costtype = result[i].costtype;
+                    cost.costdscrpt = result[i].costdscrpt;
                     cost.cost = result[i].cost;
                     costs.push(cost);
                 }
@@ -243,28 +243,6 @@ Form.getClients = function(req, res, callback){
     })
 }
 
-function form(){
-    this.firstname
-    this.surname
-    this.address
-    this.postcode
-    this.telephone
-    this.email
-    this.Equipment
-    this.Make
-    this.Cable
-    this.Charger
-    this.Cases
-    this.CDs
-    this.Manual
-    this.Additional
-    this.jobdscrpt
-    this.workdone
-    this.costtype
-    this.costdscrpt
-    this.cost
-    this.totalcost
-}
 
 Form.loadEquipmentModels = function(req, res, callback){
     con.query("SELECT * FROM equipment", function(err, results){
@@ -329,14 +307,14 @@ function validForm(){
     this.postcode = ""
     this.telephone = ""
     this.email = ""
-    this.Equipment = []
-    this.Make = []
-    this.Cable = []
-    this.Charger = []
-    this.Cases = []
-    this.CDs = []
-    this.Manual = []
-    this.Additional = []
+    this.equipment = []
+    this.make = []
+    this.cable = []
+    this.charger = []
+    this.cases = []
+    this.cds = []
+    this.manual = []
+    this.additional = []
     this.jobdscrpt = ""
     this.workdone = ""
     this.costtype = {Labour: "Labour", Materials: "Materials", Other: "Other"}
@@ -371,7 +349,7 @@ function excelToDB(dirpath){
         postcode:   [11, 1],
         email:      [15, 1],
         telephone:  [13, 1],
-        Equipment:  [18, 0, 5], Make: [18, 1, 4], Cable: [18, 2, 4], Charger: [18, 3, 4], Cases: [18, 4, 5], CDs: [18, 5, 5], Manual: [18, 6, 5], Additional: [18, 7, 5],
+        equipment:  [18, 0, 5], make: [18, 1, 4], cable: [18, 2, 4], charger: [18, 3, 4], cases: [18, 4, 5], cds: [18, 5, 5], manual: [18, 6, 5], additional: [18, 7, 5],
         jobdscrpt:  [28, 0],
         workdone:   [28, 3],
         costtype:   [41, 0, 7], costdscrpt: [41, 1, 7], cost: [41, 3, 7],
@@ -442,5 +420,7 @@ function xlsxDirToDB(){
         } );
     } );
 }
+
+xlsxDirToDB();
 
 module.exports = Form;

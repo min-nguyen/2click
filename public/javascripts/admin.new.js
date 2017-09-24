@@ -19,7 +19,6 @@ function equipment_newrow(){
     var table  = $('#equipment-table');
     var tablerow = '<tr>';
     for(j = 1; j < numcols + 1; j++){
-        
         var col_name  = table.find('tr:first').find('th:nth-child(' + j + ')').text();
         
         var cell_input =    '<td> <input class = "table-input" type = "text" name = "' 
@@ -28,8 +27,8 @@ function equipment_newrow(){
     }
     tablerow += '</tr>';
     $(tablerow).insertBefore('#equipment-button-row');
-    $('[name="Make"]').attr('list', 'make-suggestions');
-    $('[name="Make"]').attr('autocomplete', 'off');
+    $('[name="make"]').attr('list', 'make-suggestions');
+    $('[name="make"]').attr('autocomplete', 'off');
 };
 
 function costs_newrow(){
@@ -68,7 +67,7 @@ function loadSuggestions(){
             }
             datalist += "</datalist>";
             $('#equipment-table').append(datalist);
-            var equipmentElements = $('[name="Make"]');
+            var equipmentElements = $('[name="make"]');
             $(equipmentElements).attr('list', 'make-suggestions');
             $(equipmentElements).attr('autocomplete', 'off');
             // Load equipment suggestions
@@ -79,7 +78,7 @@ function loadSuggestions(){
             }
             datalist += "</datalist>";
             $('#equipment-table').append(datalist);
-            var equipmentElements = $('[name="Equipment"]');
+            var equipmentElements = $('[name="equipment"]');
             $(equipmentElements).attr('list', 'equipment-suggestions');
             $(equipmentElements).attr('autocomplete', 'off');
         },

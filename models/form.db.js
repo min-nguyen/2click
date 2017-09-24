@@ -164,21 +164,21 @@ module.newEquipment = function(form, callback){
     con.query("DELETE FROM equipment WHERE jobref = '" + form['jobref'] + "'", function(err, results){
         console.log(results);
     })
-    if(form['Equipment'] != undefined){
-        console.log("EQUIPMENT " + form['Equipment']);
+    if(form['equipment'] != undefined){
+        console.log("EQUIPMENT " + form['equipment']);
         //Handle multiple equipment entries
-        if( form['Equipment'].constructor != Array ){
-            form['Equipment'] = Array(form['Equipment']);
-            form['Make'] = Array(form['Make']);
-            form['Cable'] = Array(form['Cable']);
-            form['Charger'] = Array(form['Charger']);
-            form['Cases'] = Array(form['Cases']);
-            form['CDs'] = Array(form['CDs']);
-            form['Manual'] = Array(form['Manual']);
-            form['Additional'] = Array(form['Additional']);
+        if( form['equipment'].constructor != Array ){
+            form['equipment'] = Array(form['equipment']);
+            form['make'] = Array(form['make']);
+            form['cable'] = Array(form['cable']);
+            form['charger'] = Array(form['charger']);
+            form['cases'] = Array(form['cases']);
+            form['cds'] = Array(form['cds']);
+            form['manual'] = Array(form['manual']);
+            form['additional'] = Array(form['additional']);
         }
         id = 0; i = 0;
-        length = form['Equipment'].length;
+        length = form['equipment'].length;
         var newEquipment_ = function(i, id){
             if(i >= length){
                 if(callback)
@@ -186,20 +186,20 @@ module.newEquipment = function(form, callback){
                 else 
                     return;
             }
-            else if(form['Equipment'][i] == '')
+            else if(form['equipment'][i] == '')
                 newEquipment_(i+1, id);
             else{
                 con.query(  "INSERT INTO `equipment` (`jobref`, `id`, `equipment`,`make`, `cable`, `charger`, `cases`, `cds`, `manual`, `additional`) " + 
                             "VALUES (" + "'"    + form['jobref'] + "', '"
                                                 + id + "', '"
-                                                + form['Equipment'][i] + "', '" 
-                                                + form['Make'][i] + "', '" 
-                                                + form['Cable'][i] + "', '" 
-                                                + form['Charger'][i] + "', '" 
-                                                + form['Cases'][i] + "', '" 
-                                                + form['CDs'][i] + "', '" 
-                                                + form['Manual'][i] + "', '" 
-                                                + form['Additional'][i] + "')", 
+                                                + form['equipment'][i] + "', '" 
+                                                + form['make'][i] + "', '" 
+                                                + form['cable'][i] + "', '" 
+                                                + form['charger'][i] + "', '" 
+                                                + form['cases'][i] + "', '" 
+                                                + form['cds'][i] + "', '" 
+                                                + form['manual'][i] + "', '" 
+                                                + form['additional'][i] + "')", 
                                                 function(err, result){
                                                     if(err){
                                                         console.log("Error on " + form + " :" + err);
@@ -248,7 +248,7 @@ module.newCost = function(form, callback){
                     if(!form['cost'][i]){
                         form['cost'][i] = 0;
                     }
-                    con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
+                    con.query(  "INSERT INTO `costs` (`jobref`, `id`, `costtype`, `costdscrpt`, `cost`) " + 
                                 "VALUES (" + "'"    + form['jobref'] + "', '"
                                                     + id + "', '"
                                                     + form['costtype'][i] + "', '" 
@@ -269,7 +269,7 @@ module.newCost = function(form, callback){
     //Add total cost to cost table
     if(form['totalcost'] != ''){
         processCosts();
-        con.query(  "INSERT INTO `costs` (`jobref`, `id`, `type`, `dscrpt`, `cost`) " + 
+        con.query(  "INSERT INTO `costs` (`jobref`, `id`, `costtype`, `costdscrpt`, `cost`) " + 
                     "VALUES (" + "'"    + form['jobref'] + "', '"
                                         + 0 + "', '"
                                         + "Total" + "', '" 
