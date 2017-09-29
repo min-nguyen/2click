@@ -58,17 +58,22 @@ module.newClient = function(form, action, callback){
     //Replace existing job form
     else if(action == "REPLACE"){
             con.query(" REPLACE INTO clients(id, firstname, surname, address, postcode, telephone, email) "
-                    + " VALUES('"  + form.clientid + "', '" + form.firstname + "','" + form.surname + "','" 
-                    + form.address + "','" + form.postcode + "','" + form.telephone + "','" + form.email + "')", 
-                    function(err, result){
-                        if(err){
-                            console.log("Error on " + form + " :" + err);
-                            console.log("Function replace client");
-                        }
+                    + " VALUES('"   + form.clientid + "', '" 
+                                    + form.firstname + "','" 
+                                    + form.surname + "','" 
+                                    + form.address + "','" 
+                                    + form.postcode + "','" 
+                                    + form.telephone + "','" 
+                                    + form.email + "')", 
+                function(err, result){
+                    if(err){
+                        console.log("Error on " + form + " :" + err);
+                        console.log("Function replace client");
+                    }
 
-                        if(callback)
-                            callback(null, form);//(form, action);  
-                    });
+                    if(callback)
+                        callback(null, form);//(form, action);  
+                });
     }   
 }
 
@@ -144,16 +149,21 @@ module.newJob = function(form, action, callback){
                 dateout = ("NULL");
             }
 
-            con.query(  "REPLACE INTO jobs(jobref, jobdscrpt, workdone, datein, dateout, status, clientid) " 
-                    + "VALUES('" + form.jobref + "','" + form.jobdscrpt + "','" + form.workdone + "'," 
-                    + datein + "," + dateout + ",'" + form.status + "','" + form.clientid + "')", 
-                    function(err, result){
-                        if(err){
-                            console.log("Error on " + form + " :" + err);
-                            console.log("Function replace job");
-                        }
-                        if(callback)
-                            callback(null, form);
+            con.query("REPLACE INTO jobs(jobref, jobdscrpt, workdone, datein, dateout, status, clientid) " 
+                    + "VALUES('"    + form.jobref + "','" 
+                                    + form.jobdscrpt + "','" 
+                                    + form.workdone + "'," 
+                                    + datein + "," 
+                                    + dateout + ",'" 
+                                    + form.status + "','" 
+                                    + form.clientid + "')", 
+                function(err, result){
+                    if(err){
+                        console.log("Error on " + form + " :" + err);
+                        console.log("Function replace job");
+                    }
+                    if(callback)
+                        callback(null, form);
             });
         });
     }
@@ -168,14 +178,14 @@ module.newEquipment = function(form, callback){
         console.log("EQUIPMENT " + form['equipment']);
         //Handle multiple equipment entries
         if( form['equipment'].constructor != Array ){
-            form['equipment'] = Array(form['equipment']);
-            form['make'] = Array(form['make']);
-            form['cable'] = Array(form['cable']);
-            form['charger'] = Array(form['charger']);
-            form['cases'] = Array(form['cases']);
-            form['cds'] = Array(form['cds']);
-            form['manual'] = Array(form['manual']);
-            form['additional'] = Array(form['additional']);
+            form['equipment']   = Array(form['equipment']);
+            form['make']        = Array(form['make']);
+            form['cable']       = Array(form['cable']);
+            form['charger']     = Array(form['charger']);
+            form['cases']       = Array(form['cases']);
+            form['cds']         = Array(form['cds']);
+            form['manual']      = Array(form['manual']);
+            form['additional']  = Array(form['additional']);
         }
         id = 0; i = 0;
         length = form['equipment'].length;
@@ -211,8 +221,7 @@ module.newEquipment = function(form, callback){
         }
         newEquipment_(i, id);
     }
-    else{
-        if(callback)
+    else if(callback){
             callback(null, form);
     }
 }
@@ -221,39 +230,39 @@ module.newEquipment = function(form, callback){
 
 // //////////////////////////////////////////////////
 module.newCost = function(form, callback){
-    console.log("INSERTING COSTS")
-    con.query("DELETE FROM costs WHERE jobref = '" + form['jobref'] + "'", function(err, results){
+    
+    con.query("DELETE FROM costs WHERE jobref = '" + form.jobref + "'", function(err, results){
         console.log(results);
     })
     var processCosts = function(){
-        if(form['costtype'] != undefined){
+        if(form.costtype != undefined){
             //Add multiple non-total costs to cost-table synchronously
-            if(form['costtype'].constructor != Array){
-                form['costtype'] = Array(form['costtype']);
-                form['costdscrpt'] = Array(form['costdscrpt']);
-                form['cost'] = Array(form['cost']);
+            if(form.costtype.constructor != Array){
+                form.costtype   = Array(form.costtype);
+                form.costdscrpt = Array(form.costdscrpt);
+                form.cost       = Array(form.cost);
             }
             id = 1; i = 0;
-            length = form['costtype'].length;
+            length = form.costtype.length;
             var newCost_ = function(i, id){
                 if(i >= length){
                         return;
                 }
-                else if(form['costtype'][i] == ''){
+                else if(form.costtype[i] == ''){
                     console.log("ignoring")
                     newCost_(i+1, id);
                 }
                 else{
                     // Validify cost
-                    if(!form['cost'][i]){
-                        form['cost'][i] = 0;
+                    if(!form.cost[i]){
+                        form.cost[i] = 0;
                     }
                     con.query(  "INSERT INTO `costs` (`jobref`, `id`, `costtype`, `costdscrpt`, `cost`) " + 
-                                "VALUES (" + "'"    + form['jobref'] + "', '"
+                                "VALUES (" + "'"    + form.jobref + "', '"
                                                     + id + "', '"
-                                                    + form['costtype'][i] + "', '" 
-                                                    + form['costdscrpt'][i] + "', '"
-                                                    + form['cost'][i] + "')", 
+                                                    + form.costtype[i] + "', '" 
+                                                    + form.costdscrpt[i] + "', '"
+                                                    + form.cost[i] + "')", 
                                                     function(err, result){
                                                         if(err){
                                                             console.log("Error on " + form + " :" + err);
@@ -267,14 +276,14 @@ module.newCost = function(form, callback){
         }
     }
     //Add total cost to cost table
-    if(form['totalcost'] != ''){
+    if(form.totalcost != ''){
         processCosts();
         con.query(  "INSERT INTO `costs` (`jobref`, `id`, `costtype`, `costdscrpt`, `cost`) " + 
-                    "VALUES (" + "'"    + form['jobref'] + "', '"
+                    "VALUES (" + "'"    + form.jobref + "', '"
                                         + 0 + "', '"
                                         + "Total" + "', '" 
                                         + "Total Cost"+ "', '"
-                                        + form['totalcost'] + "')", function(err, result){
+                                        + form.totalcost + "')", function(err, result){
                                             if(err){
                                                 console.log("Error on " + form + " :" + err);
                                                 console.log("Function totalcost");
@@ -289,5 +298,97 @@ module.newCost = function(form, callback){
     }
 }
 
+module.loadJob = function(form, callback){
+    var jobref = form.jobref;
+    var jobrefQuery = "SELECT * FROM jobs WHERE jobref = " + con.escape(jobref);
+    con.query(jobrefQuery, 
+        function (err, result) {
+            if (err) throw err;
+            if (result.length < 1){
+                console.log("No job reference for " + jobref + " found, redirecting back");
+                res.redirect('back');
+                return;
+            }
+            form.jobdscrpt  = result[0].jobdscrpt;
+            form.workdone   = result[0].workdone;
+            form.status     = result[0].status;
+            form.datein     = String(result[0].datein);
+            form.dateout    = String(result[0].dateout);
+            form.clientid   = result[0].clientid;
+            if(callback)
+                callback(null, form);
+            return;
+    });
+    
+}
+
+module.loadClient = function(form, callback){
+    var clientid = form.clientid;
+    con.query("SELECT * FROM clients WHERE id = '" + clientid + "'", 
+        function (err, result) {
+            if (err) throw err;
+            if (result.length != 0){
+                form.firstname  = result[0].firstname;
+                form.surname    = result[0].surname;
+                form.address    = result[0].address;
+                form.postcode   = result[0].postcode;
+                form.telephone  = result[0].telephone;
+                form.email      = result[0].email;
+            }
+            if(callback)
+                callback(null, form);
+            return;
+    });
+}
+
+module.loadEquipment = function(form, callback){
+    var jobref = form.jobref;
+    con.query("SELECT * FROM equipment WHERE jobref = '" + jobref + "'", 
+        function (err, result) {
+            if (err) throw err;
+            if (result.length != 0){
+                equipment = new Array();
+                for(i = 0; i < result.length; i++){
+                    var item = new function(){};
+                    item.equipment  = result[i].equipment;
+                    item.id         = result[i].id;
+                    item.make       = result[i].make;
+                    item.cable      = result[i].cable;
+                    item.charger    = result[i].charger;
+                    item.cases      = result[i].cases;
+                    item.cds        = result[i].cds;
+                    item.manual     = result[i].manual;
+                    item.additional = result[i].additional;
+                    equipment.push(item);
+                }
+                form.equipment = JSON.stringify(equipment);
+            }
+            if(callback)
+                callback(null, form);
+            return;
+    });
+}
+
+module.loadCosts = function(form, callback){
+    var jobref = form.jobref;
+    con.query("SELECT * FROM costs WHERE jobref = '" + jobref + "'", 
+    function (err, result) {
+        if (err) throw err;
+        if (result.length != 0){
+            costs = new Array();
+            for(i = 0; i < result.length; i++){
+                var cost = new function(){};
+                cost.costtype   = result[i].costtype;
+                cost.costdscrpt = result[i].costdscrpt;
+                cost.cost       = result[i].cost;
+                costs.push(cost);
+            }
+            form.costs = JSON.stringify(costs);
+        }
+        if(callback)
+            callback(null, form);
+        return;
+    });
+}
 return module;
 }

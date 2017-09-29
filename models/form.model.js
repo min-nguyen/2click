@@ -95,13 +95,13 @@ Form.newClientJob = function(req, res, callback){
                 console.log(result)
                 if (err) throw err;
                 if (result.length != 0){
-                    response.firstname = result[0].firstname;
-                    response.surname = result[0].surname;
-                    response.address = result[0].address;
-                    response.postcode = result[0].postcode;
-                    response.telephone = result[0].telephone;
-                    response.email = result[0].email;
-                    response.clientid = result[0].id;
+                    response.firstname  = result[0].firstname;
+                    response.surname    = result[0].surname;
+                    response.address    = result[0].address;
+                    response.postcode   = result[0].postcode;
+                    response.telephone  = result[0].telephone;
+                    response.email      = result[0].email;
+                    response.clientid   = result[0].id;
                     var stringed = JSON.stringify(response);
                     callback(stringed);
                 }
@@ -111,94 +111,20 @@ Form.newClientJob = function(req, res, callback){
 
 Form.loadForm = function(req, res, callback){
     var jobref = req.body.jobref;
-
-    var response = {};
-    response.jobref = jobref;
-
-    var getjob = function(){
-        con.query("SELECT * FROM jobs WHERE jobref = '" + jobref + "'", 
-            function (err, result) {
-                if (err) throw err;
-                if (result.length < 1){
-                    console.log("No job reference for " + jobref + " found, redirecting back");
-                    res.redirect('back');
-                    return;
-                }
-                response.jobdscrpt = result[0].jobdscrpt;
-                response.workdone = result[0].workdone;
-                response.status = result[0].status;
-                response.datein =   String(result[0].datein);
-                response.dateout = String(result[0].dateout);
-                response.clientid = result[0].clientid;
-                getclient();
-                return;
+    var form = {};
+    form.jobref = jobref;
+    try{
+        sync.fiber(function(){
+            sync.await(form_db.loadJob(form, sync.defer()));
+            sync.await(form_db.loadClient(form, sync.defer()));
+            sync.await(form_db.loadEquipment(form, sync.defer()));
+            sync.await(form_db.loadCosts(form, sync.defer()));
+            sync.await(callback(JSON.stringify(form)));
         });
+    } catch(err){
+        console.log(JSON.stringify(err));
     }
-    var getclient = function(){
-        con.query("SELECT * FROM clients WHERE id = '" + response.clientid + "'", 
-            function (err, result) {
-                if (err) throw err;
-                if (result.length != 0){
-                    response.firstname = result[0].firstname;
-                    response.surname = result[0].surname;
-                    response.address = result[0].address;
-                    response.postcode = result[0].postcode;
-                    response.telephone = result[0].telephone;
-                    response.email = result[0].email;
-                }
-                getequipment();
-                return;
-        });
-    }
-    var getequipment = function(){
-        con.query("SELECT * FROM equipment WHERE jobref = '" + jobref + "'", 
-            function (err, result) {
-                if (err) throw err;
-                if (result.length != 0){
-                    equipment = new Array();
-                    for(i = 0; i < result.length; i++){
-                        var item = new function(){};
-                        item.equipment = result[i].equipment;
-                        item.id = result[i].id;
-                        item.make = result[i].make;
-                        item.cable = result[i].cable;
-                        item.charger = result[i].charger;
-                        item.cases = result[i].cases;
-                        item.cds = result[i].cds;
-                        item.manual = result[i].manual;
-                        item.additional = result[i].additional;
-                        equipment.push(item);
-                    }
-                    response.equipment = JSON.stringify(equipment);
-                }
-                getcosts();
-                return;
-        });
-    }
-
-    var getcosts = function(){
-        con.query("SELECT * FROM costs WHERE jobref = '" + jobref + "'", 
-        function (err, result) {
-            
-            if (err) throw err;
-            if (result.length != 0){
-                costs = new Array();
-                for(i = 0; i < result.length; i++){
-                    var cost = new function(){};
-                    cost.costtype = result[i].costtype;
-                    cost.costdscrpt = result[i].costdscrpt;
-                    cost.cost = result[i].cost;
-                    costs.push(cost);
-                }
-                response.costs = JSON.stringify(costs);
-            }
-            var stringed = JSON.stringify(response);
-            callback(stringed);
-            return;
-        });
-    }
-    getjob();
-
+    
 }
 
 Form.replaceForm = function(req, res, callback){
@@ -286,13 +212,11 @@ Form.getJobs = function(req, res, callback){
                 
             })
         }
-
         results = results.map(function(result){
             result.datein = String(result.datein);
             result.dateout = String(result.dateout);
             return result;
         })
-
         getClient(0, results.length);
     })
 }
